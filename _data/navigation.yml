@@ -1,5 +1,38 @@
 main:
   - title: "Posts"
-    url: /
+    url: /posts/
+  - title: "Categories"
+    url: /categories/
+  - title: "Tags"
+    url: /tags/
+  - title: "Wiki"
+    url: /wiki/
   - title: "About"
     url: /about/
+
+# wiki 사이드바 내비게이션 — tools/blog_sync/wiki_to_blog.py가 자동 갱신
+# WIKI-NAV-START
+wiki:
+  - title: "Wiki Home"
+    url: /wiki/
+  - title: "Concepts"
+    children:
+      - title: "12 Agentic Harness Patterns"
+        url: /wiki/concept-12-harness-patterns/
+      - title: "Claude Code Architecture"
+        url: /wiki/concept-claude-code-architecture/
+      - title: "Harness Engineering"
+        url: /wiki/concept-harness-engineering/
+      - title: "Henry의 AI 보조 업무 접근 방식"
+        url: /wiki/concept-ai-assisted-work-approach/
+  - title: "Entities"
+    children:
+      - title: "Henry Agentic System"
+        url: /wiki/entity-henry-agentic-system/
+      - title: "skills.sh"
+        url: /wiki/entity-skills-sh/
+  - title: "Topics"
+    children:
+      - title: "Claude 4.x 신기능 & 하네스 적용"
+        url: /wiki/topic-claude-4x-features/
+# WIKI-NAV-END

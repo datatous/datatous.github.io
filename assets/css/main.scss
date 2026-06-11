@@ -1,0 +1,106 @@
+---
+# Only the main Sass file needs front matter (the dashes are enough)
+---
+
+@charset "utf-8";
+
+// 한글 가독성 — Pretendard 우선
+$sans-serif: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont,
+  "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", sans-serif !default;
+$monospace: "JetBrains Mono", "D2Coding", Consolas, Monaco, monospace !default;
+
+// 포인트 컬러 — 배너의 틸 톤과 맞춤
+$link-color: #1d7a8c !default;
+$masthead-link-color-hover: #1d7a8c !default;
+
+@import "minimal-mistakes/skins/{{ site.minimal_mistakes_skin | default: 'default' }}";
+@import "minimal-mistakes";
+
+/* === Henry custom polish ====================================== */
+
+html {
+  font-size: 15px;
+  @include breakpoint($medium) { font-size: 16px; }
+  @include breakpoint($x-large) { font-size: 18px; }
+}
+
+/* 마스트헤드(상단 네비) */
+.masthead {
+  border-bottom: 1px solid $border-color;
+  .site-title { font-weight: 700; }
+}
+.greedy-nav a { font-weight: 600; }
+
+/* 히어로 */
+.page__hero--overlay {
+  padding: 4.5em 0;
+  .page__title { font-weight: 800; letter-spacing: -0.02em; }
+  .page__lead { font-size: 1.05em; line-height: 1.7; }
+  .btn--primary {
+    background-color: #1d7a8c;
+    &:hover { background-color: #145b69; }
+  }
+}
+
+/* 포스트 리스트 — 카드 느낌 */
+.archive__item {
+  padding: 1.1em 1.2em;
+  margin-bottom: 0.6em;
+  border: 1px solid $border-color;
+  border-radius: 10px;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+  &:hover {
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+    transform: translateY(-2px);
+  }
+}
+.archive__item-title { margin-top: 0.2em; font-size: 1.15em; }
+.archive__item-excerpt { font-size: 0.85em; color: lighten($text-color, 20%); }
+
+/* 본문 타이포 */
+.page__content {
+  line-height: 1.85;
+  h2 {
+    padding-bottom: 0.4em;
+    border-bottom: 1px solid $border-color;
+    margin-top: 2.2em;
+  }
+  blockquote {
+    border-left: 4px solid #1d7a8c;
+    background: rgba(29, 122, 140, 0.05);
+    padding: 0.8em 1.2em;
+    border-radius: 0 8px 8px 0;
+    font-style: normal;
+  }
+  code.highlighter-rouge {
+    background: rgba(29, 122, 140, 0.08);
+    color: #145b69;
+  }
+}
+
+/* 사이드바 프로필 — 간결하게 */
+.author__bio { font-size: 0.85em; line-height: 1.6; }
+.author__urls a { font-size: 0.9em; }
+
+/* 태그/카테고리 칩 */
+.page__taxonomy-item {
+  border-radius: 999px;
+  padding: 4px 12px;
+  font-size: 0.7em;
+  background: rgba(29, 122, 140, 0.07);
+  border-color: transparent;
+  &:hover { background: rgba(29, 122, 140, 0.18); text-decoration: none; }
+}
+
+/* Wiki 페이지 표식 */
+.wiki-type-badge {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-size: 0.7em;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background: rgba(29, 122, 140, 0.12);
+  color: #145b69;
+}
