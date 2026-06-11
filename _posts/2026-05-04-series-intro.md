@@ -16,6 +16,14 @@ header:
 excerpt: "AX 컨설턴트인데 정작 내 반복 업무는 손으로 하고 있었다. 그래서 직접 만들어보기로 했다."
 ---
 
+## 📱 카드뉴스로 먼저 보기
+
+<div class="cardnews-carousel" markdown="0"><style>.cardnews-carousel{margin:1.4em 0 1.8em;}.cn-track{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding:4px 4px 14px;scroll-padding:4px;}.cn-track::-webkit-scrollbar{height:8px;}.cn-track::-webkit-scrollbar-track{background:transparent;}.cn-track::-webkit-scrollbar-thumb{background:#c8c8c8;border-radius:4px;}.cn-track img{flex:0 0 auto;width:80%;max-width:340px;height:auto;scroll-snap-align:center;border-radius:12px;box-shadow:0 6px 24px rgba(0,0,0,.18);}.cn-hint{font-size:.88em;color:#999;text-align:center;margin:.2em 0 0;letter-spacing:.02em;}@media (min-width:768px){.cn-track img{width:300px;}}</style><div class="cn-track"><img src="/assets/images/posts/ep00/01_cover.png" alt="EP.00 표지 — 나는 게을러서 자동화한다"><img src="/assets/images/posts/ep00/02_why.png" alt="매일 AI 얘기를 하는데 내 손은 바빴다"><img src="/assets/images/posts/ep00/03_commute.png" alt="하루 3시간이 사라지고 있었다"><img src="/assets/images/posts/ep00/04_subway-dev.png" alt="지하철을 개발실로 만들었다"><img src="/assets/images/posts/ep00/05_build-first.png" alt="만들고 싶은 게 먼저다"><img src="/assets/images/posts/ep00/06_lineup.png" alt="앞으로 만들 것들 — 8편 라인업"><img src="/assets/images/posts/ep00/07_principle.png" alt="직접 써보고 이해한 것만 쓴다"><img src="/assets/images/posts/ep00/08_closing.png" alt="자동화 연대기 — 팔로우하고 같이 만들어봐요"></div><p class="cn-hint">← 좌우로 넘겨보세요 →</p></div>
+
+아래는 같은 이야기를 글로 풀어쓴 버전이다.
+
+---
+
 ## AI 얘기를 하면서 정작 내 손은 바쁘더라고요 🤔
 
 나는 AX 컨설턴트로 일하고 있다. 기업에 AI 전환(AX)을 컨설팅하고, AI를 어떻게 쓸지 가르치는 일을 한다. 그런데 어느 날 이런 생각이 딱 들었다.
