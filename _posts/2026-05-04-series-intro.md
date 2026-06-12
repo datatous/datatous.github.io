@@ -17,7 +17,7 @@ header:
 excerpt: "AX 컨설턴트인데 정작 내 반복 업무는 손으로 하고 있었다. 그래서 직접 만들어보기로 했다."
 ---
 
-<div class="mc-cover" markdown="0"><span class="mc-cover-kicker">자동화 연대기 · EP.00</span><div class="mc-cover-title">나는 게을러서 자동화한다</div><div class="mc-cover-subtitle">1주에 하나씩, 일상을 자동화한 기록 — AX 컨설턴트가 직접 만들고 이해한 것만 남깁니다.</div></div>
+<div class="mc-cover" markdown="0"><span class="mc-cover-kicker">2lazysodoit · 자동화 연대기 · EP.00</span><div class="mc-cover-title">나는 게을러서 자동화한다</div><div class="mc-cover-subtitle">1주에 하나씩, 일상을 자동화한 기록 — AX 컨설턴트가 직접 만들고 이해한 것만 남깁니다.</div></div>
 
 > **3줄 요약**
 > - AX 컨설턴트인데 정작 내 반복 업무는 손으로 하고 있었다. 앞뒤가 안 맞아서 직접 만들기로 했다.

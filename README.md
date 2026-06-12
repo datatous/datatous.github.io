@@ -1,6 +1,6 @@
 # datatous.github.io
 
-Henry Oh의 "나는 게을러서 자동화한다" — 2주마다 하나씩, 자동화 연대기 블로그.
+Henry의 자동화 연대기 — **2lazysodoit** 프로젝트. 1주에 하나씩, 직접 만들고 이해한 업무 자동화를 기록하는 블로그.
 
 [Jekyll](https://jekyllrb.com/) + [Minimal Mistakes](https://mmistakes.github.io/minimal-mistakes/) (remote_theme) 기반.
 

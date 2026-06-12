@@ -1,7 +1,7 @@
 {% assign series = site.posts | where_exp: "p", "p.categories contains '자동화연대기'" | sort: "date" %}
 {% if series.size > 1 %}
 <nav class="series-nav" aria-label="자동화 연대기 시리즈">
-  <div class="series-nav__head">📚 자동화 연대기 — 전체 {{ series.size }}편</div>
+  <div class="series-nav__head">🦥 <strong>2lazysodoit</strong> · 자동화 연대기 — 전체 {{ series.size }}편</div>
   <ol class="series-nav__list">
     {% for p in series %}
     <li class="series-nav__item{% if p.url == page.url %} is-current{% endif %}">

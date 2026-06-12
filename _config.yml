@@ -1,4 +1,4 @@
-# datatous — Henry Oh's Blog
+# datatous — Henry's Blog
 
 remote_theme: "mmistakes/minimal-mistakes@4.26.2"
 minimal_mistakes_skin: "default"
@@ -7,19 +7,19 @@ locale: "ko-KR"
 title: "datatous"
 title_separator: "-"
 subtitle: "업무 자동화 기록"
-name: "Henry Oh (오현근)"
-description: "AX 컨설턴트 Henry Oh가 직접 만들고 이해한 업무 자동화 프로젝트를 기록합니다."
+name: "Henry"
+description: "AX 컨설턴트 Henry가 직접 만들고 이해한 업무 자동화 프로젝트를 기록합니다."
 url: "https://datatous.github.io"
 baseurl: ""
 repository: "datatous/datatous.github.io"
-og_image: "/assets/images/header-banner.png"  # 공유 미리보기 기본 이미지
+og_image: "/assets/images/og-cover.png"  # 공유 미리보기 기본 이미지
 
 words_per_minute: 200
 search: true
 search_full_content: true
 
 author:
-  name: "Henry Oh"
+  name: "Henry"
   avatar: ""
   bio: "AX 컨설턴트<br>업무 자동화 기록"
   location: "Seoul, Korea"

@@ -9,7 +9,7 @@ toc_label: "About Henry"
 header:
   overlay_image: /assets/images/header-banner.png
   overlay_filter: 0.35
-excerpt: "AX 컨설턴트 오현근입니다.<br>AI와 데이터로 일하는 방식을 다시 설계합니다."
+excerpt: "AX 컨설턴트 Henry입니다.<br>AI와 데이터로 일하는 방식을 다시 설계합니다."
 ---
 
 ## 안녕하세요, Henry입니다 👋

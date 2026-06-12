@@ -2,6 +2,25 @@
 <link rel="stylesheet" as="style" crossorigin
   href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
 
+<!-- Sora — 로고 워드마크 전용 -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700&display=swap" rel="stylesheet">
+
+<!-- Favicon / 앱 아이콘 -->
+<link rel="icon" type="image/png" sizes="512x512" href="{{ '/assets/images/favicon-512.png' | relative_url }}">
+<link rel="icon" type="image/png" sizes="32x32" href="{{ '/assets/images/favicon.png' | relative_url }}">
+<link rel="apple-touch-icon" sizes="180x180" href="{{ '/assets/images/apple-touch-icon.png' | relative_url }}">
+
+<!-- 로고 워드마크 (마스트헤드) -->
+<style>
+  .site-title{display:inline-flex!important;align-items:center;}
+  .brand-wm{font-family:'Sora',sans-serif;font-weight:700;letter-spacing:-.02em;
+    font-size:1.45rem;line-height:1;white-space:nowrap;}
+  .brand-wm .a{color:#0b1220;} .brand-wm .b{color:#2563eb;}
+  .masthead .site-subtitle{font-family:'Pretendard',sans-serif;}
+</style>
+
 <!-- 읽기 진행 바 + 형광펜 -->
 <style>
   #read-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:1000;

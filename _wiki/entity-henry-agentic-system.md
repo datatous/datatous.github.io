@@ -3,13 +3,13 @@ title: "Henry Agentic System"
 wiki_type: entity
 tags: [agentic-system, harness, orchestrator, workers, henry]
 last_modified_at: 2026-05-30
-excerpt: "오현근(Henry)이 설계·운영하는 Claude Code 기반 멀티 에이전트 시스템. Orchestrator + Worker 패턴으로 도메인별 워커 노드가 분리된 구조이며, 메모리·스킬·라우팅 테이블이 하네스 레이어에서 관리된다."
+excerpt: "Henry가 설계·운영하는 Claude Code 기반 멀티 에이전트 시스템. Orchestrator + Worker 패턴으로 도메인별 워커 노드가 분리된 구조이며, 메모리·스킬·라우팅 테이블이 하네스 레이어에서 관리된다."
 ---
 
 <span class="wiki-type-badge">entity</span>
 
 ## Summary
-오현근(Henry)이 설계·운영하는 Claude Code 기반 멀티 에이전트 시스템. Orchestrator + Worker 패턴으로 도메인별 워커 노드가 분리된 구조이며, 메모리·스킬·라우팅 테이블이 하네스 레이어에서 관리된다.
+Henry가 설계·운영하는 Claude Code 기반 멀티 에이전트 시스템. Orchestrator + Worker 패턴으로 도메인별 워커 노드가 분리된 구조이며, 메모리·스킬·라우팅 테이블이 하네스 레이어에서 관리된다.
 
 ## Key Facts
 - **루트 경로**: `c:\Users\Henry\Desktop\dev\`
