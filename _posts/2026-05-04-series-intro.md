@@ -16,6 +16,8 @@ header:
 excerpt: "AX 컨설턴트인데 정작 내 반복 업무는 손으로 하고 있었다. 그래서 직접 만들어보기로 했다."
 ---
 
+<div class="mc-cover" markdown="0"><span class="mc-cover-kicker">자동화 연대기 · EP.00</span><div class="mc-cover-title">나는 게을러서 자동화한다</div><div class="mc-cover-subtitle">1주에 하나씩, 일상을 자동화한 기록 — AX 컨설턴트가 직접 만들고 이해한 것만 남깁니다.</div></div>
+
 ## 📱 카드뉴스 (좌우로 넘겨보세요)
 
 <iframe src="/assets/cardnews/ep00/" title="자동화 연대기 EP.00 움직이는 카드뉴스" loading="lazy" scrolling="no" style="width:100%;max-width:460px;aspect-ratio:4/5;border:0;border-radius:16px;display:block;margin:1.2em auto .3em;background:#0d0d0d;box-shadow:0 10px 34px rgba(0,0,0,.28);"></iframe>
@@ -57,16 +59,7 @@ excerpt: "AX 컨설턴트인데 정작 내 반복 업무는 손으로 하고 있
 
 1주에 하나씩, 총 8편을 생각하고 있다. (아래 내용은 변경될 수 있다)
 
-| 편 | 주제 |
-|---|---|
-| 1편 | 출퇴근 3시간을 개발 시간으로 — Happy + Claude Code + Git 세팅 |
-| 2편 | AI가 매주 교회 주보를 올려준다 — 제미나이 Gems + 클로드 에이전틱 자동화 |
-| 3편 | 내 블로그를 AI가 대신 써준다 — 깃블로그·네이버 멀티채널 자동 발행 |
-| 4편 | 결혼 준비를 함께 뛰는 AI 동행자, '웨딩메이트' — 예산·할 일·참석자 자동화 |
-| 5편 | 인스타 카드뉴스를 AI가 찍어낸다 — 카드뉴스 자동 제작 |
-| 6편 | 나의 논문 도우미 — RAG로 연구 자료 학습시키기 |
-| 7편 | AI에게 스토리를 맡겼더니 — 시나리오 분석 자동화 |
-| 8편 | 회고 — 뭐가 달라졌나 |
+<div class="mc-card-grid" markdown="0"><div class="mc-card mc-card--blue"><div class="mc-card-title">1편</div>출퇴근 3시간을 개발 시간으로 — Happy + Claude Code + Git 세팅</div><div class="mc-card"><div class="mc-card-title">2편</div>AI가 매주 교회 주보를 올려준다 — 제미나이 Gems + 클로드 에이전틱 자동화</div><div class="mc-card"><div class="mc-card-title">3편</div>내 블로그를 AI가 대신 써준다 — 깃블로그·네이버 멀티채널 자동 발행</div><div class="mc-card"><div class="mc-card-title">4편</div>결혼 준비를 함께 뛰는 AI 동행자 '웨딩메이트' — 예산·할 일·참석자 자동화</div><div class="mc-card"><div class="mc-card-title">5편</div>인스타 카드뉴스를 AI가 찍어낸다 — 카드뉴스 자동 제작</div><div class="mc-card"><div class="mc-card-title">6편</div>나의 논문 도우미 — RAG로 연구 자료 학습시키기</div><div class="mc-card"><div class="mc-card-title">7편</div>AI에게 스토리를 맡겼더니 — 시나리오 분석 자동화</div><div class="mc-card"><div class="mc-card-title">8편</div>회고 — 뭐가 달라졌나</div></div>
 
 이미 만들어놓은 것도 있고, 앞으로 만들 것도 있다. **공통점은 하나 — 직접 써보고 이해한 것만 쓴다.**
 
@@ -78,6 +71,4 @@ excerpt: "AX 컨설턴트인데 정작 내 반복 업무는 손으로 하고 있
 
 마치 요리를 배울 때 레시피를 먼저 외우는 것보다 먹고 싶은 게 먼저인 것처럼. 그 배고픔이 원동력이다. 같이 만들어가면서 답 찾아봐요. 😊
 
----
-
-**나는 게을러서 자동화한다.** 🚀
+<div class="mc-callout mc-callout--dark" markdown="0" style="text-align:center;font-weight:800;font-size:1.15rem;letter-spacing:-0.01em;">나는 게을러서 자동화한다. 🚀</div>
