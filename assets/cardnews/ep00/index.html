@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>자동화 연대기 EP.00 — 움직이는 카드뉴스</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+  :root{--canvas:#000;--ink:#fff;--body:#A3A3A3;--muted:#525252;--accent:#F59E0B;--accent-warm:#E5484D;--badge-outline:rgba(255,255,255,.45);--canvas-pad:72px;--block:36px;--art-h:690px;}
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{background:#0d0d0d;font-family:'Pretendard',sans-serif;}
+  .slide{width:1080px;height:1350px;background:var(--canvas);position:relative;overflow:hidden;}
+  .logo{position:absolute;top:56px;left:var(--canvas-pad);font-size:20px;font-weight:500;letter-spacing:.2em;color:var(--muted);z-index:6;}
+  .page-indicator{position:absolute;top:56px;right:var(--canvas-pad);font-size:20px;font-weight:500;letter-spacing:.08em;color:var(--muted);z-index:6;}
+  .media-art{position:absolute;top:0;left:0;right:0;height:var(--art-h);overflow:hidden;z-index:1;}
+  .art-bg{position:absolute;inset:0;background:#000;}
+  .art-bg::after{content:"";position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,rgba(255,255,255,.014) 0 1px,transparent 1px 3px);}
+  .art-motif{position:absolute;inset:0;width:100%;height:100%;}
+  .art-fade{position:absolute;left:0;right:0;bottom:0;height:320px;background:linear-gradient(transparent 0%,rgba(0,0,0,.6) 45%,#000 92%);z-index:2;}
+  .ln{fill:none;stroke:rgba(255,255,255,.16);stroke-width:1.5;}
+  .ln2{fill:none;stroke:rgba(255,255,255,.10);stroke-width:1.5;}
+  .am{fill:none;stroke:var(--accent);stroke-width:2;}
+  .am-soft{fill:none;stroke:rgba(245,158,11,.55);stroke-width:1.5;}
+  .dot{fill:rgba(255,255,255,.22);}
+  .dot-am{fill:var(--accent);}
+  .am-fill{fill:var(--accent);}
+  .am-fill-soft{fill:rgba(245,158,11,.5);}
+  .wt-fill{fill:rgba(255,255,255,.85);}
+  .am-glow{filter:drop-shadow(0 0 14px rgba(245,158,11,.5));}
+  .type-media .text-zone{position:absolute;left:var(--canvas-pad);right:var(--canvas-pad);top:770px;z-index:4;}
+  .number-marker{width:44px;height:44px;background:#1F1F1F;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:700;color:var(--body);margin-bottom:28px;}
+  .headline{font-size:60px;font-weight:800;line-height:1.18;letter-spacing:-.02em;color:var(--ink);margin-bottom:var(--block);}
+  .body-text{font-size:29px;font-weight:400;line-height:1.68;color:var(--body);}
+  .body-text b{font-weight:700;color:var(--ink);}
+  .body-text .amber{font-weight:700;color:var(--accent);}
+  .type-cover .cover-art{position:absolute;inset:0;background:radial-gradient(ellipse 720px 520px at 78% 20%,rgba(245,158,11,.34),transparent 64%),radial-gradient(ellipse 900px 720px at 12% 62%,rgba(245,158,11,.10),transparent 60%),radial-gradient(ellipse 520px 420px at 56% 44%,rgba(229,72,77,.08),transparent 70%),#000;}
+  .type-cover .cover-art::after{content:"";position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,rgba(255,255,255,.012) 0 1px,transparent 1px 3px);}
+  .type-cover .cover-overlay{position:absolute;inset:0;background:linear-gradient(transparent 38%,rgba(0,0,0,.85) 84%,#000 100%);z-index:3;}
+  .type-cover .cover-text{position:absolute;left:var(--canvas-pad);right:var(--canvas-pad);bottom:96px;z-index:4;}
+  .cover-badge{display:inline-block;border:1.5px solid var(--badge-outline);border-radius:9999px;padding:10px 24px;font-size:20px;font-weight:500;color:var(--ink);letter-spacing:.04em;margin-bottom:36px;}
+  .cover-headline{font-size:76px;font-weight:800;line-height:1.15;letter-spacing:-.02em;color:var(--ink);}
+  .cover-headline .line1{color:var(--accent);display:block;}
+  .cover-meta{margin-top:32px;font-size:20px;font-weight:500;color:var(--body);letter-spacing:.04em;}
+  .type-save .band-art{position:absolute;top:0;left:0;right:0;height:250px;overflow:hidden;z-index:1;}
+  .type-save .band-art .art-fade{height:140px;}
+  .type-save .text-zone{position:absolute;left:var(--canvas-pad);right:var(--canvas-pad);top:300px;z-index:4;}
+  .save-tag{display:inline-flex;align-items:center;gap:12px;font-size:20px;font-weight:700;color:var(--accent);letter-spacing:.06em;margin-bottom:24px;}
+  .save-tag svg{width:22px;height:22px;}
+  .episode-list{margin-top:44px;}
+  .episode-row{display:flex;align-items:baseline;gap:28px;padding:19px 0;border-bottom:1px solid rgba(255,255,255,.07);}
+  .episode-row:last-child{border-bottom:none;}
+  .episode-num{font-size:24px;font-weight:700;color:var(--muted);letter-spacing:.05em;flex-shrink:0;width:48px;}
+  .episode-title{font-size:27px;font-weight:400;color:var(--body);}
+  .save-hint{position:absolute;left:var(--canvas-pad);bottom:80px;font-size:22px;font-weight:500;color:var(--muted);z-index:4;}
+  .save-hint .amber{color:var(--accent);font-weight:700;}
+  .type-cta{text-align:center;}
+  .type-cta .cta-art{position:absolute;inset:0;background:radial-gradient(ellipse 820px 620px at 50% 28%,rgba(245,158,11,.16),transparent 64%),radial-gradient(ellipse 600px 600px at 50% 80%,rgba(245,158,11,.06),transparent 70%),#000;}
+  .type-cta .cta-art::after{content:"";position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,rgba(255,255,255,.012) 0 1px,transparent 1px 3px);}
+  .type-cta .cta-zone{position:absolute;left:var(--canvas-pad);right:var(--canvas-pad);top:50%;transform:translateY(-50%);z-index:3;}
+  .logo-circle{width:220px;height:220px;border:1.5px solid var(--badge-outline);border-radius:50%;margin:0 auto 64px;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.55);}
+  .logo-circle span{font-size:21px;font-weight:700;color:var(--ink);letter-spacing:.18em;}
+  .cta-headline{font-size:56px;font-weight:800;line-height:1.25;letter-spacing:-.02em;color:var(--ink);margin-bottom:36px;}
+  .cta-headline .amber{color:var(--accent);}
+  .cta-body{font-size:30px;font-weight:400;line-height:1.7;color:var(--body);margin-bottom:72px;}
+  .cta-body b{font-weight:700;color:var(--ink);}
+  .cta-icons{display:flex;justify-content:center;gap:36px;}
+  .cta-icon{width:96px;height:96px;border:1.5px solid rgba(255,255,255,.30);border-radius:50%;display:flex;align-items:center;justify-content:center;}
+  .cta-icon svg{width:40px;height:40px;}
+
+  /* ===== motion ===== */
+  @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.2)}}
+  @keyframes breathe{0%,100%{opacity:.7}50%{opacity:1}}
+  @keyframes blink{0%,48%{opacity:1}52%,100%{opacity:0}}
+  @keyframes fall{0%{transform:translateY(0);opacity:0}12%{opacity:1}85%{opacity:1}100%{transform:translateY(112px);opacity:0}}
+  @keyframes rise{0%{transform:translateY(6px);opacity:0}30%{opacity:.7}100%{transform:translateY(-46px);opacity:0}}
+  @keyframes dashmove{to{stroke-dashoffset:-32}}
+  @keyframes draw{0%{stroke-dashoffset:480}55%{stroke-dashoffset:0}100%{stroke-dashoffset:0}}
+  @keyframes typeGrow{0%{transform:scaleX(0)}60%{transform:scaleX(1)}100%{transform:scaleX(1)}}
+  @keyframes tick{0%,15%{opacity:0;transform:scale(.5)}35%,90%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(.5)}}
+  @keyframes shimmer{0%,100%{opacity:.35}50%{opacity:.95}}
+  @keyframes glowPulse{0%,100%{opacity:.8;transform:scale(.99)}50%{opacity:1;transform:scale(1.05)}}
+  @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(7px)}}
+  @keyframes travel{0%{offset-distance:0%;opacity:0}10%{opacity:1}90%{opacity:1}100%{offset-distance:100%;opacity:0}}
+  .a-pulse,.a-glow-p,.a-tick,.a-type{transform-box:fill-box;}
+  .a-pulse{transform-origin:center;animation:pulse 2.4s ease-in-out infinite;}
+  .a-breathe{animation:breathe 3s ease-in-out infinite;}
+  .a-blink{animation:blink 1s steps(1) infinite;}
+  .a-fall{animation:fall 1.8s ease-in infinite;}
+  .a-rise{transform-box:fill-box;animation:rise 2.6s ease-out infinite;}
+  .a-dash{animation:dashmove 1.4s linear infinite;}
+  .a-draw{stroke-dasharray:480;animation:draw 3s ease-in-out infinite;}
+  .a-type{transform-origin:left center;animation:typeGrow 3.4s ease-in-out infinite;}
+  .a-tick{transform-origin:center;animation:tick 3s ease-in-out infinite;}
+  .a-shimmer{animation:shimmer 2.2s ease-in-out infinite;}
+  .a-glow-p{transform-origin:center;animation:glowPulse 2.8s ease-in-out infinite;}
+  .a-bob{transform-box:fill-box;transform-origin:center;animation:bob 1.6s ease-in-out infinite;}
+  .a-travel{offset-rotate:0deg;animation:travel 2.6s ease-in-out infinite;}
+
+  /* ===== deck (스와이프 carousel) ===== */
+  html,body{height:100%;}
+  .deck{display:flex;gap:26px;height:100vh;align-items:center;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding:0 calc(50vw - (1080px * var(--s, .42)) / 2);}
+  .deck::-webkit-scrollbar{height:7px;}
+  .deck::-webkit-scrollbar-thumb{background:#555;border-radius:4px;}
+  .card{flex:0 0 auto;width:calc(1080px * var(--s, .42));height:calc(1350px * var(--s, .42));scroll-snap-align:center;border-radius:calc(28px * var(--s, .42));overflow:hidden;box-shadow:0 8px 30px rgba(0,0,0,.5);}
+  .card .slide{transform:scale(var(--s, .42));transform-origin:top left;}
+</style>
+</head>
+<body>
+<div class="deck">
+
+<div class="card"><section class="slide type-cover" data-name="cover">
+  <div class="cover-art"></div>
+  <svg class="art-motif" viewBox="0 0 1080 1350" preserveAspectRatio="xMidYMid slice" style="z-index:2;">
+    <g>
+      <path class="ln2" d="M150 250 L360 180 L560 300 L760 200 L920 360"/>
+      <path class="ln2" d="M360 180 L420 380 L560 300"/>
+      <path class="ln2" d="M760 200 L700 420 L920 360"/>
+      <path class="am-soft a-breathe" d="M560 300 L700 420"/>
+      <path class="am-soft a-breathe" d="M420 380 L700 420"/>
+      <circle class="dot" cx="150" cy="250" r="5"/>
+      <circle class="dot" cx="360" cy="180" r="6"/>
+      <circle class="dot" cx="560" cy="300" r="7"/>
+      <circle class="dot" cx="760" cy="200" r="6"/>
+      <circle class="dot" cx="920" cy="360" r="5"/>
+      <circle class="dot" cx="420" cy="380" r="6"/>
+      <circle class="dot-am am-glow a-pulse" cx="700" cy="420" r="9"/>
+      <circle class="dot-am" r="6" style="offset-path:path('M560 300 L700 420');" />
+      <circle class="dot-am a-travel" r="6" style="offset-path:path('M420 380 L700 420');" />
+    </g>
+  </svg>
+  <div class="cover-overlay"></div>
+  <div class="logo">2LAZYSODOIT</div>
+  <div class="cover-text">
+    <div class="cover-badge">자동화 연대기 | EP.00</div>
+    <h1 class="cover-headline"><span class="line1">나는 게을러서</span>자동화한다</h1>
+    <div class="cover-meta">1주에 하나씩, 일상 자동화 · 2026</div>
+  </div>
+</section></div>
+
+<div class="card"><section class="slide type-media" data-name="why">
+  <div class="media-art">
+    <div class="art-bg" style="background:radial-gradient(ellipse 600px 440px at 30% 26%,rgba(245,158,11,.16),transparent 64%),#000;"></div>
+    <svg class="art-motif" viewBox="0 0 1080 690" preserveAspectRatio="xMidYMid slice">
+      <g class="am-soft a-breathe"><rect x="150" y="115" width="300" height="150" rx="30"/><path d="M212 265 L212 318 L266 265"/></g>
+      <text x="222" y="222" font-family="'Pretendard',sans-serif" font-size="86" font-weight="800" fill="var(--accent)" class="am-glow">AI</text>
+      <g>
+        <rect class="am" x="560" y="150" width="34" height="34" rx="6"/>
+        <path class="am a-tick" style="animation-delay:0s" d="M567 167 L575 177 L590 157" stroke-width="3"/>
+        <line class="ln" x1="620" y1="167" x2="900" y2="167"/>
+        <rect class="am" x="560" y="228" width="34" height="34" rx="6"/>
+        <path class="am a-tick" style="animation-delay:1s" d="M567 245 L575 255 L590 235" stroke-width="3"/>
+        <line class="ln" x1="620" y1="245" x2="900" y2="245"/>
+        <rect class="ln" x="560" y="306" width="34" height="34" rx="6"/>
+        <line class="ln" x1="620" y1="323" x2="860" y2="323"/>
+        <path class="am-fill am-glow a-bob" d="M612 336 L612 392 L626 378 L638 404 L650 399 L638 373 L656 373 Z"/>
+      </g>
+    </svg>
+    <div class="art-fade"></div>
+  </div>
+  <div class="logo">2LAZYSODOIT</div><div class="page-indicator">02 / 08</div>
+  <div class="text-zone"><div class="number-marker">1</div>
+    <h2 class="headline">매일 AI 얘기를 하는데<br>내 손은 바빴다</h2>
+    <p class="body-text">나는 AX 컨설턴트다. 기업에 AI 전환을<br>컨설팅하는 일을 한다. 그런데 정작<br><b>내 반복 업무는 여전히 손으로</b> 하고 있었다.<br>앞뒤가 안 맞았다. <span class="amber">좀 찔렸다.</span></p>
+  </div>
+</section></div>
+
+<div class="card"><section class="slide type-media" data-name="commute">
+  <div class="media-art">
+    <div class="art-bg" style="background:radial-gradient(ellipse 620px 460px at 50% 34%,rgba(245,158,11,.16),transparent 64%),#000;"></div>
+    <svg class="art-motif" viewBox="0 0 1080 690" preserveAspectRatio="xMidYMid slice">
+      <g class="am-fill-soft">
+        <circle class="a-rise" style="animation-delay:0s" cx="470" cy="120" r="5"/>
+        <circle class="a-rise" style="animation-delay:.8s" cx="610" cy="95" r="4"/>
+        <circle class="a-rise" style="animation-delay:1.4s" cx="540" cy="60" r="3"/>
+        <circle class="a-rise" style="animation-delay:.4s" cx="660" cy="150" r="3"/>
+        <circle class="a-rise" style="animation-delay:1.9s" cx="420" cy="175" r="3"/>
+      </g>
+      <path class="ln" d="M395 170 H685 M395 560 H685"/>
+      <path class="am-soft" d="M410 175 L670 175 L545 360 Z"/>
+      <path class="am-soft" d="M545 360 L420 555 L660 555 Z"/>
+      <path class="am-fill" d="M452 230 L628 230 L545 352 Z"/>
+      <circle class="dot-am a-fall" cx="545" cy="362" r="6"/>
+      <path class="am-fill am-glow a-breathe" d="M470 555 L620 555 L545 478 Z"/>
+      <text x="720" y="250" font-family="'Pretendard',sans-serif" font-size="56" font-weight="800" fill="var(--accent)">−3h</text>
+    </svg>
+    <div class="art-fade"></div>
+  </div>
+  <div class="logo">2LAZYSODOIT</div><div class="page-indicator">03 / 08</div>
+  <div class="text-zone"><div class="number-marker">2</div>
+    <h2 class="headline">하루 3시간이<br>사라지고 있었다</h2>
+    <p class="body-text">수원에서 잠실까지 편도 1시간 30분.<br><b>한 달이면 60시간</b>이 지하철에서 증발한다.<br>어느 날 계산해보고 알았다.<br>이 시간, 그냥 보내기엔 너무 아깝다.</p>
+  </div>
+</section></div>
+
+<div class="card"><section class="slide type-media" data-name="subway-dev">
+  <div class="media-art">
+    <div class="art-bg" style="background:radial-gradient(ellipse 600px 460px at 50% 30%,rgba(245,158,11,.22),transparent 62%),radial-gradient(ellipse 700px 520px at 85% 75%,rgba(245,158,11,.07),transparent 62%),#000;"></div>
+    <svg class="art-motif" viewBox="0 0 1080 690" preserveAspectRatio="xMidYMid slice">
+      <g>
+        <line class="ln2 a-dash" x1="60" y1="200" x2="380" y2="200" stroke-dasharray="4 28"/>
+        <line class="ln2 a-dash" x1="700" y1="170" x2="1040" y2="170" stroke-dasharray="4 28"/>
+        <circle class="dot-am a-blink" cx="180" cy="130" r="5"/><circle class="dot a-blink" style="animation-delay:.5s" cx="300" cy="105" r="4"/>
+        <circle class="dot-am am-glow a-blink" style="animation-delay:.3s" cx="900" cy="140" r="6"/><circle class="dot a-blink" style="animation-delay:.7s" cx="800" cy="110" r="4"/>
+        <line class="ln2 a-dash" x1="60" y1="478" x2="1040" y2="478" stroke-dasharray="6 22"/>
+      </g>
+      <g>
+        <rect class="ln" x="420" y="120" width="240" height="420" rx="36"/>
+        <line class="ln2" x1="500" y1="156" x2="580" y2="156"/>
+        <line class="am a-type" style="animation-delay:0s" x1="455" y1="222" x2="545" y2="222" stroke-width="6"/>
+        <line class="ln a-type" style="animation-delay:.4s" x1="455" y1="252" x2="612" y2="252" stroke-width="6"/>
+        <line class="ln a-type" style="animation-delay:.8s" x1="478" y1="282" x2="600" y2="282" stroke-width="6"/>
+        <line class="am-soft a-type" style="animation-delay:1.2s" x1="478" y1="312" x2="560" y2="312" stroke-width="6"/>
+        <line class="ln a-type" style="animation-delay:1.6s" x1="455" y1="342" x2="622" y2="342" stroke-width="6"/>
+        <line class="ln a-type" style="animation-delay:2s" x1="478" y1="372" x2="592" y2="372" stroke-width="6"/>
+        <rect class="dot-am am-glow a-blink" x="600" y="362" width="14" height="22"/>
+      </g>
+    </svg>
+    <div class="art-fade"></div>
+  </div>
+  <div class="logo">2LAZYSODOIT</div><div class="page-indicator">04 / 08</div>
+  <div class="text-zone"><div class="number-marker">3</div>
+    <h2 class="headline">지하철을<br>개발실로 만들었다</h2>
+    <p class="body-text">폰에 Claude Code와 Git 레포를 연결했다.<br>이제 <b>지하철에서도 코드를 짜고 커밋한다.</b><br>출퇴근 3시간이 <span class="amber">개발 시간</span>으로 바뀌었다.<br>이게 이 모든 것의 출발이었다.</p>
+  </div>
+</section></div>
+
+<div class="card"><section class="slide type-media" data-name="build-first">
+  <div class="media-art">
+    <div class="art-bg" style="background:radial-gradient(ellipse 560px 440px at 70% 34%,rgba(245,158,11,.2),transparent 62%),#000;"></div>
+    <svg class="art-motif" viewBox="0 0 1080 690" preserveAspectRatio="xMidYMid slice">
+      <text x="250" y="420" font-family="'Pretendard',sans-serif" font-size="220" font-weight="800" fill="rgba(255,255,255,0.18)">?</text>
+      <path class="ln" d="M470 350 H600"/><path class="ln" d="M575 328 L605 350 L575 372"/>
+      <g class="am-glow a-glow-p">
+        <circle class="am" cx="760" cy="320" r="92"/>
+        <path class="am" d="M730 332 L748 300 L772 340 L790 308" stroke-width="2.5"/>
+        <path class="am" d="M725 405 H795 M732 428 H788 M742 450 H778"/>
+        <path class="am-soft a-shimmer" d="M760 188 V150 M872 230 L902 205 M648 230 L618 205 M905 320 H945 M615 320 H575"/>
+      </g>
+    </svg>
+    <div class="art-fade"></div>
+  </div>
+  <div class="logo">2LAZYSODOIT</div><div class="page-indicator">05 / 08</div>
+  <div class="text-zone"><div class="number-marker">4</div>
+    <h2 class="headline">만들고 싶은 게<br>먼저다</h2>
+    <p class="body-text">"RAG 공부해야지"가 아니라<br>"논문 도우미 만들고 싶은데, 어떻게 하지?<br><b>아, 이게 RAG구나."</b><br>이 순서로 배운 게 제일 오래 남는다.<br><span class="amber">귀찮음이 학습 동기</span>가 된다.</p>
+  </div>
+</section></div>
+
+<div class="card"><section class="slide type-save" data-name="lineup">
+  <div class="band-art">
+    <div class="art-bg" style="background:radial-gradient(ellipse 760px 260px at 50% 0%,rgba(245,158,11,.20),transparent 70%),#000;"></div>
+    <svg class="art-motif" viewBox="0 0 1080 250" preserveAspectRatio="xMidYMid slice">
+      <g>
+        <path class="am" d="M120 130 H960"/>
+        <circle class="dot-am am-glow" cx="120" cy="130" r="8"/>
+        <circle class="dot-am" cx="240" cy="130" r="7"/>
+        <circle class="dot" cx="360" cy="130" r="7"/><circle class="dot" cx="480" cy="130" r="7"/>
+        <circle class="dot" cx="600" cy="130" r="7"/><circle class="dot" cx="720" cy="130" r="7"/>
+        <circle class="dot" cx="840" cy="130" r="7"/><circle class="dot" cx="960" cy="130" r="7"/>
+        <circle class="dot-am am-glow a-travel" r="9" style="offset-path:path('M120 130 H960');"/>
+      </g>
+    </svg>
+    <div class="art-fade"></div>
+  </div>
+  <div class="logo">2LAZYSODOIT</div><div class="page-indicator">06 / 08</div>
+  <div class="text-zone">
+    <div class="save-tag"><svg viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>저장해두고 보세요</div>
+    <h2 class="headline">앞으로 만들 것들</h2>
+    <div class="episode-list">
+      <div class="episode-row"><span class="episode-num">01</span><span class="episode-title">출퇴근 3시간을 개발 시간으로</span></div>
+      <div class="episode-row"><span class="episode-num">02</span><span class="episode-title">AI가 매주 교회 주보를 올려준다</span></div>
+      <div class="episode-row"><span class="episode-num">03</span><span class="episode-title">블로그를 AI가 대신 써준다 — 깃·네이버</span></div>
+      <div class="episode-row"><span class="episode-num">04</span><span class="episode-title">결혼 준비 동행 AI '웨딩메이트'</span></div>
+      <div class="episode-row"><span class="episode-num">05</span><span class="episode-title">인스타 카드뉴스 자동 제작</span></div>
+      <div class="episode-row"><span class="episode-num">06</span><span class="episode-title">나의 논문 도우미 — RAG</span></div>
+      <div class="episode-row"><span class="episode-num">07</span><span class="episode-title">AI에게 스토리를 맡겼더니</span></div>
+      <div class="episode-row"><span class="episode-num">08</span><span class="episode-title">회고 — 뭐가 달라졌나</span></div>
+    </div>
+  </div>
+  <div class="save-hint"><span class="amber">1주에 하나씩</span> 올라옵니다 · 내용은 바뀔 수 있어요</div>
+</section></div>
+
+<div class="card"><section class="slide type-media" data-name="principle">
+  <div class="media-art">
+    <div class="art-bg" style="background:radial-gradient(ellipse 560px 440px at 72% 34%,rgba(245,158,11,.18),transparent 62%),#000;"></div>
+    <svg class="art-motif" viewBox="0 0 1080 690" preserveAspectRatio="xMidYMid slice">
+      <path class="ln a-breathe" d="M120 360 C170 250, 250 250, 270 350 C290 450, 200 470, 250 360 C300 250, 360 470, 330 360 C300 250, 420 250, 410 360 C400 460, 470 460, 480 360" stroke-width="2" stroke-linecap="round"/>
+      <path class="am am-glow a-draw" d="M480 360 H960" stroke-width="4" stroke-linecap="round"/>
+      <path class="am am-glow" d="M922 338 L962 360 L922 382" stroke-width="4" fill="none"/>
+      <circle class="dot-am am-glow a-pulse" cx="480" cy="360" r="9"/>
+    </svg>
+    <div class="art-fade"></div>
+  </div>
+  <div class="logo">2LAZYSODOIT</div><div class="page-indicator">07 / 08</div>
+  <div class="text-zone"><div class="number-marker">5</div>
+    <h2 class="headline">직접 써보고<br>이해한 것만 쓴다</h2>
+    <p class="body-text">코딩 실력보다<br><span class="amber">"이거 자동화되면 좋겠다"</span>는<br>생각 하나가 더 중요하다.<br>나도 거기서 시작했다.<br>같이 만들어가면서 답을 찾아보자.</p>
+  </div>
+</section></div>
+
+<div class="card"><section class="slide type-cta" data-name="closing">
+  <div class="cta-art"></div>
+  <div class="logo">2LAZYSODOIT</div><div class="page-indicator">08 / 08</div>
+  <div class="cta-zone">
+    <div class="logo-circle a-glow-p"><span>2LAZYSODOIT</span></div>
+    <h2 class="cta-headline">게으른 자동화는?<br><span class="amber">'자동화 연대기'</span></h2>
+    <p class="cta-body">매주 쌓이는 자동화 기록,<br>지금 <b>팔로우</b>하고 같이 만들어봐요.</p>
+    <div class="cta-icons">
+      <div class="cta-icon"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.75)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+      <div class="cta-icon"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.75)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8z"/></svg></div>
+      <div class="cta-icon"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.75)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg></div>
+    </div>
+  </div>
+</section></div>
+
+</div>
+<script>
+  function fit(){var h=window.innerHeight||720;document.documentElement.style.setProperty('--s',(h*0.94/1350));}
+  fit();window.addEventListener('resize',fit);
+</script>
+</body>
+</html>
