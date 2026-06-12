@@ -9,87 +9,222 @@ $sans-serif: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFon
   "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", sans-serif !default;
 $monospace: "JetBrains Mono", "D2Coding", Consolas, Monaco, monospace !default;
 
-// 포인트 컬러 — 배너의 틸 톤과 맞춤
-$link-color: #1d7a8c !default;
-$masthead-link-color-hover: #1d7a8c !default;
+// 컬러 — ModernWork 풍 블루 액센트 + 슬레이트 잉크
+$primary-color: #2563eb !default;
+$link-color: #2563eb !default;
+$text-color: #1f2937 !default;
+$muted-text-color: #6b7280 !default;
+$border-color: #e5e7eb !default;
+$masthead-link-color: #1f2937 !default;
+$masthead-link-color-hover: #1d4ed8 !default;
 
 @import "minimal-mistakes/skins/{{ site.minimal_mistakes_skin | default: 'default' }}";
 @import "minimal-mistakes";
 
-/* === Henry custom polish ====================================== */
+/* === ModernWork-inspired polish ============================== */
+:root {
+  --accent: #2563eb;
+  --accent-ink: #1d4ed8;
+  --accent-soft: #eff6ff;
+  --accent-mist: #f8fbff;
+  --accent-border: #bfdbfe;
+  --ink: #0f172a;
+  --ink-2: #1f2937;
+  --muted: #6b7280;
+  --soft-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+  --card-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+}
 
 html {
   font-size: 15px;
   @include breakpoint($medium) { font-size: 16px; }
-  @include breakpoint($x-large) { font-size: 18px; }
+  @include breakpoint($x-large) { font-size: 17px; }
 }
+body { letter-spacing: -0.005em; }
 
-/* 마스트헤드(상단 네비) */
+/* 마스트헤드(상단 네비) — 가볍고 깔끔하게 */
 .masthead {
   border-bottom: 1px solid $border-color;
-  .site-title { font-weight: 700; }
+  box-shadow: 0 1px 0 rgba(15, 23, 42, 0.02);
+  .site-title { font-weight: 800; letter-spacing: -0.03em; color: var(--ink); }
+  .site-subtitle { color: var(--muted); font-weight: 500; }
 }
 .greedy-nav a { font-weight: 600; }
+
+/* 헤딩 — 무게감 + 타이트한 자간 */
+.page__title, .archive__item-title,
+.page__content h1, .page__content h2, .page__content h3 {
+  letter-spacing: -0.025em;
+  color: var(--ink);
+}
+.page__content h1, .page__content h2 { font-weight: 800; }
+.page__content h3 { font-weight: 700; }
 
 /* 히어로 */
 .page__hero--overlay {
   padding: 4.5em 0;
-  .page__title { font-weight: 800; letter-spacing: -0.02em; }
+  .page__title { font-weight: 900; letter-spacing: -0.03em; }
   .page__lead { font-size: 1.05em; line-height: 1.7; }
   .btn--primary {
-    background-color: #1d7a8c;
-    &:hover { background-color: #145b69; }
+    background-color: var(--accent);
+    border-radius: 999px;
+    &:hover { background-color: var(--accent-ink); }
   }
 }
 
-/* 포스트 리스트 — 카드 느낌 */
+/* 포스트 리스트 — 부드러운 라운드 카드 */
 .archive__item {
-  padding: 1.1em 1.2em;
-  margin-bottom: 0.6em;
+  padding: 1.2em 1.35em;
+  margin-bottom: 0.7em;
   border: 1px solid $border-color;
-  border-radius: 10px;
-  transition: box-shadow 0.2s ease, transform 0.2s ease;
+  border-radius: 16px;
+  background: #fff;
+  transition: box-shadow 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
   &:hover {
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+    box-shadow: var(--soft-shadow);
     transform: translateY(-2px);
+    border-color: var(--accent-border);
   }
 }
 .archive__item-title { margin-top: 0.2em; font-size: 1.15em; }
-.archive__item-excerpt { font-size: 0.85em; color: lighten($text-color, 20%); }
+.archive__item-excerpt { font-size: 0.86em; color: var(--muted); line-height: 1.7; }
 
-/* 본문 타이포 */
+/* 본문 타이포 — 넉넉한 행간 */
 .page__content {
   line-height: 1.85;
+  color: var(--ink-2);
   h2 {
     padding-bottom: 0.4em;
     border-bottom: 1px solid $border-color;
     margin-top: 2.2em;
   }
   blockquote {
-    border-left: 4px solid #1d7a8c;
-    background: rgba(29, 122, 140, 0.05);
-    padding: 0.8em 1.2em;
-    border-radius: 0 8px 8px 0;
+    border-left: 4px solid var(--accent);
+    background: var(--accent-soft);
+    padding: 0.85em 1.2em;
+    border-radius: 0 12px 12px 0;
     font-style: normal;
+    color: var(--ink-2);
   }
   code.highlighter-rouge {
-    background: rgba(29, 122, 140, 0.08);
-    color: #145b69;
+    background: var(--accent-soft);
+    color: var(--accent-ink);
+  }
+  /* 본문 이미지 — 라운드 + 옅은 테두리 */
+  > p > img, figure img {
+    border-radius: 16px;
+    border: 1px solid rgba(148, 163, 184, 0.25);
+    box-shadow: var(--card-shadow);
   }
 }
 
-/* 사이드바 프로필 — 간결하게 */
+/* 사이드바 프로필 */
 .author__bio { font-size: 0.85em; line-height: 1.6; }
 .author__urls a { font-size: 0.9em; }
+.author__urls a:hover { color: var(--accent-ink); }
 
 /* 태그/카테고리 칩 */
 .page__taxonomy-item {
   border-radius: 999px;
   padding: 4px 12px;
   font-size: 0.7em;
-  background: rgba(29, 122, 140, 0.07);
+  background: var(--accent-soft);
+  color: var(--accent-ink);
   border-color: transparent;
-  &:hover { background: rgba(29, 122, 140, 0.18); text-decoration: none; }
+  &:hover { background: var(--accent-border); text-decoration: none; }
+}
+
+/* === 재사용 컴포넌트 (ModernWork 스타일) ======================
+ * 포스트에서 <div class="mc-cover">, <div class="mc-card"> 등으로 사용 */
+.page__content {
+  .mc-cover {
+    margin: 0 0 1.7rem;
+    padding: 1.5rem 1.5rem 1.35rem;
+    border-radius: 26px;
+    border: 1px solid var(--accent-border);
+    background: linear-gradient(135deg, var(--accent-soft) 0%, #ffffff 58%, var(--accent-mist) 100%);
+    text-align: center;
+    box-shadow: var(--soft-shadow);
+  }
+  .mc-cover-kicker {
+    display: inline-block;
+    margin-bottom: 0.55rem;
+    padding: 0.38rem 0.8rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.85);
+    color: var(--accent-ink);
+    font-size: 0.78rem;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .mc-cover-title {
+    font-size: clamp(1.75rem, 3vw, 2.4rem);
+    line-height: 1.2;
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+  }
+  .mc-cover-subtitle {
+    margin-top: 0.5rem;
+    color: #475569;
+    font-size: 1.02rem;
+    line-height: 1.65;
+  }
+
+  .mc-section-title {
+    margin-top: 1.6rem;
+    padding: 0.55rem 0.9rem;
+    border-left: 6px solid var(--accent);
+    background: #f8fafc;
+    color: var(--ink);
+    border-radius: 0 10px 10px 0;
+    font-weight: 800;
+  }
+
+  .mc-card-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin: 1rem 0 1.4rem; }
+  .mc-card-grid--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .mc-card {
+    padding: 1.05rem 1.15rem;
+    border-radius: 16px;
+    background: #f8fafc;
+    border: 1px solid #dbe4f0;
+    color: var(--ink);
+  }
+  .mc-card--blue   { background: #eff6ff; border-color: #bfdbfe; color: #1d4ed8; }
+  .mc-card--teal   { background: #ecfeff; border-color: #99f6e4; color: #115e59; }
+  .mc-card--purple { background: #f5f3ff; border-color: #c4b5fd; color: #5b21b6; }
+  .mc-card--amber  { background: #fefce8; border-color: #fde68a; color: #854d0e; }
+  .mc-card--green  { background: #ecfdf5; border-color: #86efac; color: #166534; }
+  .mc-card-title { font-weight: 800; margin-bottom: 0.35rem; }
+  .mc-card-note  { margin-top: 0.35rem; font-size: 0.92rem; color: var(--muted); }
+
+  .mc-callout {
+    margin: 1rem 0 1.4rem;
+    padding: 1rem 1.15rem;
+    border-radius: 16px;
+    background: #f8fafc;
+    border: 1px solid #dbe4f0;
+    color: var(--ink);
+  }
+  .mc-callout--dark {
+    background: linear-gradient(135deg, #111827 0%, #1f2937 100%);
+    border-color: #111827;
+    color: #f9fafb;
+  }
+
+  hr {
+    height: 1px;
+    margin: 2rem 0 1.85rem;
+    border: 0;
+    background: linear-gradient(90deg, transparent, rgba(148, 163, 184, 0.55), transparent);
+  }
+}
+
+@media (max-width: 767px) {
+  .page__content .mc-card-grid,
+  .page__content .mc-card-grid--3 { grid-template-columns: 1fr; }
+  .page__content .mc-cover { padding: 1.2rem 1rem; border-radius: 20px; }
 }
 
 /* Wiki 페이지 표식 */
@@ -101,6 +236,6 @@ html {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  background: rgba(29, 122, 140, 0.12);
-  color: #145b69;
+  background: var(--accent-soft);
+  color: var(--accent-ink);
 }
