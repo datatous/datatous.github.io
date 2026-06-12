@@ -7,6 +7,8 @@ main:
     url: /tags/
   - title: "Wiki"
     url: /wiki/
+  - title: "Character"
+    url: /character/
   - title: "About"
     url: /about/
 
