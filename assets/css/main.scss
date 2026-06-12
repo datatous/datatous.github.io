@@ -227,6 +227,34 @@ body { letter-spacing: -0.005em; }
   .page__content .mc-cover { padding: 1.2rem 1rem; border-radius: 20px; }
 }
 
+/* 시리즈 네비게이션 */
+.series-nav {
+  margin: 2.5rem 0 1rem;
+  padding: 1.1rem 1.25rem;
+  border: 1px solid var(--accent-border);
+  border-radius: 16px;
+  background: var(--accent-soft);
+}
+.series-nav__head {
+  font-weight: 800;
+  color: var(--accent-ink);
+  letter-spacing: -0.01em;
+  margin-bottom: 0.7rem;
+}
+.series-nav__list { list-style: none; margin: 0; padding: 0; }
+.series-nav__item {
+  padding: 0.3rem 0;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+.series-nav__dot { color: var(--accent); font-size: 0.7rem; }
+.series-nav__item a { color: var(--ink-2); text-decoration: none; }
+.series-nav__item a:hover { color: var(--accent-ink); text-decoration: underline; }
+.series-nav__item.is-current .series-nav__now { font-weight: 800; color: var(--accent-ink); }
+.series-nav__item.is-current em { font-weight: 500; font-style: normal; color: var(--muted); font-size: 0.85em; }
+
 /* Wiki 페이지 표식 */
 .wiki-type-badge {
   display: inline-block;

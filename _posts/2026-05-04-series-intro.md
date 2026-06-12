@@ -13,10 +13,16 @@ header:
   teaser: /assets/images/posts/ep00-cover.png
   overlay_image: /assets/images/posts/ep00-cover.png
   overlay_filter: 0.5
+  og_image: /assets/images/posts/ep00-cover.png
 excerpt: "AX 컨설턴트인데 정작 내 반복 업무는 손으로 하고 있었다. 그래서 직접 만들어보기로 했다."
 ---
 
 <div class="mc-cover" markdown="0"><span class="mc-cover-kicker">자동화 연대기 · EP.00</span><div class="mc-cover-title">나는 게을러서 자동화한다</div><div class="mc-cover-subtitle">1주에 하나씩, 일상을 자동화한 기록 — AX 컨설턴트가 직접 만들고 이해한 것만 남깁니다.</div></div>
+
+> **3줄 요약**
+> - AX 컨설턴트인데 정작 내 반복 업무는 손으로 하고 있었다. 앞뒤가 안 맞아서 직접 만들기로 했다.
+> - <mark>출퇴근 3시간을 개발 시간</mark>으로 바꾸는 것부터 시작했다.
+> - **1주에 하나씩**, 직접 써보고 이해한 자동화만 기록한다.
 
 ## 📱 카드뉴스 (좌우로 넘겨보세요)
 
@@ -72,3 +78,5 @@ excerpt: "AX 컨설턴트인데 정작 내 반복 업무는 손으로 하고 있
 마치 요리를 배울 때 레시피를 먼저 외우는 것보다 먹고 싶은 게 먼저인 것처럼. 그 배고픔이 원동력이다. 같이 만들어가면서 답 찾아봐요. 😊
 
 <div class="mc-callout mc-callout--dark" markdown="0" style="text-align:center;font-weight:800;font-size:1.15rem;letter-spacing:-0.01em;">나는 게을러서 자동화한다. 🚀</div>
+
+{% include series-nav.html %}
