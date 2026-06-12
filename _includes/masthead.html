@@ -9,7 +9,6 @@
         {% endunless %}
         <a class="site-title" href="{{ '/' | relative_url }}">
           <span class="brand-wm" aria-label="{{ site.title }}"><span class="a">Data</span><span class="b">tous</span></span>
-          {% if site.subtitle %}<span class="site-subtitle">{{ site.subtitle }}</span>{% endif %}
         </a>
         <ul class="visible-links">
           {%- for link in site.data.navigation.main -%}
