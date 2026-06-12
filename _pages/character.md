@@ -20,9 +20,13 @@ classes: wide
   linear-gradient(rgba(96,165,250,.08) 1px,transparent 1px),
   linear-gradient(90deg,rgba(96,165,250,.08) 1px,transparent 1px);background-size:34px 34px;}
 .rpg-hero-in{position:relative;display:flex;gap:34px;align-items:center;flex-wrap:wrap;justify-content:center;}
-#pixel-henry{image-rendering:pixelated;width:160px;height:160px;flex:none;
-  filter:drop-shadow(0 10px 24px rgba(37,99,235,.45));animation:bob 2.6s ease-in-out infinite;}
+.avatar-henry{width:180px;height:180px;flex:none;
+  filter:drop-shadow(0 12px 28px rgba(37,99,235,.4));animation:bob 3s ease-in-out infinite;}
 @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+.avatar-henry .orb{animation:orbpulse 2.4s ease-in-out infinite;transform-origin:center;}
+.avatar-henry .orb:nth-child(2){animation-delay:.5s;}
+.avatar-henry .orb:nth-child(3){animation-delay:1.1s;}
+@keyframes orbpulse{0%,100%{opacity:.5}50%{opacity:1}}
 .rpg-id .kicker{font-size:.78rem;letter-spacing:.18em;color:#93c5fd;font-weight:700;}
 .rpg-id h2{margin:.15em 0 .1em;font-size:2rem;font-weight:800;letter-spacing:-.02em;color:#fff;border:none;}
 .rpg-id .cls{color:#cbd5e1;font-size:1rem;}
@@ -112,11 +116,59 @@ classes: wide
 
 <!-- ============ HERO ============ -->
 <div class="rpg-hero"><div class="rpg-hero-in">
-  <canvas id="pixel-henry" width="32" height="32" aria-label="Henry 픽셀 캐릭터"></canvas>
+  <svg class="avatar-henry" viewBox="0 0 200 200" role="img" aria-label="Henry 일러스트 아바타">
+    <defs>
+      <linearGradient id="av-ring" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#60a5fa"/><stop offset="1" stop-color="#2563eb"/>
+      </linearGradient>
+      <linearGradient id="av-hood" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#334155"/><stop offset="1" stop-color="#1e293b"/>
+      </linearGradient>
+      <clipPath id="av-clip"><rect x="10" y="10" width="180" height="180" rx="48"/></clipPath>
+    </defs>
+    <rect x="10" y="10" width="180" height="180" rx="48" fill="#0f1d3d"/>
+    <rect x="10" y="10" width="180" height="180" rx="48" fill="none" stroke="url(#av-ring)" stroke-width="3"/>
+    <g clip-path="url(#av-clip)">
+      <!-- body : hoodie -->
+      <path d="M44 200 C44 150 66 132 100 132 C134 132 156 150 156 200 Z" fill="url(#av-hood)"/>
+      <path d="M84 134 L100 152 L116 134" fill="none" stroke="#0f172a" stroke-width="3" stroke-linecap="round"/>
+      <line x1="93" y1="156" x2="93" y2="172" stroke="#60a5fa" stroke-width="3.4" stroke-linecap="round"/>
+      <line x1="107" y1="156" x2="107" y2="172" stroke="#60a5fa" stroke-width="3.4" stroke-linecap="round"/>
+      <!-- neck -->
+      <rect x="89" y="108" width="22" height="22" rx="9" fill="#eec39a"/>
+      <!-- head -->
+      <circle cx="100" cy="80" r="36" fill="#f6d3ac"/>
+      <!-- ears -->
+      <circle cx="64" cy="82" r="6.5" fill="#eec39a"/><circle cx="136" cy="82" r="6.5" fill="#eec39a"/>
+      <!-- hair -->
+      <path d="M63 78 C61 50 79 38 100 38 C121 38 139 50 137 78 C133 64 121 56 100 56 C79 56 67 64 63 78 Z" fill="#26201b"/>
+      <!-- glasses -->
+      <rect x="70" y="71" width="25" height="19" rx="9" fill="rgba(96,165,250,.12)" stroke="#16233f" stroke-width="3.4"/>
+      <rect x="105" y="71" width="25" height="19" rx="9" fill="rgba(96,165,250,.12)" stroke="#16233f" stroke-width="3.4"/>
+      <line x1="95" y1="80" x2="105" y2="80" stroke="#16233f" stroke-width="3.4" stroke-linecap="round"/>
+      <circle cx="82.5" cy="80.5" r="2.8" fill="#16233f"/><circle cx="117.5" cy="80.5" r="2.8" fill="#16233f"/>
+      <!-- brows + smile -->
+      <path d="M74 64 Q82 60 91 63" stroke="#26201b" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <path d="M109 63 Q118 60 126 64" stroke="#26201b" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <path d="M91 99 Q100 106 109 99" stroke="#c98a5b" stroke-width="3.2" fill="none" stroke-linecap="round"/>
+      <!-- laptop -->
+      <path d="M64 168 h72 l6 18 h-84 z" fill="#475569"/>
+      <rect x="70" y="140" width="60" height="30" rx="4" fill="#1e293b" stroke="#475569" stroke-width="2"/>
+      <rect x="76" y="146" width="28" height="4" rx="2" fill="#60a5fa"/>
+      <rect x="76" y="154" width="40" height="4" rx="2" fill="#3b82f6" opacity=".6"/>
+      <rect x="76" y="162" width="20" height="4" rx="2" fill="#93c5fd" opacity=".5"/>
+    </g>
+    <!-- brand data nodes (datatous motif) -->
+    <g class="orb"><circle cx="172" cy="44" r="7" fill="#2563eb"/><circle cx="172" cy="44" r="12" fill="none" stroke="#2563eb" stroke-width="2" opacity=".4"/></g>
+    <g class="orb"><circle cx="30" cy="58" r="5" fill="#60a5fa"/></g>
+    <g class="orb"><circle cx="44" cy="172" r="4.5" fill="#93c5fd"/></g>
+    <polyline points="30,58 44,44 64,50" fill="none" stroke="#60a5fa" stroke-width="2" opacity=".35" stroke-linecap="round"/>
+  </svg>
   <div class="rpg-id">
     <div class="kicker">PLAYER PROFILE</div>
     <h2>Henry</h2>
     <div class="cls">Class. <b>AX Consultant</b> · 종족. 게으른 자동화인(2lazysodoit)</div>
+    <div class="cls" style="font-size:.86rem;margin-top:6px;color:#94a3b8;">공공 데이터 3년 → AX 교육 13,019명 → 에이전틱 시스템 운영 — 데이터 분석과 자동화로 일하는 방식을 바꿔왔습니다.</div>
     <div class="rpg-badges"><span>📊 Data</span><span>🤖 AI·Agentic</span><span>⚡ Automation</span><span>🎓 빅데이터 석사 수련 중</span></div>
     <div class="rpg-lv">LEVEL <b>28</b> <small>— 성과 1건 = 1레벨. 직접 만든 것만 카운트.</small>
       <div class="xpbar"><i></i></div>
@@ -141,92 +193,49 @@ classes: wide
 <!-- ============ EQUIPMENT ============ -->
 <h3 class="sec">🎒 장비</h3>
 <div class="equip">
-  <div class="eq legend"><div class="ic">🦾</div><div><div class="gr">LEGENDARY</div><div class="nm">Claude Code 하네스</div><div class="ds">10+ 도메인 에이전트 일상 운영</div></div></div>
-  <div class="eq epic"><div class="ic">🐍</div><div><div class="gr">EPIC</div><div class="nm">Python</div><div class="ds">예측모델·클러스터링·앙상블</div></div></div>
-  <div class="eq epic"><div class="ic">⚡</div><div><div class="gr">EPIC</div><div class="nm">Power Platform</div><div class="ds">Automate·Copilot Studio·Apps</div></div></div>
-  <div class="eq rare"><div class="ic">📊</div><div><div class="gr">RARE</div><div class="nm">Power BI · Tableau</div><div class="ds">실시간 대시보드 구축</div></div></div>
-  <div class="eq rare"><div class="ic">🗄️</div><div><div class="gr">RARE</div><div class="nm">SQL · DBeaver</div><div class="ds">SQLD 보유</div></div></div>
-  <div class="eq rare"><div class="ic">🎨</div><div><div class="gr">RARE</div><div class="nm">Figma · Vrew · GA4</div><div class="ds">콘텐츠·분석 보조 장비</div></div></div>
+  <div class="eq legend"><div class="ic">🦾</div><div><div class="gr">LEGENDARY</div><div class="nm">Claude Code 하네스</div><div class="ds">블로그 발행·카드뉴스·위키 등 10+ 도메인 에이전트를 일상 운영 — 이 페이지도 산출물</div></div></div>
+  <div class="eq epic"><div class="ic">🐍</div><div><div class="gr">EPIC</div><div class="nm">Python</div><div class="ds">예측모델(scikit-learn 앙상블)·K-Means 클러스터링·ARIMA 시계열·Optuna 튜닝</div></div></div>
+  <div class="eq epic"><div class="ic">⚡</div><div><div class="gr">EPIC</div><div class="nm">Power Platform</div><div class="ds">Power Automate 피드백 993건 자동화, Copilot Studio·Power Apps, SharePoint 사이트 2개 구축</div></div></div>
+  <div class="eq rare"><div class="ic">📊</div><div><div class="gr">RARE</div><div class="nm">Power BI · Tableau</div><div class="ds">VOC 품질 KPI·AX 절감시간 실시간 대시보드 구축, Tableau 부트캠프 수료</div></div></div>
+  <div class="eq rare"><div class="ic">🗄️</div><div><div class="gr">RARE</div><div class="nm">SQL · DBeaver</div><div class="ds">SQLD 보유 — 개방 데이터 81건 품질진단·정비에 실전 사용</div></div></div>
+  <div class="eq rare"><div class="ic">🎨</div><div><div class="gr">RARE</div><div class="nm">Figma · Vrew · GA4</div><div class="ds">AI 쇼츠 가이드 7편 제작, GA4 자격증(2026) — 콘텐츠·분석 보조 장비</div></div></div>
 </div>
 
 <!-- ============ TROPHIES ============ -->
 <h3 class="sec">🏆 업적</h3>
 <div class="trophy">
-  <div class="tp"><div class="em">🏆</div><div class="tt">과기정통부 표창</div><div class="ds">공공데이터 활성화 유공 (2024)</div></div>
-  <div class="tp"><div class="em">🥇</div><div class="tt">2년 연속 '우수' 등급</div><div class="ds">공공데이터·데이터기반행정 평가, 기관 최초</div></div>
-  <div class="tp"><div class="em">💯</div><div class="tt">수준진단 100점</div><div class="ds">전자정부 성과관리, 기관 최초 (2024)</div></div>
-  <div class="tp"><div class="em">📘</div><div class="tt">다운로드 3만+</div><div class="ds">ChatGPT 업무활용 가이드북 2.0</div></div>
-  <div class="tp"><div class="em">⏱️</div><div class="tt">연 9,392시간 절감</div><div class="ds">RPA·시스템 자동화 구축</div></div>
-  <div class="tp"><div class="em">🎓</div><div class="tt">수강생 13,019명</div><div class="ds">KT AX 디그리 2.0 교육 운영</div></div>
-  <div class="tp"><div class="em">📊</div><div class="tt">Kaggle Top 36%</div><div class="ds">대출상환 예측 AUC 0.924</div></div>
-  <div class="tp"><div class="em">🦥</div><div class="tt">자동화 연대기 연재 중</div><div class="ds">1주 1편, 직접 만든 것만 기록</div></div>
+  <div class="tp"><div class="em">🏆</div><div class="tt">과기정통부 표창 (2024.12)</div><div class="ds">공공데이터 활성화 유공 — 데이터 품질·개방·연계 강화 성과로 수여</div></div>
+  <div class="tp"><div class="em">🥇</div><div class="tt">평가 2년 연속 '우수' 등급</div><div class="ds">공공데이터 제공운영·데이터기반행정 실태점검, 기관 최초 — 품질관리 점수 만점</div></div>
+  <div class="tp"><div class="em">💯</div><div class="tt">성과관리 수준진단 100점</div><div class="ds">전자정부 성과관리, 기관 최초 (2024) — 9개 시스템 총괄, 3년 연속 90점 이상</div></div>
+  <div class="tp"><div class="em">📘</div><div class="tt">가이드북 다운로드 3만+</div><div class="ds">ChatGPT 업무활용 가이드북 2.0 집필·개정 총괄 — 교육영상 9건 별도 제작</div></div>
+  <div class="tp"><div class="em">⏱️</div><div class="tt">연 9,392시간 절감</div><div class="ds">RPA 9건 구축·고도화 + 26억 규모 차세대 시스템 클라우드 전환 — 절감 인력 4명 신규사업 전환</div></div>
+  <div class="tp"><div class="em">🎓</div><div class="tt">수강생 13,019명 교육 운영</div><div class="ds">KT AX 디그리 2.0 — 수료 6,124명, 전문가 심층 피드백 993건 지원</div></div>
+  <div class="tp"><div class="em">📊</div><div class="tt">Kaggle Top 36%</div><div class="ds">대출상환 예측 AUC 0.92369 (1,324/3,724위) — CatBoost·LightGBM·XGBoost 앙상블 + Optuna</div></div>
+  <div class="tp"><div class="em">🦥</div><div class="tt">자동화 연대기 연재 중</div><div class="ds">1주 1편, 직접 만들고 이해한 자동화만 기록 — 총 8편 계획</div></div>
 </div>
 
 <!-- ============ QUESTS ============ -->
 <h3 class="sec">📜 퀘스트 로그</h3>
 <div class="quest">
-  <div class="q main"><span class="tag">MAIN</span><div><div class="qt">빅데이터 석사 논문</div><div class="qd">연구 주제 확정 진행 중 — 일과 연구의 병행 수련</div></div></div>
-  <div class="q weekly"><span class="tag">WEEKLY</span><div><div class="qt">자동화 연대기 (2lazysodoit)</div><div class="qd">1주에 하나씩, 일상을 자동화하고 기록한다 → <a href="/categories/#자동화연대기">시리즈 보기</a></div></div></div>
-  <div class="q side"><span class="tag">SIDE</span><div><div class="qt">Kaggle Playground</div><div class="qd">매 시즌 참여로 분석 스킬 단련</div></div></div>
+  <div class="q main"><span class="tag">MAIN</span><div><div class="qt">빅데이터 석사 논문</div><div class="qd">성균관대 빅데이터학과 (2025.03~) — 연구 주제 확정 단계, 일과 연구를 병행 중</div></div></div>
+  <div class="q weekly"><span class="tag">WEEKLY</span><div><div class="qt">자동화 연대기 (2lazysodoit)</div><div class="qd">1주에 하나씩 직접 만든 자동화를 기록 — 출퇴근 개발환경, 교회 주보, 멀티채널 발행, 카드뉴스 등 총 8편 계획 → <a href="/categories/#자동화연대기">시리즈 보기</a></div></div></div>
+  <div class="q side"><span class="tag">SIDE</span><div><div class="qt">Kaggle Playground</div><div class="qd">매 시즌 참여로 분석 스킬 단련 — 최근 대출상환 예측 Top 36%, 학생점수 예측 시즌 참여</div></div></div>
 </div>
 
 <div class="rpg-cta">파티 모집 중 — 자동화 아이디어, 협업, 강의 문의는 <a href="/about/">About</a>에서. 🌿</div>
 
 <script>
-/* ===== pixel character (32x32 map) ===== */
-(function(){
-  var P={'.':null,k:'#0b1220',h:'#3f2d20',s:'#f5cfa8',g:'#1f2937',w:'#ffffff',
-         b:'#2563eb',d:'#1d4ed8',l:'#60a5fa',t:'#94a3b8',p:'#e2e8f0'};
-  var M=[
-  "................................",
-  "................................",
-  "..........hhhhhhhhhh...........",
-  ".........hhhhhhhhhhhh..........",
-  "........hhhhhhhhhhhhhh.........",
-  "........hhsssssssssshh.........",
-  "........hsssssssssssh..........",
-  "........ssssssssssssss.........",
-  "........ssggggssggggss.........",
-  "........sgwwgggsgwwggs.........",
-  "........sgwkgggsgwkggs.........",
-  "........ssggggssggggss.........",
-  "........sssssssssssss..........",
-  ".........sssskkssss............",
-  "..........ssssssss.............",
-  "...........ssss................",
-  "..........bbbbbbbb.............",
-  ".........bbbbbbbbbb............",
-  "........bbbddbbddbbb...........",
-  ".......sbbbbbbbbbbbbs..........",
-  ".......sbbbblbbblbbbs..........",
-  ".......sbbbbbbbbbbbbs..........",
-  ".......sbbbbbbbbbbbbs..........",
-  "........bbbbbbbbbbbb...........",
-  "........ppppppppppp............",
-  ".......pppwwwwwwwppp...........",
-  ".......ppwwlwlwlwwpp...........",
-  ".......ppwwwwwwwwwpp...........",
-  ".......ttttttttttttt...........",
-  "........gggg....gggg...........",
-  "........gggg....gggg...........",
-  "................................"];
-  var c=document.getElementById('pixel-henry');if(!c)return;
-  var x=c.getContext('2d');
-  M.forEach(function(row,y){for(var i=0;i<row.length;i++){
-    var col=P[row[i]];if(col){x.fillStyle=col;x.fillRect(i,y,1,1);}}});
-})();
-
 /* ===== stats: data-driven from achievements DB ===== */
 (function(){
   var stats=[
-    {nm:'문제정의·기획',en:'Problem Framing',lv:9,g:92,src:'성과 12건 · 4년차',up:true},
-    {nm:'데이터 분석',en:'Data Analysis',lv:8,g:84,src:'성과 9건 · 4년차',up:true},
-    {nm:'자동화·프로세스',en:'Automation',lv:8,g:80,src:'성과 7건 · 연 9,392h 절감',up:true},
-    {nm:'AI·에이전틱',en:'AI & Agentic',lv:8,g:78,src:'성과 7건 · 하네스 운영 중',up:true},
-    {nm:'프로젝트 관리',en:'Project Mgmt',lv:7,g:74,src:'성과 7건 · 26억 사업 경험'},
-    {nm:'보고서·문서화',en:'Documentation',lv:7,g:72,src:'성과 7건 · 가이드북 3만 DL'},
-    {nm:'커뮤니케이션',en:'Communication',lv:7,g:70,src:'성과 5건 · 개발자↔현업 다리'},
-    {nm:'BI·시각화',en:'BI & Viz',lv:6,g:64,src:'성과 4건 · 실시간 대시보드'}
+    {nm:'문제정의·기획',en:'Problem Framing',lv:9,g:92,src:'성과 12건 — 약 20개 기관 분석과제 기획 컨설팅, 화장품 위해평가 B2B 모델 설계, AX 피드백 프로세스 기획 등',up:true},
+    {nm:'데이터 분석',en:'Data Analysis',lv:8,g:84,src:'성과 9건 — 식수인원 예측모델(MAE 8.17·R² 0.85), 기상특보 시계열 분석(ARIMA), K-Means 클러스터링 2건, Kaggle AUC 0.924',up:true},
+    {nm:'자동화·프로세스',en:'Automation',lv:8,g:80,src:'성과 7건 — RPA 9건 구축(연 9,392시간 절감·누적 1.3만건 처리), 수료증 발송 5배 가속, AI 쇼츠 제작 70% 단축',up:true},
+    {nm:'AI·에이전틱',en:'AI & Agentic',lv:8,g:78,src:'성과 7건 — ChatGPT 가이드북 2.0(3만 DL), AI 기술기준 정립, 10+ 도메인 에이전트 하네스 운영 중',up:true},
+    {nm:'프로젝트 관리',en:'Project Mgmt',lv:7,g:74,src:'성과 7건 — 26억 클라우드 전환 사업, 13,019명 교육 운영, 3년 유지보수 계약 관리(2.3억 절감)'},
+    {nm:'보고서·문서화',en:'Documentation',lv:7,g:72,src:'성과 7건 — 정책보고서 2개년 발간, 가이드북 집필·개정, 12년 만의 내규 전부개정'},
+    {nm:'커뮤니케이션',en:'Communication',lv:7,g:70,src:'성과 5건 — 개발자↔현업 요구사항 조율, 기관 간담회 11회, 인터뷰 영상 정리로 의견차 최소화'},
+    {nm:'BI·시각화',en:'BI & Viz',lv:6,g:64,src:'성과 4건 — VOC 품질 Power BI 대시보드, AX 절감시간 실시간 대시보드(총 3,547분 추적)'}
   ];
   var wrap=document.getElementById('stats');if(!wrap)return;
   stats.forEach(function(s){
