@@ -32,13 +32,22 @@ classes: wide
   linear-gradient(rgba(96,165,250,.08) 1px,transparent 1px),
   linear-gradient(90deg,rgba(96,165,250,.08) 1px,transparent 1px);background-size:34px 34px;}
 .rpg-hero-in{position:relative;display:flex;gap:34px;align-items:center;flex-wrap:wrap;justify-content:center;}
-.avatar-henry{width:180px;height:180px;flex:none;
-  filter:drop-shadow(0 12px 28px rgba(37,99,235,.4));animation:bob 3s ease-in-out infinite;}
+.avatar-frame{position:relative;width:188px;height:236px;flex:none;border-radius:24px;
+  padding:4px;background:linear-gradient(150deg,#60a5fa,#2563eb 60%,#1d4ed8);
+  box-shadow:0 16px 36px rgba(37,99,235,.42);animation:bob 3.4s ease-in-out infinite;}
 @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
-.avatar-henry .orb{animation:orbpulse 2.4s ease-in-out infinite;transform-origin:center;}
-.avatar-henry .orb:nth-child(2){animation-delay:.5s;}
-.avatar-henry .orb:nth-child(3){animation-delay:1.1s;}
-@keyframes orbpulse{0%,100%{opacity:.5}50%{opacity:1}}
+.avatar-frame img{width:100%;height:100%;object-fit:cover;object-position:center 16%;
+  border-radius:20px;display:block;}
+.avatar-frame .scrim{position:absolute;inset:4px;border-radius:20px;pointer-events:none;
+  background:linear-gradient(180deg,rgba(11,18,32,0) 60%,rgba(11,18,32,.45));}
+.avatar-frame .orb{position:absolute;animation:orbpulse 2.4s ease-in-out infinite;}
+.avatar-frame .orb.o1{top:-9px;right:-9px;width:20px;height:20px;border-radius:50%;
+  background:#2563eb;box-shadow:0 0 0 6px rgba(37,99,235,.22);}
+.avatar-frame .orb.o2{bottom:24px;left:-11px;width:13px;height:13px;border-radius:50%;
+  background:#60a5fa;animation-delay:.6s;}
+.avatar-frame .orb.o3{top:38%;right:-13px;width:9px;height:9px;border-radius:50%;
+  background:#93c5fd;animation-delay:1.1s;}
+@keyframes orbpulse{0%,100%{opacity:.55;transform:scale(.9)}50%{opacity:1;transform:scale(1.1)}}
 .rpg-id .kicker{font-size:.78rem;letter-spacing:.18em;color:#93c5fd;font-weight:700;}
 .rpg-id h2{margin:.15em 0 .1em;font-size:2rem;font-weight:800;letter-spacing:-.02em;color:#fff;border:none;}
 .rpg-id .cls{color:#cbd5e1;font-size:1rem;}
@@ -128,71 +137,11 @@ classes: wide
 
 <!-- ============ HERO ============ -->
 <div class="rpg-hero"><div class="rpg-hero-in">
-  <svg class="avatar-henry" viewBox="0 0 200 200" role="img" aria-label="Henry 일러스트 아바타">
-    <defs>
-      <linearGradient id="av-ring" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0" stop-color="#60a5fa"/><stop offset="1" stop-color="#2563eb"/>
-      </linearGradient>
-      <linearGradient id="av-hood" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0" stop-color="#e4eefb"/><stop offset="1" stop-color="#c2d6ef"/>
-      </linearGradient>
-      <clipPath id="av-clip"><rect x="10" y="10" width="180" height="180" rx="48"/></clipPath>
-    </defs>
-    <rect x="10" y="10" width="180" height="180" rx="48" fill="#0f1d3d"/>
-    <rect x="10" y="10" width="180" height="180" rx="48" fill="none" stroke="url(#av-ring)" stroke-width="3"/>
-    <g clip-path="url(#av-clip)">
-      <!-- shoulders : crisp light-blue collared shirt -->
-      <path d="M38 200 C38 156 62 140 100 140 C138 140 162 156 162 200 Z" fill="url(#av-hood)"/>
-      <path d="M70 146 L100 176 L130 146" fill="#ffffff" opacity=".5"/>
-      <!-- collar -->
-      <path d="M86 140 L100 162 L84 152 Z" fill="#fff"/><path d="M114 140 L100 162 L116 152 Z" fill="#fff"/>
-      <path d="M86 140 L100 162 L84 152 Z" fill="none" stroke="#aabfdd" stroke-width="1.4"/>
-      <path d="M114 140 L100 162 L116 152 Z" fill="none" stroke="#aabfdd" stroke-width="1.4"/>
-      <line x1="100" y1="160" x2="100" y2="200" stroke="#aabfdd" stroke-width="1.6"/>
-      <circle cx="100" cy="178" r="1.6" fill="#9fb6d8"/>
-      <!-- neck -->
-      <path d="M89 116 h22 v13 c0 9 -22 9 -22 0 z" fill="#edbf94"/>
-      <path d="M89 124 c6 6 16 6 22 0 v5 c0 9 -22 9 -22 0 z" fill="#000" opacity=".05"/>
-      <!-- head : oval with defined jaw -->
-      <path d="M68 84 C68 105 79 121 100 122 C121 121 132 105 132 84 C132 59 118 49 100 49 C82 49 68 59 68 84 Z" fill="#f7d3aa"/>
-      <!-- jaw/cheek soft shading -->
-      <path d="M70 90 C73 106 84 118 100 120 C95 118 86 108 82 94 Z" fill="#e7b483" opacity=".35"/>
-      <!-- ears -->
-      <circle cx="68" cy="90" r="6" fill="#edbf94"/><circle cx="132" cy="90" r="6" fill="#edbf94"/>
-      <!-- hair : clean dandy cut, side-swept quiff -->
-      <path d="M64 90 C57 73 60 49 84 43 C95 40 109 40 119 45 C137 53 141 75 135 90
-               C133 79 129 74 124 73 C126 66 122 60 115 59
-               C104 52 86 53 78 60 C71 66 67 76 68 86 C66 87 65 88 64 90 Z" fill="#211a13"/>
-      <!-- swept fringe -->
-      <path d="M68 84 C70 64 88 56 108 60 C119 62 124 68 124 73
-               C113 64 95 63 82 70 C74 74 70 79 68 84 Z" fill="#2b2118"/>
-      <!-- hair strand highlights -->
-      <path d="M92 49 C84 56 78 64 76 74" stroke="#3a2c1f" stroke-width="2" fill="none" stroke-linecap="round" opacity=".6"/>
-      <path d="M108 50 C116 56 121 63 123 71" stroke="#3a2c1f" stroke-width="2" fill="none" stroke-linecap="round" opacity=".5"/>
-      <!-- eyes : almond, gentle -->
-      <path d="M77 87 Q85 82 93 87" fill="none" stroke="#241c15" stroke-width="2" stroke-linecap="round"/>
-      <path d="M107 87 Q115 82 123 87" fill="none" stroke="#241c15" stroke-width="2" stroke-linecap="round"/>
-      <ellipse cx="85" cy="89.5" rx="3.4" ry="4" fill="#2a211a"/>
-      <ellipse cx="115" cy="89.5" rx="3.4" ry="4" fill="#2a211a"/>
-      <circle cx="86.2" cy="88.2" r="1.1" fill="#fff" opacity=".85"/>
-      <circle cx="116.2" cy="88.2" r="1.1" fill="#fff" opacity=".85"/>
-      <!-- brows : clean, subtle -->
-      <path d="M77 80 Q85 77 93 79.5" stroke="#211a13" stroke-width="2.4" fill="none" stroke-linecap="round"/>
-      <path d="M107 79.5 Q115 77 123 80" stroke="#211a13" stroke-width="2.4" fill="none" stroke-linecap="round"/>
-      <!-- nose -->
-      <path d="M100 91 L97 101 Q100 103 103 101" stroke="#dba87a" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-      <!-- gentle smile -->
-      <path d="M91 108 Q100 114 109 108" stroke="#bf7150" stroke-width="2.6" fill="none" stroke-linecap="round"/>
-      <!-- cheek blush -->
-      <ellipse cx="80" cy="101" rx="4.2" ry="2.6" fill="#f1a085" opacity=".35"/>
-      <ellipse cx="120" cy="101" rx="4.2" ry="2.6" fill="#f1a085" opacity=".35"/>
-    </g>
-    <!-- brand data nodes (datatous motif) -->
-    <g class="orb"><circle cx="172" cy="44" r="7" fill="#2563eb"/><circle cx="172" cy="44" r="12" fill="none" stroke="#2563eb" stroke-width="2" opacity=".4"/></g>
-    <g class="orb"><circle cx="30" cy="58" r="5" fill="#60a5fa"/></g>
-    <g class="orb"><circle cx="44" cy="172" r="4.5" fill="#93c5fd"/></g>
-    <polyline points="30,58 44,44 64,50" fill="none" stroke="#60a5fa" stroke-width="2" opacity=".35" stroke-linecap="round"/>
-  </svg>
+  <div class="avatar-frame" role="img" aria-label="Henry 일러스트 — 카페에서 데이터를 보는 모습">
+    <img src="/assets/images/henry-portrait.png" alt="Henry">
+    <span class="scrim"></span>
+    <span class="orb o1"></span><span class="orb o2"></span><span class="orb o3"></span>
+  </div>
   <div class="rpg-id">
     <div class="kicker">PLAYER PROFILE</div>
     <h2>Henry</h2>
