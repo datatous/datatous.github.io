@@ -144,7 +144,7 @@ classes: wide
   <div class="rpg-id">
     <div class="kicker">PLAYER PROFILE</div>
     <h2>Henry</h2>
-    <div class="cls">Class. <b>AX Consultant</b> · 종족. 게으른 자동화인(2lazysodoit)</div>
+    <div class="cls">Class. <b>AX Consultant</b> · Data &amp; Automation Specialist</div>
     <div class="cls" style="font-size:.86rem;margin-top:6px;color:#94a3b8;">공공 데이터 3년 → AX 교육 13,019명 → 에이전틱 시스템 운영 — 데이터 분석과 자동화로 일하는 방식을 바꿔왔습니다.</div>
     <div class="rpg-badges"><span>📊 Data</span><span>🤖 AI·Agentic</span><span>⚡ Automation</span><span>🎓 빅데이터 석사 수련 중</span></div>
     <div class="rpg-lv">LEVEL <b>28</b> <small>— 성과 1건 = 1레벨. 직접 만든 것만 카운트.</small>
