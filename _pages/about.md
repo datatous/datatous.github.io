@@ -171,7 +171,7 @@ classes: wide
 <h3 class="sec">🎒 장비</h3>
 <div class="equip">
   <div class="eq legend"><div class="ic">🦾</div><div><div class="gr">LEGENDARY</div><div class="nm">Claude Code 하네스</div><div class="ds">블로그 발행·카드뉴스·위키 등 10+ 도메인 에이전트를 일상 운영 — 이 페이지도 산출물</div></div></div>
-  <div class="eq epic"><div class="ic">🐍</div><div><div class="gr">EPIC</div><div class="nm">Python</div><div class="ds">예측모델(scikit-learn 앙상블)·K-Means 클러스터링·ARIMA 시계열·Optuna 튜닝</div></div></div>
+  <div class="eq epic"><div class="ic">🐍</div><div><div class="gr">EPIC</div><div class="nm">Python</div><div class="ds">예측모델(scikit-learn 앙상블)·K-Means 클러스터링·ARIMA 시계열 분석</div></div></div>
   <div class="eq epic"><div class="ic">⚡</div><div><div class="gr">EPIC</div><div class="nm">Power Platform</div><div class="ds">Power Automate 피드백 993건 자동화, Copilot Studio·Power Apps, SharePoint 사이트 2개 구축</div></div></div>
   <div class="eq rare"><div class="ic">📊</div><div><div class="gr">RARE</div><div class="nm">Power BI · Tableau</div><div class="ds">VOC 품질 KPI·AX 절감시간 실시간 대시보드 구축, Tableau 부트캠프 수료</div></div></div>
   <div class="eq rare"><div class="ic">🗄️</div><div><div class="gr">RARE</div><div class="nm">SQL · DBeaver</div><div class="ds">SQLD 보유 — 개방 데이터 81건 품질진단·정비에 실전 사용</div></div></div>
@@ -187,7 +187,6 @@ classes: wide
   <div class="tp"><div class="em">📘</div><div class="tt">가이드북 다운로드 3만+</div><div class="ds">ChatGPT 업무활용 가이드북 2.0 집필·개정 총괄 — 교육영상 9건 별도 제작</div></div>
   <div class="tp"><div class="em">⏱️</div><div class="tt">연 9,392시간 절감</div><div class="ds">RPA 9건 구축·고도화 + 26억 규모 차세대 시스템 클라우드 전환 — 절감 인력 4명 신규사업 전환</div></div>
   <div class="tp"><div class="em">🎓</div><div class="tt">수강생 13,019명 교육 운영</div><div class="ds">KT AX 디그리 2.0 — 수료 6,124명, 전문가 심층 피드백 993건 지원</div></div>
-  <div class="tp"><div class="em">📊</div><div class="tt">Kaggle Top 36%</div><div class="ds">대출상환 예측 AUC 0.92369 (1,324/3,724위) — CatBoost·LightGBM·XGBoost 앙상블 + Optuna</div></div>
   <div class="tp"><div class="em">🦥</div><div class="tt">자동화 연대기 연재 중</div><div class="ds">1주 1편, 직접 만들고 이해한 자동화만 기록 — 총 8편 계획</div></div>
 </div>
 
@@ -196,7 +195,7 @@ classes: wide
 <div class="quest">
   <div class="q main"><span class="tag">MAIN</span><div><div class="qt">빅데이터 석사 논문</div><div class="qd">성균관대 빅데이터학과 (2025.03~) — 연구 주제 확정 단계, 일과 연구를 병행 중</div></div></div>
   <div class="q weekly"><span class="tag">WEEKLY</span><div><div class="qt">자동화 연대기 (2lazysodoit)</div><div class="qd">1주에 하나씩 직접 만든 자동화를 기록 — 출퇴근 개발환경, 교회 주보, 멀티채널 발행, 카드뉴스 등 총 8편 계획 → <a href="/categories/#자동화연대기">시리즈 보기</a></div></div></div>
-  <div class="q side"><span class="tag">SIDE</span><div><div class="qt">Kaggle Playground</div><div class="qd">매 시즌 참여로 분석 스킬 단련 — 최근 대출상환 예측 Top 36%, 학생점수 예측 시즌 참여</div></div></div>
+  <div class="q side"><span class="tag">SIDE</span><div><div class="qt">LLM Wiki · 세컨브레인</div><div class="qd">하네스 엔지니어링·에이전틱 패턴 등 공부한 지식을 위키에 실시간 축적 → <a href="/wiki/">Wiki 보기</a></div></div></div>
 </div>
 
 <div class="rpg-cta">파티 모집 중 — 자동화 아이디어, 협업, 강의 문의는 <a href="/profile/">텍스트 소개 · 연락처</a>에서. 🌿</div>
@@ -206,7 +205,7 @@ classes: wide
 (function(){
   var stats=[
     {nm:'문제정의·기획',en:'Problem Framing',lv:9,g:92,src:'성과 12건 — 약 20개 기관 분석과제 기획 컨설팅, 화장품 위해평가 B2B 모델 설계, AX 피드백 프로세스 기획 등',up:true},
-    {nm:'데이터 분석',en:'Data Analysis',lv:8,g:84,src:'성과 9건 — 식수인원 예측모델(MAE 8.17·R² 0.85), 기상특보 시계열 분석(ARIMA), K-Means 클러스터링 2건, Kaggle AUC 0.924',up:true},
+    {nm:'데이터 분석',en:'Data Analysis',lv:8,g:84,src:'성과 8건 — 식수인원 예측모델(MAE 8.17·R² 0.85), 기상특보 시계열 분석(ARIMA), K-Means 클러스터링 2건, 화장품 위해평가 모델',up:true},
     {nm:'자동화·프로세스',en:'Automation',lv:8,g:80,src:'성과 7건 — RPA 9건 구축(연 9,392시간 절감·누적 1.3만건 처리), 수료증 발송 5배 가속, AI 쇼츠 제작 70% 단축',up:true},
     {nm:'AI·에이전틱',en:'AI & Agentic',lv:8,g:78,src:'성과 7건 — ChatGPT 가이드북 2.0(3만 DL), AI 기술기준 정립, 10+ 도메인 에이전트 하네스 운영 중',up:true},
     {nm:'프로젝트 관리',en:'Project Mgmt',lv:7,g:74,src:'성과 7건 — 26억 클라우드 전환 사업, 13,019명 교육 운영, 3년 유지보수 계약 관리(2.3억 절감)'},
