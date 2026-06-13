@@ -36,10 +36,9 @@ classes: wide
   padding:4px;background:linear-gradient(150deg,#60a5fa,#2563eb 60%,#1d4ed8);
   box-shadow:0 16px 36px rgba(37,99,235,.42);animation:bob 3.4s ease-in-out infinite;}
 @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
-.avatar-frame img{width:100%;height:100%;object-fit:cover;object-position:center 16%;
-  border-radius:20px;display:block;}
-.avatar-frame .scrim{position:absolute;inset:4px;border-radius:20px;pointer-events:none;
-  background:linear-gradient(180deg,rgba(11,18,32,0) 60%,rgba(11,18,32,.45));}
+.avatar-frame img{width:100%;height:100%;object-fit:contain;border-radius:20px;display:block;
+  background:radial-gradient(120% 120% at 50% 18%,#16264a 0%,#0c1426 70%);}
+.avatar-frame .scrim{display:none;}
 .avatar-frame .orb{position:absolute;animation:orbpulse 2.4s ease-in-out infinite;}
 .avatar-frame .orb.o1{top:-9px;right:-9px;width:20px;height:20px;border-radius:50%;
   background:#2563eb;box-shadow:0 0 0 6px rgba(37,99,235,.22);}
