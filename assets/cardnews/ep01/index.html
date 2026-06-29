@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>자동화 연대기 EP.01 — 카드뉴스</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html,body{height:100%;background:#0d0d0d;overflow:hidden;}
+  .deck{
+    display:flex;
+    gap:20px;
+    height:100vh;
+    align-items:center;
+    overflow-x:auto;
+    overflow-y:hidden;
+    scroll-snap-type:x mandatory;
+    -webkit-overflow-scrolling:touch;
+    padding:0 calc(50vw - (1080px * var(--s,.42)) / 2);
+  }
+  .deck::-webkit-scrollbar{height:6px;}
+  .deck::-webkit-scrollbar-thumb{background:#444;border-radius:4px;}
+  .card{
+    flex:0 0 auto;
+    width:calc(1080px * var(--s,.42));
+    height:calc(1350px * var(--s,.42));
+    scroll-snap-align:center;
+    border-radius:calc(20px * var(--s,.42));
+    overflow:hidden;
+    box-shadow:0 8px 32px rgba(0,0,0,.6);
+  }
+  .card img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+    pointer-events:none;
+    user-select:none;
+  }
+</style>
+</head>
+<body>
+<div class="deck">
+  <div class="card"><img src="/assets/images/cards/commute-dev-setup/01_slide.png" alt="EP.01 슬라이드 1"></div>
+  <div class="card"><img src="/assets/images/cards/commute-dev-setup/02_slide.png" alt="EP.01 슬라이드 2"></div>
+  <div class="card"><img src="/assets/images/cards/commute-dev-setup/03_slide.png" alt="EP.01 슬라이드 3"></div>
+  <div class="card"><img src="/assets/images/cards/commute-dev-setup/04_slide.png" alt="EP.01 슬라이드 4"></div>
+  <div class="card"><img src="/assets/images/cards/commute-dev-setup/05_slide.png" alt="EP.01 슬라이드 5"></div>
+  <div class="card"><img src="/assets/images/cards/commute-dev-setup/06_slide.png" alt="EP.01 슬라이드 6"></div>
+  <div class="card"><img src="/assets/images/cards/commute-dev-setup/07_slide.png" alt="EP.01 슬라이드 7"></div>
+  <div class="card"><img src="/assets/images/cards/commute-dev-setup/08_slide.png" alt="EP.01 슬라이드 8"></div>
+</div>
+<script>
+  function fit(){var h=window.innerHeight||720;document.documentElement.style.setProperty('--s',(h*0.94/1350));}
+  fit();window.addEventListener('resize',fit);
+</script>
+</body>
+</html>

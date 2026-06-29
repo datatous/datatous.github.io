@@ -20,6 +20,15 @@ header:
   overlay_filter: 0.5
 ---
 
+## 📱 카드뉴스 (좌우로 넘겨보세요)
+
+<iframe src="/assets/cardnews/ep01/" title="자동화 연대기 EP.01 카드뉴스" loading="lazy" scrolling="no" style="width:100%;max-width:460px;aspect-ratio:4/5;border:0;border-radius:16px;display:block;margin:1.2em auto .3em;background:#111827;box-shadow:0 10px 34px rgba(0,0,0,.28);"></iframe>
+<p style="text-align:center;font-size:.85em;color:#999;margin:0 0 1.8em;">← 좌우로 스와이프</p>
+
+아래는 같은 이야기를 글로 풀어쓴 버전이다.
+
+---
+
 > **3줄 요약**
 > - 수원↔잠실 왕복 3시간, 워크데이 기준 한 달 <mark>60시간을 개발 시간</mark>으로 바꿨다.
 > - Claude Code를 폰에서 — 처음엔 Happy 앱, 지금은 공식 Remote Control로 갈아탔다.
