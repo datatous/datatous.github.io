@@ -1,0 +1,585 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<title>청첩장 누구줄래?</title>
+<style>
+  :root{
+    --bg:#f5f2ef; --surface:#ffffff; --surface-2:#faf7f4;
+    --ink:#332f2d; --muted:#8a827c; --line:#ece5df; --line-2:#e0d7cf;
+    --accent:#9c3b56; --accent-soft:#f4e4e9; --accent-ink:#7c2f45;
+    --ok:#3f8f6b; --ok-soft:#e5f1ea; --warn:#bd842f; --warn-soft:#f6ecd9; --hold:#9a938d; --hold-soft:#eeeae6;
+    --shadow:0 8px 30px rgba(90,50,60,.09); --shadow-sm:0 2px 10px rgba(90,50,60,.06);
+    --r:18px; --r-sm:12px; --maxw:840px;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --bg:#201d1c; --surface:#2a2624; --surface-2:#312c29;
+      --ink:#f0ebe6; --muted:#a89f98; --line:#3a3431; --line-2:#463f3a;
+      --accent:#e6899e; --accent-soft:#3b2a30; --accent-ink:#f0b8c6;
+      --ok:#74c79c; --ok-soft:#22322a; --warn:#e0b25f; --warn-soft:#332c1c; --hold:#9a938d; --hold-soft:#2f2a27;
+      --shadow:0 8px 30px rgba(0,0,0,.35); --shadow-sm:0 2px 10px rgba(0,0,0,.25);
+    }
+  }
+  :root[data-theme="light"]{
+    --bg:#f5f2ef; --surface:#ffffff; --surface-2:#faf7f4;
+    --ink:#332f2d; --muted:#8a827c; --line:#ece5df; --line-2:#e0d7cf;
+    --accent:#9c3b56; --accent-soft:#f4e4e9; --accent-ink:#7c2f45;
+    --ok:#3f8f6b; --ok-soft:#e5f1ea; --warn:#bd842f; --warn-soft:#f6ecd9; --hold:#9a938d; --hold-soft:#eeeae6;
+    --shadow:0 8px 30px rgba(90,50,60,.09); --shadow-sm:0 2px 10px rgba(90,50,60,.06);
+  }
+  :root[data-theme="dark"]{
+    --bg:#201d1c; --surface:#2a2624; --surface-2:#312c29;
+    --ink:#f0ebe6; --muted:#a89f98; --line:#3a3431; --line-2:#463f3a;
+    --accent:#e6899e; --accent-soft:#3b2a30; --accent-ink:#f0b8c6;
+    --ok:#74c79c; --ok-soft:#22322a; --warn:#e0b25f; --warn-soft:#332c1c; --hold:#9a938d; --hold-soft:#2f2a27;
+    --shadow:0 8px 30px rgba(0,0,0,.35); --shadow-sm:0 2px 10px rgba(0,0,0,.25);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{
+    background:var(--bg); color:var(--ink);
+    font-family:"Pretendard","Malgun Gothic","Apple SD Gothic Neo","Segoe UI",system-ui,sans-serif;
+    line-height:1.5; -webkit-text-size-adjust:100%; padding-bottom:88px;
+    font-variant-numeric:tabular-nums;
+  }
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 16px}
+  h1,h2,h3{margin:0}
+  button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+  input,select{font-family:inherit;font-size:15px;color:var(--ink)}
+  :focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:6px}
+
+  header{padding:30px 0 8px;text-align:center}
+  .kicker{font-size:11.5px;letter-spacing:.34em;color:var(--accent);font-weight:700;text-transform:uppercase}
+  h1{font-family:"Nanum Myeongjo","Batang",serif;font-size:33px;font-weight:800;letter-spacing:-.01em;margin:9px 0 5px;text-wrap:balance}
+  .sub{color:var(--muted);font-size:13.5px}
+
+  /* live counts */
+  .stats{display:flex;gap:7px;justify-content:center;flex-wrap:wrap;margin:16px 0 2px}
+  .stat{background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:6px 13px;font-size:12.5px;box-shadow:var(--shadow-sm);white-space:nowrap;font-weight:600}
+  .stat b{font-size:14.5px;margin-left:1px}
+  .stat .dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px;vertical-align:middle}
+
+  /* how-to manual */
+  .manual{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow-sm);margin:18px 0 4px;overflow:hidden}
+  .manual summary{list-style:none;cursor:pointer;padding:13px 18px;display:flex;align-items:center;gap:9px;font-weight:700;font-size:14px}
+  .manual summary::-webkit-details-marker{display:none}
+  .manual summary .chev{margin-left:auto;color:var(--muted);transition:transform .2s}
+  .manual[open] summary .chev{transform:rotate(180deg)}
+  .manual .body{padding:4px 18px 20px}
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+  .step{background:var(--surface-2);border:1px solid var(--line);border-radius:14px;padding:13px 13px 15px;position:relative}
+  .step .no{font-size:11px;font-weight:800;color:var(--accent);letter-spacing:.05em}
+  .step .t{font-weight:700;font-size:13.5px;margin:3px 0 9px}
+  .step .demo{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px;min-height:64px;display:flex;flex-wrap:wrap;gap:5px;align-items:center;justify-content:center}
+  .step .cap{font-size:11.5px;color:var(--muted);margin-top:9px;line-height:1.45}
+  /* mini mockup bits */
+  .mpill{font-size:11px;padding:4px 9px;border-radius:999px;border:1.5px solid var(--line-2);background:var(--surface);display:inline-flex;align-items:center;gap:5px}
+  .mpill.on{border-color:var(--accent);background:var(--accent-soft);color:var(--accent-ink);font-weight:700}
+  .mpill .cd{width:8px;height:8px;border-radius:50%}
+  .minput{width:100%;font-size:12px;padding:7px 9px;border:1.5px solid var(--line-2);border-radius:8px;background:var(--surface);color:var(--muted);display:flex;justify-content:space-between;align-items:center}
+  .minput .cur{color:var(--accent);font-weight:800}
+  .mkey{font-size:10px;border:1px solid var(--line-2);border-radius:5px;padding:2px 6px;color:var(--muted);background:var(--surface-2)}
+  .mchip2{font-size:11px;font-weight:800;padding:4px 10px;border-radius:999px}
+  .mgroup{width:100%}
+  .mgroup .gt{font-size:11px;font-weight:800;margin-bottom:6px;display:flex;justify-content:space-between}
+  .marr{color:var(--accent);font-weight:800}
+
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);padding:17px;margin:14px 0}
+  .card-title{font-size:12.5px;font-weight:800;color:var(--accent-ink);letter-spacing:.02em;margin-bottom:12px;display:flex;align-items:center;gap:7px}
+  .card-title .lead{color:var(--muted);font-weight:600}
+
+  .tabs{display:flex;gap:5px;justify-content:center;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:5px;margin:20px auto 6px;max-width:340px;box-shadow:var(--shadow-sm)}
+  .tab{flex:1;padding:10px 12px;border-radius:999px;font-weight:700;font-size:13.5px;color:var(--muted);text-align:center}
+  .tab.active{background:var(--accent);color:#fff;box-shadow:var(--shadow-sm)}
+
+  /* now-filling banner */
+  .nowbar{display:flex;align-items:center;gap:10px;background:var(--accent-soft);border:1px solid var(--line-2);border-radius:var(--r-sm);padding:10px 14px;margin-bottom:12px}
+  .nowbar .lbl{font-size:11.5px;color:var(--accent-ink);font-weight:700;letter-spacing:.03em}
+  .nowbar .cur{font-size:16px;font-weight:800;color:var(--ink);display:inline-flex;align-items:center;gap:7px}
+  .nowbar .cur .cd{width:11px;height:11px;border-radius:50%}
+  .nowbar .cnt{margin-left:auto;font-size:12px;color:var(--muted);font-weight:700}
+
+  .cats{display:flex;flex-wrap:wrap;gap:8px}
+  .cat{display:inline-flex;align-items:center;gap:7px;padding:8px 13px;border-radius:999px;border:1.5px solid var(--line-2);background:var(--surface);font-size:13.5px;font-weight:600}
+  .cat .cdot{width:10px;height:10px;border-radius:50%;flex:none}
+  .cat .cnt{color:var(--muted);font-weight:700;font-size:11.5px}
+  .cat.sel{border-color:var(--accent);background:var(--accent-soft);color:var(--accent-ink);box-shadow:var(--shadow-sm)}
+  .cat .x{opacity:0;margin-left:1px;color:var(--muted);font-weight:700;transition:.15s;font-size:12px}
+  .cat:hover .x,.cat:focus-within .x{opacity:.55}
+  .cat-add{border-style:dashed;color:var(--muted)}
+
+  .addbar{display:flex;gap:8px;margin-top:14px}
+  .addbar input.name{flex:1;min-width:0;padding:13px 15px;border-radius:var(--r-sm);border:1.5px solid var(--line-2);background:var(--surface-2);font-size:15.5px}
+  .addbar input.name:focus{outline:none;border-color:var(--accent);background:var(--surface)}
+  .addbar button{background:var(--accent);color:#fff;font-weight:800;padding:0 20px;border-radius:var(--r-sm);white-space:nowrap;font-size:15px}
+  .hint{font-size:12px;color:var(--muted);margin-top:9px}
+
+  .viewrow{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:4px}
+  .search{padding:9px 13px;border-radius:999px;border:1.5px solid var(--line-2);background:var(--surface-2);font-size:13.5px;width:160px}
+  .search:focus{outline:none;border-color:var(--accent);background:var(--surface)}
+  .people{display:flex;flex-direction:column;gap:8px}
+  .person{display:flex;align-items:center;gap:10px;padding:11px 12px;border:1px solid var(--line);border-radius:var(--r-sm);background:var(--surface-2)}
+  .person .pcat{width:9px;height:9px;border-radius:50%;flex:none}
+  .person .pname{font-weight:700;font-size:15.5px;border:none;background:transparent;padding:3px 5px;border-radius:6px;min-width:44px;max-width:150px}
+  .person .pname:focus{outline:none;background:var(--surface);box-shadow:0 0 0 2px var(--accent-soft)}
+  .person .pmemo{flex:1;min-width:70px;font-size:13px;color:var(--muted);border:none;background:transparent;padding:3px 5px}
+  .person .pmemo:focus{outline:none;background:var(--surface);color:var(--ink);border-radius:6px}
+  .person .pmemo::placeholder{color:var(--line-2)}
+  .chip{border-radius:999px;padding:5px 12px;font-size:12.5px;font-weight:800;white-space:nowrap;border:1px solid transparent}
+  .chip.d-must{background:var(--ok-soft);color:var(--ok)}
+  .chip.d-maybe{background:var(--warn-soft);color:var(--warn)}
+  .chip.d-hold{background:var(--hold-soft);color:var(--hold)}
+  .person select.movecat{border:1px solid var(--line-2);border-radius:8px;padding:6px 6px;font-size:12px;background:var(--surface);color:var(--muted);max-width:112px}
+  .person .del{color:var(--line-2);font-size:18px;font-weight:700;padding:2px 6px;line-height:1}
+  .person .del:hover{color:var(--accent)}
+  .empty{color:var(--muted);font-size:13.5px;text-align:center;padding:30px 12px;line-height:1.6}
+
+  /* grouping */
+  .gtools{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:6px}
+  .btn{border:1.5px solid var(--line-2);background:var(--surface);border-radius:999px;padding:9px 15px;font-size:13px;font-weight:700;color:var(--accent-ink)}
+  .btn:hover{border-color:var(--accent)}
+  .btn.primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+  .btn.ghost{color:var(--muted);font-weight:600}
+  .selhint{font-size:12.5px;color:var(--muted);margin:8px 0 12px;padding:9px 13px;background:var(--surface-2);border-radius:11px;border:1px dashed var(--line-2)}
+  .selhint b{color:var(--accent-ink)}
+  .group{border:1.5px solid var(--line);border-radius:var(--r);padding:15px;margin:12px 0;background:var(--surface);transition:box-shadow .15s,border-color .15s}
+  .group.active{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+  .ghead{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .ghead .gname{font-weight:800;font-size:15.5px;border:none;background:transparent;padding:3px 5px;border-radius:6px;max-width:180px}
+  .ghead .gname:focus{outline:none;background:var(--surface-2)}
+  .ghead .gmeta{border:1px solid var(--line-2);border-radius:8px;padding:6px 8px;font-size:12.5px;background:var(--surface-2);color:var(--ink)}
+  .ghead .gmeta.place{min-width:110px}
+  .ghead .gcount{margin-left:auto;font-size:12px;color:var(--muted);font-weight:700}
+  .ghead .gdel{color:var(--line-2);font-size:16px;font-weight:700;padding:2px 6px}
+  .ghead .gdel:hover{color:var(--accent)}
+  .members{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px;min-height:12px}
+  .mchip{display:inline-flex;align-items:center;gap:6px;padding:6px 11px;border-radius:999px;background:var(--surface-2);border:1px solid var(--line);font-size:13px;font-weight:600}
+  .mchip .cdot{width:8px;height:8px;border-radius:50%}
+  .mchip .rm{color:var(--muted);font-weight:700;opacity:.6}
+  .mchip:hover .rm{color:var(--accent);opacity:1}
+  .gph{color:var(--muted);font-size:12.5px;font-style:italic;padding:4px;opacity:.7}
+  .pool .pchip{cursor:pointer}
+  .pool .pchip:hover{border-color:var(--accent);background:var(--surface)}
+
+  .toolbar{position:fixed;left:0;right:0;bottom:0;background:color-mix(in srgb,var(--surface) 92%,transparent);backdrop-filter:blur(10px);border-top:1px solid var(--line);padding:10px 16px;z-index:20}
+  .toolbar .wrap{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;padding:0}
+  .toolbar .btn{background:var(--surface-2)}
+  .toast{position:fixed;left:50%;bottom:80px;transform:translateX(-50%) translateY(20px);background:var(--accent-ink);color:#fff;padding:11px 18px;border-radius:999px;font-size:13.5px;font-weight:600;opacity:0;pointer-events:none;transition:.25s;z-index:30;box-shadow:var(--shadow)}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+  footer{text-align:center;color:var(--muted);font-size:11.5px;padding:8px 0 2px;opacity:.8}
+  .hidden{display:none!important}
+  @media(max-width:640px){
+    .steps{grid-template-columns:repeat(2,1fr)}
+  }
+  @media(max-width:560px){
+    h1{font-size:27px}
+    .person{flex-wrap:wrap}
+    .person .pmemo{order:5;flex-basis:100%}
+  }
+  @media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="kicker">Wedding · Guest Picker</div>
+    <h1>청첩장 누구줄래?</h1>
+    <div class="sub">카톡 보면서 이름만 톡 · 카테고리로 정리 · 밥 모임으로 묶기</div>
+  </header>
+
+  <div class="stats" id="stats"></div>
+
+  <!-- VISUAL MANUAL -->
+  <details class="manual" id="manual">
+    <summary>📖 이렇게 써요 <span style="color:var(--muted);font-weight:600">— 30초 사용법</span> <span class="chev">▾</span></summary>
+    <div class="body">
+      <div class="steps">
+        <div class="step">
+          <div class="no">STEP 1</div><div class="t">카테고리 고르기</div>
+          <div class="demo">
+            <span class="mpill on"><span class="cd" style="background:#c0687a"></span>대학 친구</span>
+            <span class="mpill"><span class="cd" style="background:#5f8fbf"></span>회사</span>
+          </div>
+          <div class="cap">채울 그룹을 하나 눌러요. 카톡도 그 단톡방 하나 열어두면 편해요.</div>
+        </div>
+        <div class="step">
+          <div class="no">STEP 2</div><div class="t">이름만 톡 입력</div>
+          <div class="demo">
+            <div class="minput"><span>홍길동<span style="color:var(--accent)">|</span></span><span class="mkey">Enter ↵</span></div>
+            <div style="font-size:11px;color:var(--muted)">→ <span class="cur" style="color:var(--accent);font-weight:800">대학 친구</span>로 쏙</div>
+          </div>
+          <div class="cap">이름 치고 Enter. 선택한 카테고리로 자동 저장돼요.</div>
+        </div>
+        <div class="step">
+          <div class="no">STEP 3</div><div class="t">꼭·고민·보류 태그</div>
+          <div class="demo" style="gap:7px">
+            <span class="mchip2" style="background:var(--ok-soft);color:var(--ok)">꼭</span>
+            <span class="marr">→</span>
+            <span class="mchip2" style="background:var(--warn-soft);color:var(--warn)">고민</span>
+            <span class="marr">→</span>
+            <span class="mchip2" style="background:var(--hold-soft);color:var(--hold)">보류</span>
+          </div>
+          <div class="cap">태그를 누르면 순환해요. 애매하면 '고민', 뺄 사람은 '보류'.</div>
+        </div>
+        <div class="step">
+          <div class="no">STEP 4</div><div class="t">모임으로 묶기</div>
+          <div class="demo">
+            <div class="mgroup">
+              <div class="gt"><span>🍽 모임 1</span><span style="color:var(--muted)">2명</span></div>
+              <div style="display:flex;gap:5px;flex-wrap:wrap">
+                <span class="mchip2" style="background:var(--surface-2);border:1px solid var(--line);color:var(--ink);font-weight:600">홍길동</span>
+                <span class="mchip2" style="background:var(--surface-2);border:1px solid var(--line);color:var(--ink);font-weight:600">김철수</span>
+              </div>
+            </div>
+          </div>
+          <div class="cap">②탭에서 밥 자리별로 묶어요. '자동 묶기'로 카테고리째 한 번에도 OK.</div>
+        </div>
+      </div>
+      <div class="hint" style="margin-top:12px">💾 하단 버튼으로 <b>엑셀·JSON 저장</b>과 <b>요약 복사</b>. 입력값은 이 브라우저에 자동 저장되고 외부로 안 나가요.</div>
+    </div>
+  </details>
+
+  <div class="tabs">
+    <button class="tab active" data-tab="list">① 명단 만들기</button>
+    <button class="tab" data-tab="group">② 모임 묶기</button>
+  </div>
+
+  <!-- PHASE 1 -->
+  <section id="tab-list">
+    <div class="card">
+      <div class="nowbar">
+        <span class="lbl">지금 채우는<br>카테고리</span>
+        <span class="cur" id="nowCat">—</span>
+        <span class="cnt" id="nowCnt"></span>
+      </div>
+      <div class="cats" id="cats"></div>
+      <div class="addbar">
+        <input class="name" id="addName" placeholder="이름 입력 후 Enter" autocomplete="off" />
+        <button id="addBtn">추가</button>
+      </div>
+      <div class="hint">Tip. 카톡 단톡방을 위→아래로 훑으며 이름만 빠르게 넣어보세요. 오타는 나중에 눌러서 고치면 돼요.</div>
+    </div>
+
+    <div class="card">
+      <div class="viewrow">
+        <div class="card-title" id="listTitle" style="margin:0">👥 명단</div>
+        <input class="search" id="search" placeholder="🔍 이름 검색(전체)" />
+      </div>
+      <div class="people" id="people"></div>
+    </div>
+  </section>
+
+  <!-- PHASE 2 -->
+  <section id="tab-group" class="hidden">
+    <div class="card">
+      <div class="card-title">🍽 모임 묶기 <span class="lead">— 밥 자리 단위로 배정</span></div>
+      <div class="gtools">
+        <button class="btn primary" id="addGroup">+ 모임 추가</button>
+        <button class="btn" id="autoGroup">카테고리별 자동 묶기</button>
+        <button class="btn ghost" id="clearGroups">배정 초기화</button>
+      </div>
+      <div class="selhint" id="selHint"></div>
+      <div id="groups"></div>
+    </div>
+
+    <div class="card pool">
+      <div class="card-title">🧺 아직 안 묶인 사람 <span id="poolCount" class="lead"></span></div>
+      <div class="hint" style="margin:0 0 12px">배정할 모임을 먼저 누른 뒤, 아래 이름을 클릭하면 그 모임으로 들어가요. ('보류'는 제외돼요)</div>
+      <div id="pool"></div>
+    </div>
+  </section>
+
+  <footer>청첩장 누구줄래 · 데이터는 이 브라우저에만 저장됩니다</footer>
+</div>
+
+<div class="toolbar"><div class="wrap">
+  <button class="btn" id="excelBtn">📊 엑셀 저장</button>
+  <button class="btn" id="copyBtn">📋 요약 복사</button>
+  <button class="btn" id="saveBtn">💾 JSON 백업</button>
+  <button class="btn" id="loadBtn">📂 불러오기</button>
+  <button class="btn ghost" id="themeBtn" title="테마 전환">🌗</button>
+  <button class="btn ghost" id="resetBtn">초기화</button>
+  <input type="file" id="fileInput" accept="application/json" class="hidden" />
+</div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+"use strict";
+const LS_KEY="cheongchupjang_who_v1", LS_THEME="ccj_theme";
+const DECISIONS={ must:{label:"꼭",cls:"d-must",dot:"var(--ok)"}, maybe:{label:"고민",cls:"d-maybe",dot:"var(--warn)"}, hold:{label:"보류",cls:"d-hold",dot:"var(--hold)"} };
+const DEC_CYCLE=["must","maybe","hold"];
+const DEFAULT_CATS=[
+  {name:"대학 친구",color:"#c0687a"},{name:"고향·학창시절",color:"#d98c5f"},
+  {name:"회사(무니·전직장)",color:"#5f8fbf"},{name:"동아리·모임",color:"#7a9a5f"},
+  {name:"가족 지인",color:"#9b6fbf"},{name:"기타",color:"#7a8290"},
+];
+const uid=()=>Math.random().toString(36).slice(2,9);
+
+let state=load();
+let selCat=state.categories[0]?state.categories[0].id:null;
+let activeGroup=null, searchTerm="";
+
+function load(){
+  try{const raw=localStorage.getItem(LS_KEY);if(raw){const s=JSON.parse(raw);if(s&&s.categories)return s;}}catch(e){}
+  return {categories:DEFAULT_CATS.map(c=>({id:uid(),name:c.name,color:c.color})),people:[],groups:[]};
+}
+function save(){try{localStorage.setItem(LS_KEY,JSON.stringify(state));}catch(e){}}
+const catById=id=>state.categories.find(c=>c.id===id);
+const groupById=id=>state.groups.find(g=>g.id===id);
+
+function toast(msg){const t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove("show"),1700);}
+function escapeHtml(s){return String(s).replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));}
+function escapeAttr(s){return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));}
+
+/* stats */
+function renderStats(){
+  const p=state.people;
+  const c=k=>p.filter(x=>x.decision===k).length;
+  document.getElementById("stats").innerHTML=
+    `<div class="stat"><b>${p.length}</b> 명</div>`+
+    `<div class="stat"><span class="dot" style="background:var(--ok)"></span>꼭 <b>${c("must")}</b></div>`+
+    `<div class="stat"><span class="dot" style="background:var(--warn)"></span>고민 <b>${c("maybe")}</b></div>`+
+    `<div class="stat"><span class="dot" style="background:var(--hold)"></span>보류 <b>${c("hold")}</b></div>`+
+    `<div class="stat"><span class="dot" style="background:var(--accent)"></span>모임 <b>${state.groups.length}</b></div>`;
+}
+
+/* categories */
+function renderCats(){
+  const el=document.getElementById("cats"); el.innerHTML="";
+  state.categories.forEach(c=>{
+    const n=state.people.filter(p=>p.catId===c.id).length;
+    const d=document.createElement("button");
+    d.className="cat"+(c.id===selCat?" sel":"");
+    d.innerHTML=`<span class="cdot" style="background:${c.color}"></span>${escapeHtml(c.name)} <span class="cnt">${n}</span><span class="x" title="카테고리 삭제">✕</span>`;
+    d.querySelector(".cdot").onclick=e=>{e.stopPropagation();renameCat(c);};
+    d.querySelector(".x").onclick=e=>{e.stopPropagation();delCat(c);};
+    d.onclick=()=>{selCat=c.id;searchTerm="";document.getElementById("search").value="";renderCats();renderPeople();renderNow();document.getElementById("addName").focus();};
+    el.appendChild(d);
+  });
+  const add=document.createElement("button");
+  add.className="cat cat-add"; add.textContent="+ 카테고리"; add.onclick=addCat;
+  el.appendChild(add);
+}
+function renderNow(){
+  const c=catById(selCat);
+  const now=document.getElementById("nowCat");
+  if(c){now.innerHTML=`<span class="cd" style="background:${c.color}"></span>${escapeHtml(c.name)}`;
+    document.getElementById("nowCnt").textContent=state.people.filter(p=>p.catId===c.id).length+"명";}
+  else{now.textContent="카테고리를 만들어 주세요";document.getElementById("nowCnt").textContent="";}
+}
+function addCat(){
+  const name=prompt("새 카테고리 이름 (예: 교회, 회사 동기)"); if(!name||!name.trim())return;
+  const palette=["#c0687a","#d98c5f","#5f8fbf","#7a9a5f","#9b6fbf","#7a8290","#c99a2e","#5fa8a0"];
+  const c={id:uid(),name:name.trim(),color:palette[state.categories.length%palette.length]};
+  state.categories.push(c);selCat=c.id;save();renderAll();document.getElementById("addName").focus();
+}
+function renameCat(c){const name=prompt("카테고리 이름 수정",c.name);if(name===null)return;if(name.trim()){c.name=name.trim();save();renderAll();}}
+function delCat(c){
+  const n=state.people.filter(p=>p.catId===c.id).length;
+  if(!confirm(`'${c.name}' 카테고리를 삭제할까요?`+(n?`\n(안에 ${n}명도 함께 삭제됩니다)`:"")))return;
+  state.people=state.people.filter(p=>p.catId!==c.id);
+  state.categories=state.categories.filter(x=>x.id!==c.id);
+  if(selCat===c.id)selCat=state.categories[0]?state.categories[0].id:null;
+  save();renderAll();
+}
+
+/* add + list */
+function addPerson(){
+  const inp=document.getElementById("addName"), name=inp.value.trim();
+  if(!name){inp.focus();return;}
+  if(!selCat){toast("카테고리를 먼저 만들어 주세요");return;}
+  state.people.push({id:uid(),name,catId:selCat,decision:"must",memo:"",groupId:null});
+  inp.value="";save();renderStats();renderCats();renderNow();renderPeople();inp.focus();
+}
+function renderPeople(){
+  const box=document.getElementById("people"), cat=catById(selCat);
+  document.getElementById("listTitle").innerHTML= searchTerm
+    ? `🔍 '<span style="color:var(--accent)">${escapeHtml(searchTerm)}</span>' 검색`
+    : (cat?`👥 <span style="color:${cat.color}">${escapeHtml(cat.name)}</span> 명단`:"👥 명단");
+  let list = searchTerm ? state.people.filter(p=>p.name.toLowerCase().includes(searchTerm.toLowerCase())) : state.people.filter(p=>p.catId===selCat);
+  box.innerHTML="";
+  if(!list.length){box.innerHTML=`<div class="empty">${searchTerm?"검색 결과가 없어요":"위 칸에 이름을 넣어 이 그룹을 채워보세요 ✍️"}</div>`;return;}
+  list.forEach(p=>box.appendChild(personRow(p)));
+}
+function personRow(p){
+  const cat=catById(p.catId)||{color:"#ccc"}, dec=DECISIONS[p.decision];
+  const row=document.createElement("div");row.className="person";
+  const opts=state.categories.map(c=>`<option value="${c.id}" ${c.id===p.catId?"selected":""}>${escapeHtml(c.name)}</option>`).join("");
+  row.innerHTML=
+    `<span class="pcat" style="background:${cat.color}"></span>`+
+    `<input class="pname" value="${escapeAttr(p.name)}" aria-label="이름" />`+
+    `<button class="chip ${dec.cls}" title="눌러서 꼭/고민/보류 전환">${dec.label}</button>`+
+    `<input class="pmemo" placeholder="메모(선택)" value="${escapeAttr(p.memo||"")}" aria-label="메모" />`+
+    `<select class="movecat" aria-label="카테고리 이동">${opts}</select>`+
+    `<button class="del" title="삭제" aria-label="삭제">✕</button>`;
+  const nameI=row.querySelector(".pname");
+  nameI.onchange=()=>{const v=nameI.value.trim();if(v){p.name=v;save();renderStats();}else nameI.value=p.name;};
+  nameI.onkeydown=e=>{if(e.key==="Enter")nameI.blur();};
+  row.querySelector(".pmemo").onchange=e=>{p.memo=e.target.value.trim();save();};
+  row.querySelector(".chip").onclick=()=>{p.decision=DEC_CYCLE[(DEC_CYCLE.indexOf(p.decision)+1)%DEC_CYCLE.length];save();renderStats();renderPeople();};
+  row.querySelector(".movecat").onchange=e=>{p.catId=e.target.value;save();renderCats();renderNow();renderPeople();};
+  row.querySelector(".del").onclick=()=>{if(!confirm(`'${p.name}' 삭제할까요?`))return;state.people=state.people.filter(x=>x.id!==p.id);save();renderAll();};
+  return row;
+}
+
+/* grouping */
+function renderGroups(){
+  const box=document.getElementById("groups"), hint=document.getElementById("selHint");box.innerHTML="";
+  if(!state.groups.length){hint.innerHTML="아직 모임이 없어요. <b>+ 모임 추가</b>로 밥 자리를 만들고 사람을 배정하세요.";box.innerHTML=`<div class="empty">＋ 버튼으로 첫 모임을 만들어보세요</div>`;return;}
+  const ag=groupById(activeGroup);
+  hint.innerHTML=ag?`배정할 모임: <b>${escapeHtml(ag.name)}</b> · 아래 🧺에서 이름을 누르면 여기로 들어가요.`:"배정할 모임을 하나 <b>클릭</b>해서 선택하세요.";
+  state.groups.forEach(g=>{
+    const div=document.createElement("div");div.className="group"+(g.id===activeGroup?" active":"");
+    const members=state.people.filter(p=>p.groupId===g.id);
+    div.innerHTML=
+      `<div class="ghead">`+
+        `<input class="gname" value="${escapeAttr(g.name)}" aria-label="모임 이름" />`+
+        `<input class="gmeta gdate" type="date" value="${g.date||""}" title="날짜(선택)" />`+
+        `<input class="gmeta place" placeholder="장소·메모" value="${escapeAttr(g.place||"")}" />`+
+        `<span class="gcount">${members.length}명</span>`+
+        `<button class="gdel" title="모임 삭제" aria-label="모임 삭제">✕</button>`+
+      `</div>`+
+      `<div class="members">${members.length?"":'<span class="gph">아직 배정된 사람이 없어요</span>'}</div>`;
+    div.onclick=e=>{if(e.target.closest("input,button,.mchip"))return;setActive(g.id);};
+    const gn=div.querySelector(".gname");gn.onchange=()=>{g.name=gn.value.trim()||g.name;save();renderStats();renderGroups();};
+    div.querySelector(".gdate").onchange=e=>{g.date=e.target.value;save();};
+    div.querySelector(".place").onchange=e=>{g.place=e.target.value.trim();save();};
+    div.querySelector(".gdel").onclick=e=>{e.stopPropagation();delGroup(g);};
+    const mbox=div.querySelector(".members");
+    members.forEach(p=>{
+      const cat=catById(p.catId)||{color:"#ccc"};
+      const ch=document.createElement("span");ch.className="mchip";
+      ch.innerHTML=`<span class="cdot" style="background:${cat.color}"></span>${escapeHtml(p.name)} <span class="rm">✕</span>`;
+      ch.querySelector(".rm").onclick=e=>{e.stopPropagation();p.groupId=null;save();renderGroups();renderPool();renderStats();};
+      mbox.appendChild(ch);
+    });
+    box.appendChild(div);
+  });
+}
+function setActive(id){activeGroup=activeGroup===id?null:id;renderGroups();}
+function addGroup(){const g={id:uid(),name:"모임 "+(state.groups.length+1),date:"",place:""};state.groups.push(g);activeGroup=g.id;save();renderStats();renderGroups();renderPool();}
+function delGroup(g){
+  if(!confirm(`'${g.name}' 모임을 삭제할까요? (사람은 '안 묶임'으로 돌아가요)`))return;
+  state.people.forEach(p=>{if(p.groupId===g.id)p.groupId=null;});
+  state.groups=state.groups.filter(x=>x.id!==g.id);if(activeGroup===g.id)activeGroup=null;
+  save();renderStats();renderGroups();renderPool();
+}
+function autoGroup(){
+  const targets=state.categories.filter(c=>state.people.some(p=>p.catId===c.id&&p.decision!=="hold"));
+  if(!targets.length){toast("묶을 사람이 없어요");return;}
+  if(!confirm("카테고리별로 모임을 만들고 '꼭·고민'인 사람을 자동 배정할까요?"))return;
+  targets.forEach(c=>{
+    let g=state.groups.find(x=>x.name===c.name);
+    if(!g){g={id:uid(),name:c.name,date:"",place:""};state.groups.push(g);}
+    state.people.filter(p=>p.catId===c.id&&p.decision!=="hold").forEach(p=>{p.groupId=g.id;});
+  });
+  activeGroup=null;save();renderStats();renderGroups();renderPool();toast("카테고리별로 묶었어요 🍽");
+}
+function clearGroups(){if(!confirm("모든 배정을 초기화할까요? (모임은 남고 사람만 빠져요)"))return;state.people.forEach(p=>p.groupId=null);save();renderGroups();renderPool();}
+function renderPool(){
+  const box=document.getElementById("pool"), pool=state.people.filter(p=>p.decision!=="hold"&&!p.groupId);
+  document.getElementById("poolCount").textContent=`(${pool.length}명)`;box.innerHTML="";
+  if(!pool.length){box.innerHTML=`<div class="empty">모두 묶였거나 대상이 없어요 🎉</div>`;return;}
+  state.categories.forEach(c=>{
+    const inCat=pool.filter(p=>p.catId===c.id);if(!inCat.length)return;
+    const wrap=document.createElement("div");wrap.style.margin="0 0 12px";
+    wrap.innerHTML=`<div style="font-size:12px;font-weight:800;color:${c.color};margin-bottom:6px">${escapeHtml(c.name)}</div>`;
+    const chips=document.createElement("div");chips.className="members";
+    inCat.forEach(p=>{
+      const ch=document.createElement("span");ch.className="mchip pchip";const dec=DECISIONS[p.decision];
+      ch.innerHTML=`<span class="cdot" style="background:${c.color}"></span>${escapeHtml(p.name)}<span style="color:${dec.dot};font-size:11px;font-weight:800;margin-left:2px">·${dec.label}</span>`;
+      ch.onclick=()=>{if(!activeGroup){toast("먼저 위에서 모임을 선택하세요");return;}p.groupId=activeGroup;save();renderGroups();renderPool();renderStats();};
+      chips.appendChild(ch);
+    });
+    wrap.appendChild(chips);box.appendChild(wrap);
+  });
+}
+
+/* export */
+function buildSummary(){
+  const d=new Date().toISOString().slice(0,10),p=state.people;
+  const c=k=>p.filter(x=>x.decision===k).length;
+  let o=`청첩장 모임 명단 (${d})\n총 ${p.length}명 · 꼭 ${c("must")} / 고민 ${c("maybe")} / 보류 ${c("hold")}\n\n=== 모임별 ===\n`;
+  if(!state.groups.length)o+="(아직 모임 없음)\n";
+  state.groups.forEach(g=>{
+    const m=p.filter(x=>x.groupId===g.id),meta=[g.date,g.place].filter(Boolean).join(" / ");
+    o+=`\n■ ${g.name}${meta?" ("+meta+")":""} — ${m.length}명\n`;
+    m.forEach(x=>{const cc=catById(x.catId);o+=`  - ${x.name} [${cc?cc.name:"?"}]${x.memo?" · "+x.memo:""}\n`;});
+  });
+  const un=p.filter(x=>x.decision!=="hold"&&!x.groupId);
+  if(un.length){o+=`\n■ 아직 안 묶임 — ${un.length}명\n`;un.forEach(x=>{const cc=catById(x.catId);o+=`  - ${x.name} [${cc?cc.name:"?"}]\n`;});}
+  o+=`\n=== 카테고리별 인원 ===\n`;
+  state.categories.forEach(c2=>{const n=p.filter(x=>x.catId===c2.id).length;if(n)o+=`  · ${c2.name}: ${n}명\n`;});
+  return o;
+}
+function copySummary(){
+  const text=buildSummary();
+  if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(text).then(()=>toast("요약을 복사했어요 📋"),()=>fallbackCopy(text));
+  else fallbackCopy(text);
+}
+function fallbackCopy(text){const ta=document.createElement("textarea");ta.value=text;document.body.appendChild(ta);ta.select();try{document.execCommand("copy");toast("요약을 복사했어요 📋");}catch(e){toast("복사 실패 — 직접 선택해주세요");}document.body.removeChild(ta);}
+
+function download(name,content,mime){const blob=new Blob([content],{type:mime});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=name;a.click();URL.revokeObjectURL(a.href);}
+function saveJSON(){download(`청첩장명단_${new Date().toISOString().slice(0,10)}.json`,JSON.stringify(state,null,2),"application/json");toast("JSON 백업을 저장했어요 💾");}
+function xmlEsc(s){return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));}
+function exportExcel(){
+  // SpreadsheetML 2003 — opens natively in Excel/Sheets, no library, Korean-safe
+  const head=["이름","카테고리","결정","모임","날짜","장소","메모"];
+  const rows=state.people.map(p=>{
+    const c=catById(p.catId),g=groupById(p.groupId);
+    return [p.name,c?c.name:"",DECISIONS[p.decision].label,g?g.name:"",g&&g.date?g.date:"",g&&g.place?g.place:"",p.memo||""];
+  });
+  const cell=v=>`<Cell><Data ss:Type="String">${xmlEsc(v)}</Data></Cell>`;
+  const row=arr=>`<Row>${arr.map(cell).join("")}</Row>`;
+  const xml=`<?xml version="1.0" encoding="UTF-8"?>\n<?mso-application progid="Excel.Sheet"?>\n`+
+    `<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet" xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet">`+
+    `<Worksheet ss:Name="명단"><Table>`+row(head)+rows.map(row).join("")+`</Table></Worksheet></Workbook>`;
+  download(`청첩장명단_${new Date().toISOString().slice(0,10)}.xls`,xml,"application/vnd.ms-excel");
+  toast("엑셀 파일을 저장했어요 📊");
+}
+function loadJSON(file){
+  const r=new FileReader();
+  r.onload=()=>{try{const s=JSON.parse(r.result);if(!s.categories||!s.people)throw 0;state=s;selCat=state.categories[0]?state.categories[0].id:null;activeGroup=null;save();renderAll();toast("불러왔어요 📂");}catch(e){toast("올바른 백업 파일이 아니에요");}};
+  r.readAsText(file);
+}
+function resetAll(){if(!confirm("정말 전체 초기화할까요? 모든 명단·모임이 지워져요."))return;if(!confirm("되돌릴 수 없어요. 진행할까요?"))return;localStorage.removeItem(LS_KEY);state=load();selCat=state.categories[0].id;activeGroup=null;renderAll();toast("초기화했어요");}
+
+/* theme */
+function applyTheme(t){if(t)document.documentElement.setAttribute("data-theme",t);}
+function toggleTheme(){const cur=document.documentElement.getAttribute("data-theme");const isDark=cur?cur==="dark":matchMedia("(prefers-color-scheme:dark)").matches;const next=isDark?"light":"dark";applyTheme(next);try{localStorage.setItem(LS_THEME,next);}catch(e){}}
+
+function renderAll(){renderStats();renderCats();renderNow();renderPeople();renderGroups();renderPool();}
+
+/* wiring */
+document.querySelectorAll(".tab").forEach(t=>t.onclick=()=>{
+  document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));t.classList.add("active");
+  const w=t.dataset.tab;
+  document.getElementById("tab-list").classList.toggle("hidden",w!=="list");
+  document.getElementById("tab-group").classList.toggle("hidden",w!=="group");
+  if(w==="group"){renderGroups();renderPool();}
+});
+document.getElementById("addBtn").onclick=addPerson;
+document.getElementById("addName").onkeydown=e=>{if(e.key==="Enter")addPerson();};
+document.getElementById("search").oninput=e=>{searchTerm=e.target.value.trim();renderPeople();};
+document.getElementById("addGroup").onclick=addGroup;
+document.getElementById("autoGroup").onclick=autoGroup;
+document.getElementById("clearGroups").onclick=clearGroups;
+document.getElementById("excelBtn").onclick=exportExcel;
+document.getElementById("copyBtn").onclick=copySummary;
+document.getElementById("saveBtn").onclick=saveJSON;
+document.getElementById("loadBtn").onclick=()=>document.getElementById("fileInput").click();
+document.getElementById("fileInput").onchange=e=>{if(e.target.files[0])loadJSON(e.target.files[0]);e.target.value="";};
+document.getElementById("themeBtn").onclick=toggleTheme;
+document.getElementById("resetBtn").onclick=resetAll;
+
+/* first-run: open manual once */
+try{const saved=localStorage.getItem(LS_THEME);if(saved)applyTheme(saved);
+  if(!localStorage.getItem("ccj_seen")){document.getElementById("manual").open=true;localStorage.setItem("ccj_seen","1");}}catch(e){}
+
+renderAll();
+</script>
+</body>
+</html>
