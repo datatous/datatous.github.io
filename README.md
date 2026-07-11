@@ -4,14 +4,6 @@ Henry의 자동화 연대기 — **2lazysodoit** 프로젝트. 1주에 하나씩
 
 [Jekyll](https://jekyllrb.com/) + [Minimal Mistakes](https://mmistakes.github.io/minimal-mistakes/) (remote_theme) 기반.
 
-## 로컬 미리보기
-
-```bash
-bundle install
-bundle exec jekyll serve
-```
-
-http://localhost:4000 에서 확인.
 
 ## 새 글 추가
 
