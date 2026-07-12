@@ -169,6 +169,11 @@
   .toolbar .btn{background:var(--surface-2)}
   .toast{position:fixed;left:50%;bottom:80px;transform:translateX(-50%) translateY(20px);background:var(--accent-ink);color:#fff;padding:11px 18px;border-radius:999px;font-size:13.5px;font-weight:600;opacity:0;pointer-events:none;transition:.25s;z-index:30;box-shadow:var(--shadow)}
   .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+  .cloudstat{align-self:center;font-size:11.5px;font-weight:700;padding:6px 11px;border-radius:999px;white-space:nowrap}
+  .cloudstat.off{color:var(--muted);background:var(--surface-2)}
+  .cloudstat.ok{color:var(--ok);background:var(--ok-soft)}
+  .cloudstat.busy{color:var(--warn);background:var(--warn-soft)}
+  .cloudstat.err{color:var(--accent);background:var(--accent-soft)}
   footer{text-align:center;color:var(--muted);font-size:11.5px;padding:8px 0 2px;opacity:.8}
   .hidden{display:none!important}
   @media(max-width:640px){
@@ -238,7 +243,7 @@
           <div class="cap">②탭에서 밥 자리별로 묶어요. '자동 묶기'로 카테고리째 한 번에도 OK.</div>
         </div>
       </div>
-      <div class="hint" style="margin-top:12px">💾 하단 버튼으로 <b>엑셀·JSON 저장</b>과 <b>요약 복사</b>. 입력값은 이 브라우저에 자동 저장되고 외부로 안 나가요.</div>
+      <div class="hint" style="margin-top:12px">☁️ <b>시트 저장</b>을 켜면(⚙️에서 1회 연동) 구글 시트에 <b>자동 반영</b>돼 기기 간 공유돼요. 💾 엑셀·JSON 백업도 가능. 미연동 시엔 이 브라우저에만 저장돼요.</div>
     </div>
   </details>
 
@@ -296,10 +301,14 @@
 </div>
 
 <div class="toolbar"><div class="wrap">
-  <button class="btn" id="excelBtn">📊 엑셀 저장</button>
-  <button class="btn" id="copyBtn">📋 요약 복사</button>
-  <button class="btn" id="saveBtn">💾 JSON 백업</button>
-  <button class="btn" id="loadBtn">📂 불러오기</button>
+  <button class="btn primary" id="cloudBtn">☁️ 시트 저장</button>
+  <button class="btn" id="pullBtn">⬇️ 시트에서</button>
+  <span class="cloudstat off" id="cloudStat">☁️ 미연동</span>
+  <button class="btn" id="excelBtn">📊 엑셀</button>
+  <button class="btn" id="copyBtn">📋 요약</button>
+  <button class="btn" id="saveBtn">💾 JSON</button>
+  <button class="btn" id="loadBtn">📂 열기</button>
+  <button class="btn ghost" id="cfgBtn" title="시트 연동 설정">⚙️</button>
   <button class="btn ghost" id="themeBtn" title="테마 전환">🌗</button>
   <button class="btn ghost" id="resetBtn">초기화</button>
   <input type="file" id="fileInput" accept="application/json" class="hidden" />
@@ -326,7 +335,7 @@ function load(){
   try{const raw=localStorage.getItem(LS_KEY);if(raw){const s=JSON.parse(raw);if(s&&s.categories)return s;}}catch(e){}
   return {categories:DEFAULT_CATS.map(c=>({id:uid(),name:c.name,color:c.color})),people:[],groups:[]};
 }
-function save(){try{localStorage.setItem(LS_KEY,JSON.stringify(state));}catch(e){}}
+function save(){try{localStorage.setItem(LS_KEY,JSON.stringify(state));}catch(e){}scheduleCloud();}
 const catById=id=>state.categories.find(c=>c.id===id);
 const groupById=id=>state.groups.find(g=>g.id===id);
 
@@ -553,6 +562,43 @@ function toggleTheme(){const cur=document.documentElement.getAttribute("data-the
 
 function renderAll(){renderStats();renderCats();renderNow();renderPeople();renderGroups();renderPool();}
 
+/* cloud sync — Google Apps Script web app (endpoint stored locally, not in public source) */
+const LS_ENDPOINT="ccj_endpoint";
+let endpoint=""; try{endpoint=localStorage.getItem(LS_ENDPOINT)||"";}catch(e){}
+let cloudTimer=null, suppressCloud=false;
+function hhmm(){const d=new Date();return String(d.getHours()).padStart(2,"0")+":"+String(d.getMinutes()).padStart(2,"0");}
+function setCloudStat(s){
+  const el=document.getElementById("cloudStat");if(!el)return;
+  if(!endpoint){el.textContent="☁️ 미연동";el.className="cloudstat off";return;}
+  const map={saving:["☁️ 저장 중…","busy"],saved:["☁️ 저장됨 "+hhmm(),"ok"],error:["⚠️ 실패(재시도)","err"],idle:["☁️ 자동 저장 켜짐","ok"]};
+  const m=map[s]||map.idle;el.textContent=m[0];el.className="cloudstat "+m[1];
+}
+function scheduleCloud(){if(!endpoint||suppressCloud)return;clearTimeout(cloudTimer);cloudTimer=setTimeout(()=>pushCloud(false),2500);}
+function pushCloud(manual){
+  if(!endpoint){if(manual)setupEndpoint();return;}
+  setCloudStat("saving");
+  fetch(endpoint,{method:"POST",mode:"no-cors",body:JSON.stringify({state:state})})
+    .then(()=>{setCloudStat("saved");if(manual)toast("시트에 저장했어요 ☁️");})
+    .catch(()=>{setCloudStat("error");if(manual)toast("저장 실패 — URL·네트워크 확인");});
+}
+function pullCloud(){
+  if(!endpoint){setupEndpoint();return;}
+  if(!confirm("시트 내용으로 이 기기의 명단을 덮어쓸까요?"))return;
+  toast("시트에서 불러오는 중…");
+  fetch(endpoint,{method:"GET"}).then(r=>r.json()).then(d=>{
+    if(d&&d.ok&&d.state&&d.state.categories){suppressCloud=true;state=d.state;selCat=state.categories[0]?state.categories[0].id:null;activeGroup=null;save();renderAll();suppressCloud=false;setCloudStat("saved");toast("시트에서 불러왔어요 ⬇️");}
+    else toast("시트에 저장된 데이터가 없어요");
+  }).catch(()=>toast("불러오기 실패(브라우저 CORS일 수 있음) — JSON 백업을 쓰세요"));
+}
+function setupEndpoint(){
+  const url=prompt("구글 Apps Script 웹앱 URL 붙여넣기\n(…/exec 로 끝나는 주소, 비우면 연동 해제)",endpoint||"");
+  if(url===null)return;
+  endpoint=url.trim();
+  try{endpoint?localStorage.setItem(LS_ENDPOINT,endpoint):localStorage.removeItem(LS_ENDPOINT);}catch(e){}
+  if(endpoint){setCloudStat("idle");toast("연동 완료 — 자동 저장이 켜졌어요 ☁️");pushCloud(true);}
+  else{setCloudStat("off");toast("시트 연동을 해제했어요");}
+}
+
 /* wiring */
 document.querySelectorAll(".tab").forEach(t=>t.onclick=()=>{
   document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));t.classList.add("active");
@@ -574,10 +620,14 @@ document.getElementById("loadBtn").onclick=()=>document.getElementById("fileInpu
 document.getElementById("fileInput").onchange=e=>{if(e.target.files[0])loadJSON(e.target.files[0]);e.target.value="";};
 document.getElementById("themeBtn").onclick=toggleTheme;
 document.getElementById("resetBtn").onclick=resetAll;
+document.getElementById("cloudBtn").onclick=()=>pushCloud(true);
+document.getElementById("pullBtn").onclick=pullCloud;
+document.getElementById("cfgBtn").onclick=setupEndpoint;
 
 /* first-run: open manual once */
 try{const saved=localStorage.getItem(LS_THEME);if(saved)applyTheme(saved);
   if(!localStorage.getItem("ccj_seen")){document.getElementById("manual").open=true;localStorage.setItem("ccj_seen","1");}}catch(e){}
+setCloudStat("idle");
 
 renderAll();
 </script>
