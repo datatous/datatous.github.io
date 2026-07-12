@@ -1,6 +1,6 @@
 # datatous.github.io
 
-Henry의 자동화 연대기 — **2lazysodoit** 프로젝트. 1주에 하나씩, 직접 만들고 이해한 업무 자동화를 기록하는 블로그.
+Henry의 자동화 연대기 프로젝트. 2주에 하나씩, 직접 만들고 이해한 업무 자동화를 기록하는 블로그.
 
 [Jekyll](https://jekyllrb.com/) + [Minimal Mistakes](https://mmistakes.github.io/minimal-mistakes/) (remote_theme) 기반.
 

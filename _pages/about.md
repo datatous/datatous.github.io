@@ -187,14 +187,14 @@ classes: wide
   <div class="tp"><div class="em">📘</div><div class="tt">가이드북 다운로드 3만+</div><div class="ds">ChatGPT 업무활용 가이드북 2.0 집필·개정 총괄 — 교육영상 9건 별도 제작</div></div>
   <div class="tp"><div class="em">⏱️</div><div class="tt">연 9,392시간 절감</div><div class="ds">RPA 9건 구축·고도화 + 26억 규모 차세대 시스템 클라우드 전환 — 절감 인력 4명 신규사업 전환</div></div>
   <div class="tp"><div class="em">🎓</div><div class="tt">수강생 13,019명 교육 운영</div><div class="ds">KT AX 디그리 2.0 — 수료 6,124명, 전문가 심층 피드백 993건 지원</div></div>
-  <div class="tp"><div class="em">🦥</div><div class="tt">자동화 연대기 연재 중</div><div class="ds">1주 1편, 직접 만들고 이해한 자동화만 기록 — 총 8편 계획</div></div>
+  <div class="tp"><div class="em">🦥</div><div class="tt">자동화 연대기 연재 중</div><div class="ds">2주 1편, 직접 만들고 이해한 자동화만 기록 — 총 8편 계획</div></div>
 </div>
 
 <!-- ============ QUESTS ============ -->
 <h3 class="sec">📜 퀘스트 로그</h3>
 <div class="quest">
   <div class="q main"><span class="tag">MAIN</span><div><div class="qt">빅데이터 석사 논문</div><div class="qd">성균관대 빅데이터학과 (2025.03~) — 연구 주제 확정 단계, 일과 연구를 병행 중</div></div></div>
-  <div class="q weekly"><span class="tag">WEEKLY</span><div><div class="qt">자동화 연대기 (2lazysodoit)</div><div class="qd">1주에 하나씩 직접 만든 자동화를 기록 — 출퇴근 개발환경, 교회 주보, 멀티채널 발행, 카드뉴스 등 총 8편 계획 → <a href="/categories/#자동화연대기">시리즈 보기</a></div></div></div>
+  <div class="q weekly"><span class="tag">WEEKLY</span><div><div class="qt">자동화 연대기</div><div class="qd">2주에 하나씩 직접 만든 자동화를 기록 — 출퇴근 개발환경, 교회 주보, 멀티채널 발행, 카드뉴스 등 총 8편 계획 → <a href="/categories/#자동화연대기">시리즈 보기</a></div></div></div>
   <div class="q side"><span class="tag">SIDE</span><div><div class="qt">LLM Wiki · 세컨브레인</div><div class="qd">하네스 엔지니어링·에이전틱 패턴 등 공부한 지식을 위키에 실시간 축적 → <a href="/wiki/">Wiki 보기</a></div></div></div>
 </div>
 

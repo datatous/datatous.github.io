@@ -1,5 +1,5 @@
 ---
-title: "나는 게을러서 자동화한다 : 1주에 하나씩, 일상을 바꾼 기록"
+title: "나는 게을러서 자동화한다 : 2주에 하나씩, 일상을 바꾼 기록"
 date: 2026-05-04
 categories:
   - 자동화연대기
@@ -17,12 +17,12 @@ header:
 excerpt: "AX 컨설턴트인데 정작 내 반복 업무는 손으로 하고 있었다. 그래서 직접 만들어보기로 했다."
 ---
 
-<div class="mc-cover" markdown="0"><span class="mc-cover-kicker">2lazysodoit · 자동화 연대기 · EP.00</span><div class="mc-cover-title">나는 게을러서 자동화한다</div><div class="mc-cover-subtitle">1주에 하나씩, 일상을 자동화한 기록 — AX 컨설턴트가 직접 만들고 이해한 것만 남깁니다.</div></div>
+<div class="mc-cover" markdown="0"><span class="mc-cover-kicker">자동화 연대기 · EP.00</span><div class="mc-cover-title">나는 게을러서 자동화한다</div><div class="mc-cover-subtitle">2주에 하나씩, 일상을 자동화한 기록 — AX 컨설턴트가 직접 만들고 이해한 것만 남깁니다.</div></div>
 
 > **3줄 요약**
 > - AX 컨설턴트인데 정작 내 반복 업무는 손으로 하고 있었다. 앞뒤가 안 맞아서 직접 만들기로 했다.
 > - <mark>출퇴근 3시간을 개발 시간</mark>으로 바꾸는 것부터 시작했다.
-> - **1주에 하나씩**, 직접 써보고 이해한 자동화만 기록한다.
+> - **2주에 하나씩**, 직접 써보고 이해한 자동화만 기록한다.
 
 ## 📱 카드뉴스 (좌우로 넘겨보세요)
 
@@ -63,7 +63,7 @@ excerpt: "AX 컨설턴트인데 정작 내 반복 업무는 손으로 하고 있
 
 ## 앞으로 이런 걸 만들어볼 거예요 🗓️
 
-1주에 하나씩, 총 8편을 생각하고 있다. (아래 내용은 변경될 수 있다)
+2주에 하나씩, 총 8편을 생각하고 있다. (아래 내용은 변경될 수 있다)
 
 <div class="mc-card-grid" markdown="0"><div class="mc-card mc-card--blue"><div class="mc-card-title">1편</div>출퇴근 3시간을 개발 시간으로 — Happy + Claude Code + Git 세팅</div><div class="mc-card"><div class="mc-card-title">2편</div>AI가 매주 교회 주보를 올려준다 — 제미나이 Gems + 클로드 에이전틱 자동화</div><div class="mc-card"><div class="mc-card-title">3편</div>내 블로그를 AI가 대신 써준다 — 깃블로그·네이버 멀티채널 자동 발행</div><div class="mc-card"><div class="mc-card-title">4편</div>결혼 준비를 함께 뛰는 AI 동행자 '웨딩메이트' — 예산·할 일·참석자 자동화</div><div class="mc-card"><div class="mc-card-title">5편</div>인스타 카드뉴스를 AI가 찍어낸다 — 카드뉴스 자동 제작</div><div class="mc-card"><div class="mc-card-title">6편</div>나의 논문 도우미 — RAG로 연구 자료 학습시키기</div><div class="mc-card"><div class="mc-card-title">7편</div>AI에게 스토리를 맡겼더니 — 시나리오 분석 자동화</div><div class="mc-card"><div class="mc-card-title">8편</div>회고 — 뭐가 달라졌나</div></div>
 
