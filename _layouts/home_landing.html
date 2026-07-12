@@ -106,8 +106,12 @@ h1.big{font-family:'Sora';font-weight:900;font-size:clamp(3.4rem,15vw,10rem);let
 .foot a{color:#94a3b8;text-decoration:none;margin:0 8px}
 @media (prefers-reduced-motion:reduce){#spot,.stars,.scroll,h1.big{animation:none}.reveal{opacity:1;transform:none}}
 </style>
+
+<!-- 관리자 인라인 편집 모드 (로컬에서만 활성 · Ctrl+Shift+E) -->
+<link rel="stylesheet" href="{{ '/assets/css/admin.css' | relative_url }}">
+<script src="{{ '/assets/js/admin.js' | relative_url }}" defer></script>
 </head>
-<body>
+<body data-src="_layouts/home_landing.html">
 <div id="spot"></div><div class="stars"></div><div class="grain"></div>
 
 <nav class="nav" id="nav">
@@ -121,9 +125,9 @@ h1.big{font-family:'Sora';font-weight:900;font-size:clamp(3.4rem,15vw,10rem);let
 
 <!-- HERO -->
 <header class="hero">
-  <div class="eyebrow">AX CONSULTANT · 2LAZYSODOIT</div>
+  <div class="eyebrow" data-edit>AX PROJECT HUB</div>
   <h1 class="big">datatous</h1>
-  <div class="tag">게을러서, <b>자동화</b>한다</div>
+  <div class="tag" data-edit>게을러서, <b>자동화</b>한다</div>
   <div class="btns">
     <a class="btn p" href="{{ '/posts/series-intro/' | relative_url }}">🚀 진행 중인 프로젝트</a>
     <a class="btn" href="{{ '/about/' | relative_url }}">🎮 Henry 캐릭터</a>
@@ -133,9 +137,9 @@ h1.big{font-family:'Sora';font-weight:900;font-size:clamp(3.4rem,15vw,10rem);let
 
 <!-- NOW BUILDING -->
 <section class="sec reveal" id="now">
-  <div class="eyebrow2">NOW BUILDING — 자동화 연대기</div>
-  <h2>1주에 하나씩, 직접 만든 자동화를 기록합니다</h2>
-  <p class="lead">이론보다 만든 것, 성공담보다 시행착오를. AX 컨설턴트가 직접 구현하고 이해한 것만 남깁니다.</p>
+  <div class="eyebrow2" data-edit>NOW BUILDING — 자동화 연대기</div>
+  <h2 data-edit>2주에 하나씩, 직접 만든 자동화를 기록합니다</h2>
+  <p class="lead" data-edit>이론보다 만든 것, 성공담보다 시행착오를. AX 컨설턴트가 직접 구현하고 이해한 것만 남깁니다.</p>
   <div class="nb-grid">
     {% assign series = site.posts | where_exp:"p","p.categories contains '자동화연대기'" | sort:"date" | reverse %}
     {% for p in series limit:3 %}
@@ -150,8 +154,8 @@ h1.big{font-family:'Sora';font-weight:900;font-size:clamp(3.4rem,15vw,10rem);let
 
 <!-- RECENT POSTS -->
 <section class="sec reveal">
-  <div class="eyebrow2">LATEST</div>
-  <h2>최근 글</h2>
+  <div class="eyebrow2" data-edit>LATEST</div>
+  <h2 data-edit>최근 글</h2>
   <div class="posts">
     {% for post in site.posts limit:5 %}
     <a class="pt" href="{{ post.url | relative_url }}">
@@ -164,8 +168,8 @@ h1.big{font-family:'Sora';font-weight:900;font-size:clamp(3.4rem,15vw,10rem);let
 
 <!-- CTA -->
 <section class="cta reveal">
-  <h2>같이 만들어볼까요?</h2>
-  <div class="sub">자동화 아이디어 · 협업 · 강의 문의 환영합니다. 🌿</div>
+  <h2 data-edit>같이 만들어볼까요?</h2>
+  <div class="sub" data-edit>자동화 아이디어 · 협업 · 강의 문의 환영합니다. 🌿</div>
   <div class="btns" style="justify-content:center">
     <a class="btn p" href="{{ '/about/' | relative_url }}">🎮 Henry 캐릭터 시트</a>
     <a class="btn" href="{{ '/profile/' | relative_url }}">📄 텍스트 소개 · 연락처</a>
