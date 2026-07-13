@@ -11,7 +11,7 @@ tags:
   - 업무자동화
 header:
   teaser: /assets/images/posts/ep02-cover.png
-  overlay_image: /assets/images/posts/ep02-cover.png
+  overlay_image: /assets/images/posts/church-bulletin-automation/banner-sunset.png
   overlay_filter: 0.5
 excerpt: "매주 일요일, 교회 주보 사진을 카페에 올리는 5분짜리 일을 자동화했다."
 ---
