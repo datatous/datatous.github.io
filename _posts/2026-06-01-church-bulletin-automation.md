@@ -1,6 +1,7 @@
 ---
 title: "AI가 매주 교회 주보를 올려준다 : 작지만 매번 신경 쓰였던 일을 없앴다"
 date: 2026-06-01
+last_modified_at: 2026-07-14
 categories:
   - 자동화연대기
 tags:
@@ -14,6 +15,15 @@ header:
   overlay_image: /assets/images/posts/church-bulletin-automation/banner-sunset.png
   overlay_filter: 0.5
 excerpt: "매주 일요일, 교회 주보 사진을 카페에 올리는 5분짜리 일을 자동화했다."
+---
+
+## 📱 카드뉴스 (좌우로 넘겨보세요)
+
+<iframe src="/assets/cardnews/ep02/" title="자동화 연대기 EP.02 카드뉴스" loading="lazy" scrolling="no" style="width:100%;max-width:460px;aspect-ratio:4/5;border:0;border-radius:16px;display:block;margin:1.2em auto .3em;background:#111827;box-shadow:0 10px 34px rgba(0,0,0,.28);"></iframe>
+<p style="text-align:center;font-size:.85em;color:#999;margin:0 0 1.8em;">← 좌우로 스와이프</p>
+
+아래는 같은 이야기를 글로 풀어쓴 버전이다.
+
 ---
 
 > "이번 주 주보 또 카페에 올려야 하는데."

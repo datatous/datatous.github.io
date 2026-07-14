@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>자동화 연대기 EP.02 — AI가 매주 교회 주보를 올려준다</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html,body{height:100%;}
+  body{background:#0d0d0d;font-family:sans-serif;}
+  .deck{display:flex;gap:26px;height:100vh;align-items:center;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding:0 calc(50vw - 38.4vh);}
+  .deck::-webkit-scrollbar{height:7px;}
+  .deck::-webkit-scrollbar-thumb{background:#555;border-radius:4px;}
+  .card{flex:0 0 auto;height:96vh;aspect-ratio:4/5;scroll-snap-align:center;border-radius:14px;overflow:hidden;box-shadow:0 8px 30px rgba(0,0,0,.5);background:#fff;}
+  .card img{width:100%;height:100%;display:block;object-fit:cover;}
+</style>
+</head>
+<body>
+<div class="deck">
+  <div class="card"><img src="/assets/images/cards/church-bulletin-automation/01.png" alt="EP.02 커버 — AI가 매주 교회 주보를 올려준다" loading="eager"></div>
+  <div class="card"><img src="/assets/images/cards/church-bulletin-automation/02.png" alt="매주 5분짜리 일, 근데 1년이면 52번" loading="lazy"></div>
+  <div class="card"><img src="/assets/images/cards/church-bulletin-automation/03.png" alt="역할을 둘로 나눴다 — 제미나이 Zem OCR + 클로드 자동 게시" loading="lazy"></div>
+  <div class="card"><img src="/assets/images/cards/church-bulletin-automation/04.png" alt="사진 던지면 텍스트로 — Zem 추출 결과" loading="lazy"></div>
+  <div class="card"><img src="/assets/images/cards/church-bulletin-automation/05.png" alt="검증하고, 알아서 올린다 — dry-run 미리보기" loading="lazy"></div>
+  <div class="card"><img src="/assets/images/cards/church-bulletin-automation/06.png" alt="5분 뒤, 이미 올라가 있다 — 카페 게시 결과" loading="lazy"></div>
+  <div class="card"><img src="/assets/images/cards/church-bulletin-automation/07.png" alt="3주 밀려도 한 번에 — 배치 순차 게시" loading="lazy"></div>
+  <div class="card"><img src="/assets/images/cards/church-bulletin-automation/08.png" alt="작은 자동화가 가장 효과가 크다 — 팔로우 @henryo.o" loading="lazy"></div>
+</div>
+</body>
+</html>
