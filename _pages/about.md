@@ -193,7 +193,7 @@ classes: wide
 <!-- ============ QUESTS ============ -->
 <h3 class="sec">📜 퀘스트 로그</h3>
 <div class="quest">
-  <div class="q main"><span class="tag">MAIN</span><div><div class="qt">빅데이터 석사 논문</div><div class="qd">성균관대 빅데이터학과 (2025.03~) — 연구 주제 확정 단계, 일과 연구를 병행 중</div></div></div>
+  <div class="q main"><span class="tag">MAIN</span><div><div class="qt">빅데이터 석사 논문</div><div class="qd">성균관대 빅데이터학과 (2025.03~) — 주제 방향 확정, 연구계획서 초안 작성 중 (기업 Copilot 도입효과 분석), 일과 연구를 병행 중</div></div></div>
   <div class="q weekly"><span class="tag">WEEKLY</span><div><div class="qt">자동화 연대기</div><div class="qd">2주에 하나씩 직접 만든 자동화를 기록 — 출퇴근 개발환경, 교회 주보, 멀티채널 발행, 카드뉴스 등 총 8편 계획 → <a href="/categories/#자동화연대기">시리즈 보기</a></div></div></div>
   <div class="q side"><span class="tag">SIDE</span><div><div class="qt">LLM Wiki · 세컨브레인</div><div class="qd">하네스 엔지니어링·에이전틱 패턴 등 공부한 지식을 위키에 실시간 축적 → <a href="/wiki/">Wiki 보기</a></div></div></div>
 </div>
