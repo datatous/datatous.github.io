@@ -12,10 +12,10 @@ excerpt: "Claude Code 기반 에이전틱 하네스에서 검증된 12개 설계
 Claude Code 기반 에이전틱 하네스에서 검증된 12개 설계 패턴. 메모리·컨텍스트·보안·오케스트레이션 4개 범주로 구성. [출처: sources/002-harness-12-patterns.md]
 
 ## Key Facts
-- **#3 Tiered Memory**: 항상 로드(인덱스 200줄) / 온디맨드(주제별) / 검색(전체 기록) 3계층 [출처: 002]
-- **#4 Dream Consolidation**: 백그라운드에서 메모리 정리·재구성, 중복 제거 [출처: 002]
-- **#1 Persistent Instruction File**: CLAUDE.md로 구현 — 세션마다 자동 로드 [출처: 002]
-- **#2 Scoped Context Assembly**: 계층적 파일 로딩, `.claude/rules/`로 구현 [출처: 002]
+- **#3 Tiered Memory**: 항상 로드(인덱스 200줄) / 온디맨드(주제별) / 검색(전체 기록) 3계층 [출처: sources/002-harness-12-patterns.md]
+- **#4 Dream Consolidation**: 백그라운드에서 메모리 정리·재구성, 중복 제거 [출처: sources/002-harness-12-patterns.md]
+- **#1 Persistent Instruction File**: CLAUDE.md로 구현 — 세션마다 자동 로드 [출처: sources/002-harness-12-patterns.md]
+- **#2 Scoped Context Assembly**: 계층적 파일 로딩, `.claude/rules/`로 구현 [출처: sources/002-harness-12-patterns.md]
 
 ## Details
 

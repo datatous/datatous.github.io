@@ -12,10 +12,10 @@ excerpt: "Claude Code, GitHub Copilot, Cursor, Cline, Gemini 등 다양한 에�
 Claude Code, GitHub Copilot, Cursor, Cline, Gemini 등 다양한 에이전트 플랫폼에서 사용 가능한 재사용 스킬 마켓플레이스. `npx skills add <owner/repo>`로 설치. [출처: sources/004-skills-sh.md]
 
 ## Key Facts
-- **총 설치 수**: 91,000+ | 등록 스킬: 246+ [출처: 004]
-- **주요 공급자**: `vercel-labs/agent-skills`, `anthropics/skills`, `microsoft/azure-skills` [출처: 004]
-- **설치 명령**: `npx skills add <owner/repo>` — 프레임워크 무관 [출처: 004]
-- **Henry 시스템 연관**: `.claude/skills/` 구조가 유사하나 내부 전용 [출처: 004]
+- **총 설치 수**: 91,000+ | 등록 스킬: 246+ [출처: sources/004-skills-sh.md]
+- **주요 공급자**: `vercel-labs/agent-skills`, `anthropics/skills`, `microsoft/azure-skills` [출처: sources/004-skills-sh.md]
+- **설치 명령**: `npx skills add <owner/repo>` — 프레임워크 무관 [출처: sources/004-skills-sh.md]
+- **Henry 시스템 연관**: `.claude/skills/` 구조가 유사하나 내부 전용 [출처: sources/004-skills-sh.md]
 
 ## Details
 
@@ -39,7 +39,7 @@ npx skills update           # 전체 업데이트
 | 설치 방식 | npx 자동 | 수동 생성 |
 | 공유 범위 | 글로벌 | 루트 + 워커별 |
 
-### 향후 고려 사항 [출처: 004]
+### 향후 고려 사항 [출처: sources/004-skills-sh.md]
 - 스킬 컴포저빌리티 (스킬이 스킬 호출) — 미구현
 - 스킬 버전 필드 추가 가능
 - 커뮤니티 스킬 설치 (`npx skills add anthropics/...`)

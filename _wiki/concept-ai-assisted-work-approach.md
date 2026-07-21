@@ -14,12 +14,12 @@ Henry는 AI(Claude)를 직접 결과물 생성 도구로 쓰기보다 **판단·
 
 ## Key Facts
 
-- **보고서 작성 방식**: PPT 직접 편집 대신, 슬라이드 사진 업로드 → AI가 키인 텍스트 정리 → 사람이 직접 입력. AI는 편집 도구가 아닌 컨텐츠 정리 보조 역할. [출처: session-hanwha-ocean-report-2026-05-29]
-- **데이터 검증 원칙**: 수치는 원본 데이터 파일(Excel, MD 총정리본)과 대조 확인 후 사용. 업데이트 일정(6/1 엑셀 재다운, 6/2 설문 마감)까지 중간 수치를 명시적으로 "현재 기준"으로 표시. [출처: session-hanwha-ocean-report-2026-05-29]
-- **PDF 텍스트 추출 장벽 우회**: PowerPoint 생성 PDF는 CIDFont 인코딩 문제로 텍스트 추출 불가. PyMuPDF로 페이지를 PNG 이미지로 변환 후 Claude의 시각 인식으로 내용 추출하는 방식으로 해결. [출처: session-hanwha-ocean-report-2026-05-29]
-- **툴 선택 기준 — 스킬 vs MCP**: MCP는 토큰 소비가 많아 부담. 같은 기능이면 skills.sh 스킬을 먼저 시도하고, 스킬이 없을 때 MCP를 고려. [출처: session-hanwha-ocean-report-2026-05-29]
-- **다중 소스 교차 검증**: 시나리오명 확인 시 Draft MD + 최종 PDF를 모두 확인해 불일치 발견 ("답변 데이터" → "실적 데이터" 수정). 항상 최신 원본이 우선. [출처: session-hanwha-ocean-report-2026-05-29]
-- **세션 로그 누적 저장**: 작업 결과를 `키인내용_세션로그.md` 같은 파일에 슬라이드별로 누적해 다음 세션에서도 이어서 사용할 수 있도록 관리. [출처: session-hanwha-ocean-report-2026-05-29]
+- **보고서 작성 방식**: PPT 직접 편집 대신, 슬라이드 사진 업로드 → AI가 키인 텍스트 정리 → 사람이 직접 입력. AI는 편집 도구가 아닌 컨텐츠 정리 보조 역할. [출처: sources/006-session-client-report-2026-05-29.md]
+- **데이터 검증 원칙**: 수치는 원본 데이터 파일(Excel, 총정리 MD)과 대조 확인 후 사용. 원본이 갱신될 예정이면 중간 수치를 명시적으로 "현재 기준"으로 표시. [출처: sources/006-session-client-report-2026-05-29.md]
+- **PDF 텍스트 추출 장벽 우회**: PowerPoint 생성 PDF는 CIDFont 인코딩 문제로 텍스트 추출 불가. PyMuPDF로 페이지를 PNG 이미지로 변환 후 Claude의 시각 인식으로 내용 추출하는 방식으로 해결. [출처: sources/006-session-client-report-2026-05-29.md]
+- **툴 선택 기준 — 스킬 vs MCP**: MCP는 토큰 소비가 많아 부담. 같은 기능이면 skills.sh 스킬을 먼저 시도하고, 스킬이 없을 때 MCP를 고려. [출처: sources/006-session-client-report-2026-05-29.md]
+- **다중 소스 교차 검증**: 항목명 확인 시 Draft MD와 최종 PDF를 모두 대조해 불일치를 발견한 사례가 있다. 버전이 갈리면 항상 최신 원본이 우선. [출처: sources/006-session-client-report-2026-05-29.md]
+- **세션 로그 누적 저장**: 작업 결과를 `키인내용_세션로그.md` 같은 파일에 슬라이드별로 누적해 다음 세션에서도 이어서 사용할 수 있도록 관리. [출처: sources/006-session-client-report-2026-05-29.md]
 
 ## Details
 

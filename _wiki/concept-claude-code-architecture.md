@@ -12,16 +12,16 @@ excerpt: "Claude Code는 CLI 기반 AI 코딩 에이전트로, 모델(Model)과 
 Claude Code는 CLI 기반 AI 코딩 에이전트로, 모델(Model)과 하네스(Harness)가 분리된 권한 아키텍처를 사용한다. 모델이 무엇을 할지 결정하고, 별도 시스템이 허용 여부를 결정하는 책임 분리가 핵심 설계 원칙이다. [출처: sources/003-wavespeed-claude-arch.md]
 
 ## Key Facts
-- **책임 분리**: 모델의 실행 결정 ≠ 하네스의 허용 결정 — 두 레이어가 독립적으로 동작 [출처: 003]
-- **백그라운드 분류기**: 사용자 의도 + 도구 호출을 감시하되, 모델 내부 추론은 의도적으로 제외 (설득 공격 방지) [출처: 003]
-- **자동 컴팩션**: 컨텍스트 ~98% 도달 시 자동 실행. Full context reset이 compaction보다 충실도 높은 경우도 존재 [출처: 003]
-- **MCP Lazy Tool Discovery**: 도구 이름만 초기 로드, 스키마는 필요 시 동적 발견 — 컨텍스트 효율화 [출처: 003]
-- **MCP 서버 권장 상한**: 5~6개 (서브프로세스 오버헤드 고려) [출처: 003]
+- **책임 분리**: 모델의 실행 결정 ≠ 하네스의 허용 결정 — 두 레이어가 독립적으로 동작 [출처: sources/003-wavespeed-claude-arch.md]
+- **백그라운드 분류기**: 사용자 의도 + 도구 호출을 감시하되, 모델 내부 추론은 의도적으로 제외 (설득 공격 방지) [출처: sources/003-wavespeed-claude-arch.md]
+- **자동 컴팩션**: 컨텍스트 ~98% 도달 시 자동 실행. Full context reset이 compaction보다 충실도 높은 경우도 존재 [출처: sources/003-wavespeed-claude-arch.md]
+- **MCP Lazy Tool Discovery**: 도구 이름만 초기 로드, 스키마는 필요 시 동적 발견 — 컨텍스트 효율화 [출처: sources/003-wavespeed-claude-arch.md]
+- **MCP 서버 권장 상한**: 5~6개 (서브프로세스 오버헤드 고려) [출처: sources/003-wavespeed-claude-arch.md]
 
 ## Details
 
 ### 권한 3단계
-[출처: 003]
+[출처: sources/003-wavespeed-claude-arch.md]
 
 | 단계 | 동작 | 예시 |
 |------|------|------|
