@@ -2,7 +2,7 @@
 title: "Henry Agentic System"
 wiki_type: entity
 tags: [agentic-system, harness, orchestrator, workers, henry]
-last_modified_at: 2026-05-30
+last_modified_at: 2026-07-21
 excerpt: "오현근(Henry)이 설계·운영하는 Claude Code 기반 멀티 에이전트 시스템. Orchestrator + Worker 패턴으로 도메인별 워커 노드가 분리된 구조이며, 메모리·스킬·라우팅 테이블이 하네스 레이어에서 관리된다."
 ---
 
@@ -18,6 +18,11 @@ excerpt: "오현근(Henry)이 설계·운영하는 Claude Code 기반 멀티 에
 - **워커 노드**: 도메인별 폴더 (writing/, ppt_team_agent/, data_analysis/ 등)
 - **메모리 시스템**: `C:\Users\Henry\.claude\projects\...\memory\` — 4가지 타입 (user/feedback/project/reference)
 - **스킬**: `.claude/skills/` — 재사용 가능한 루틴 (save-log, analyze-me 등)
+- **⚠️ 위키 공개 동기화**: `tools/blog_sync/wiki_to_blog.py`는 `llm_wiki/wiki/pages/*.md`
+  전체를 제외 필터 없이 datatous.github.io로 동기화한다 — exclude/private 조건이
+  코드에 없음(2026-07-21 확인). `wiki/pages/`에 넣는 파일은 다음 동기화 실행 시
+  전부 공개된다는 뜻이므로, 비공개 성격 자료는 애초에 wiki에 넣지 않아야 한다.
+  [출처: sources/009-personal-data-automation-api-constraints.md]
 
 ## Details
 
@@ -50,11 +55,24 @@ excerpt: "오현근(Henry)이 설계·운영하는 Claude Code 기반 멀티 에
 - `daily-brief` — 일일 업무 브리핑 생성
 - `status` — 전체 워커 현황 조회
 
+### 블로그 동기화 메커니즘 (llm_wiki → 공개 위키)
+
+`tools/blog_sync/wiki_to_blog.py`가 `llm_wiki/wiki/pages/*.md`를 읽어
+datatous.github.io의 `_wiki/` 콘텐츠로 변환·배포한다. 2026-07-21 기준 스크립트에는
+페이지 단위 제외 조건(예: frontmatter `visibility: private`)이 없어 **전량 무필터
+동기화**된다. 비공개 자료를 wiki에 통합하려면 이 스크립트에 스킵 조건을 먼저
+추가해야 하며, 그 전까지는 wiki에 넣은 모든 페이지가 공개 대상이라고 가정해야
+한다. [출처: sources/009-personal-data-automation-api-constraints.md]
+
 ## Connections
 - → [[Harness Engineering]] : 시스템이 구현하는 패러다임
 - → [[12 Agentic Harness Patterns]] : 구현된 패턴 목록
 - → [[Claude Code Architecture]] : 기반 아키텍처
+- → [[메일 첨부파일 자동화의 MCP 제약과 우회 경로]] : 개인 데이터 파이프라인을 이
+  하네스에 통합할 때 함께 고려해야 할 공개 동기화 제약
 
 ## Open Questions
 - 워커 간 output → input 파이프라인 자동화 미완성
 - 토큰 사용량 모니터링 대시보드 없음
+- `wiki_to_blog.py`에 `visibility: private` 스킵 조건을 추가할지, 아니면 비공개
+  지식은 애초에 llm_wiki 밖(별도 저장소)에 둘지 미결 (2026-07-21 기준)
