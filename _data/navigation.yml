@@ -23,8 +23,18 @@ wiki:
         url: /wiki/concept-claude-code-architecture/
       - title: "Harness Engineering"
         url: /wiki/concept-harness-engineering/
+      - title: "로컬 음성 에이전트 파이프라인 구성 패턴 (Windows)"
+        url: /wiki/concept-local-voice-agent-pipeline/
+      - title: "텍스트 처리 함정 — PowerShell BOM과 정규식 \s"
+        url: /wiki/concept-powershell-regex-text-pitfalls/
+      - title: "Copilot Chat 응답 모드와 작업 모델의 2계층 구조"
+        url: /wiki/concept-copilot-response-mode-vs-task-model/
       - title: "Henry의 AI 보조 업무 접근 방식"
         url: /wiki/concept-ai-assisted-work-approach/
+      - title: "SharePoint 항목 수준 권한의 일괄 제어와 확장 한계"
+        url: /wiki/concept-sharepoint-item-level-permissions/
+      - title: "Teams 메시지 삭제의 구조적 제약"
+        url: /wiki/concept-teams-message-deletion-constraints/
       - title: "메일 첨부파일 자동화의 MCP 제약과 우회 경로"
         url: /wiki/concept-mail-attachment-automation-constraint/
       - title: "연구 주제 선정 게이트 방법론"
