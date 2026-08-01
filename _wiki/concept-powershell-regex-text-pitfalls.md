@@ -1,9 +1,9 @@
 ---
-title: '텍스트 처리 함정 — PowerShell BOM과 정규식 \s'
+title: "텍스트 처리 함정 — PowerShell BOM과 정규식 \\s"
 wiki_type: concept
 tags: [powershell, regex, encoding, windows, gotcha]
 last_modified_at: 2026-07-31
-excerpt: '텍스트/스크립트를 다루다 반복적으로 재발할 수 있는 두 가지 함정 — ① PowerShell 5.1의 BOM 없는 스크립트 인코딩 오독, ② 정규식 `\s`가 개행을 포함해 줄 단위 정제 시 다음 줄을 통째로 삼키는 문제. 음성 출력용 텍스트 정제 스크립트를 만드는 과정에서 둘 다 실제로 발생했다.'
+excerpt: "텍스트/스크립트를 다루다 반복적으로 재발할 수 있는 두 가지 함정 — ① PowerShell 5.1의 BOM 없는 스크립트 인코딩 오독, ② 정규식 `\\s`가 개행을 포함해 줄 단위 정제 시 다음 줄을 통째로 삼키는 문제. 음성 출력용 텍스트 정제 스크립트를 만드는 과정에서 둘 다 실제로 발생했다."
 ---
 
 <span class="wiki-type-badge">concept</span>
