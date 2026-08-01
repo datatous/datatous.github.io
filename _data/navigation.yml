@@ -25,7 +25,7 @@ wiki:
         url: /wiki/concept-harness-engineering/
       - title: "로컬 음성 에이전트 파이프라인 구성 패턴 (Windows)"
         url: /wiki/concept-local-voice-agent-pipeline/
-      - title: "텍스트 처리 함정 — PowerShell BOM과 정규식 \s"
+      - title: '텍스트 처리 함정 — PowerShell BOM과 정규식 \s'
         url: /wiki/concept-powershell-regex-text-pitfalls/
       - title: "Copilot Chat 응답 모드와 작업 모델의 2계층 구조"
         url: /wiki/concept-copilot-response-mode-vs-task-model/
