@@ -12,11 +12,11 @@ excerpt: "오현근(Henry)이 설계·운영하는 Claude Code 기반 멀티 에
 오현근(Henry)이 설계·운영하는 Claude Code 기반 멀티 에이전트 시스템. Orchestrator + Worker 패턴으로 도메인별 워커 노드가 분리된 구조이며, 메모리·스킬·라우팅 테이블이 하네스 레이어에서 관리된다.
 
 ## Key Facts
-- **루트 경로**: `c:\Users\오현근\Desktop\dev\dev\`
+- **루트 경로**: 로컬 개발 리포 (경로는 머신마다 다름 — 리포 내 참조는 루트 기준 상대경로 사용)
 - **진입점**: `CLAUDE.md` (라우팅 테이블 정의)
 - **오케스트레이터**: `henry-orchestrator` — 복합 도메인 작업 조율
 - **워커 노드**: 도메인별 폴더 (writing/, ppt_team_agent/, data_analysis/ 등)
-- **메모리 시스템**: `C:\Users\오현근\.claude\projects\...\memory\` — 4가지 타입 (user/feedback/project/reference)
+- **메모리 시스템**: 사용자 홈의 `.claude/projects/<프로젝트>/memory/` — 4가지 타입 (user/feedback/project/reference)
 - **스킬**: `.claude/skills/` — 재사용 가능한 루틴 (save-log, analyze-me 등)
 - **⚠️ 위키 공개 동기화**: `tools/blog_sync/wiki_to_blog.py`는 `llm_wiki/wiki/pages/*.md`
   전체를 제외 필터 없이 datatous.github.io로 동기화한다 — exclude/private 조건이
