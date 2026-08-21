@@ -39,6 +39,8 @@ wiki:
         url: /wiki/concept-mail-attachment-automation-constraint/
       - title: "예매 사이트 매크로 탐지와 자동화 중단 판단"
         url: /wiki/concept-booking-site-macro-detection/
+      - title: "편집 가능한 아티팩트와 SSOT 대기함 패턴"
+        url: /wiki/concept-editable-artifact-staging/
       - title: "연구 주제 선정 게이트 방법론"
         url: /wiki/concept-research-topic-gating/
   - title: "Entities"
