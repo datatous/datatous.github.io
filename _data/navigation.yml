@@ -37,6 +37,8 @@ wiki:
         url: /wiki/concept-teams-message-deletion-constraints/
       - title: "메일 첨부파일 자동화의 MCP 제약과 우회 경로"
         url: /wiki/concept-mail-attachment-automation-constraint/
+      - title: "에이전트가 CLI 세션을 띄울 때의 함정"
+        url: /wiki/concept-spawning-cli-sessions/
       - title: "예매 사이트 매크로 탐지와 자동화 중단 판단"
         url: /wiki/concept-booking-site-macro-detection/
       - title: "편집 가능한 아티팩트와 SSOT 대기함 패턴"
