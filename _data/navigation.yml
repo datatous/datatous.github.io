@@ -37,6 +37,8 @@ wiki:
         url: /wiki/concept-teams-message-deletion-constraints/
       - title: "메일 첨부파일 자동화의 MCP 제약과 우회 경로"
         url: /wiki/concept-mail-attachment-automation-constraint/
+      - title: "문서 리포가 부푸는 진짜 원인 — 백업의 백업"
+        url: /wiki/concept-repo-doc-sprawl-diagnosis/
       - title: "순번 파일명 자산 폴더의 재동기화 — 지각 해시 대조"
         url: /wiki/concept-asset-resync-perceptual-hash/
       - title: "에이전트가 CLI 세션을 띄울 때의 함정"
