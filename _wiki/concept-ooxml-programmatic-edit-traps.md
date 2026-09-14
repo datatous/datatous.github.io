@@ -1,0 +1,84 @@
+---
+title: "xlsx를 코드로 고칠 때의 함정 — 재직렬화와 동시 편집"
+wiki_type: concept
+tags: [xlsx, ooxml, python, xml, namespace, gotcha, automation]
+last_modified_at: 2026-09-15
+excerpt: "통합문서를 스크립트로 일괄 수정할 때 밟기 쉬운 두 함정 — ① sheet XML을 통째로 재직렬화하면 네임스페이스 접두사가 재작명되어 `mc:Ignorable`이 깨지고 스프레드시트 앱이 파일을 거부한다, ② 앱이 파일을 열고 있으면 스크립트가 쓴 내용이 나중에 조용히 덮어써진다. 둘 다 **검증을 통과한 뒤에** 문제가 드러나 원인을 찾기 어렵다."
+---
+
+<span class="wiki-type-badge">concept</span>
+
+## Summary
+통합문서를 스크립트로 일괄 수정할 때 밟기 쉬운 두 함정 — ① sheet XML을 통째로
+재직렬화하면 네임스페이스 접두사가 재작명되어 `mc:Ignorable`이 깨지고 스프레드시트
+앱이 파일을 거부한다, ② 앱이 파일을 열고 있으면 스크립트가 쓴 내용이 나중에 조용히
+덮어써진다. 둘 다 **검증을 통과한 뒤에** 문제가 드러나 원인을 찾기 어렵다.
+[출처: sources/021-xlsx-programmatic-edit-traps-2026-09-15.md]
+
+## Key Facts
+- **`ElementTree`로 파싱 후 `tostring()`하면 네임스페이스 접두사가 재작명된다** —
+  `x14ac`·`xr` 이 `ns2`·`ns3` 로 바뀐다
+  [출처: sources/021-xlsx-programmatic-edit-traps-2026-09-15.md]
+- **`mc:Ignorable="x14ac xr xr2 xr3"`의 값은 문자열이라 그대로 남는다** — 선언되지
+  않은 접두사를 가리키게 되어 Markup Compatibility 규격 위반이 된다
+  [출처: sources/021-xlsx-programmatic-edit-traps-2026-09-15.md]
+- **증상이 비대칭이다**: XML은 well-formed이고 openpyxl·JSZip으로는 정상적으로
+  읽히는데, **스프레드시트 앱만 "파일이 손상되었습니다"로 거부**한다. 데이터 검증만
+  하면 통과한다 [출처: sources/021-xlsx-programmatic-edit-traps-2026-09-15.md]
+- **해결은 셀 단위 문자열 치환** — XML을 다시 쓰지 말고 대상 `<c>` 엘리먼트만
+  정규식으로 갈아끼운다. 나머지 바이트는 원본 그대로 유지된다
+  [출처: sources/021-xlsx-programmatic-edit-traps-2026-09-15.md]
+- **빈 셀은 self-closing(`<c r="S9" s="4"/>`)** 이라 치환 정규식이 두 형태를 모두
+  받아야 한다 [출처: sources/021-xlsx-programmatic-edit-traps-2026-09-15.md]
+- **스프레드시트 앱은 열 때 통째로 읽고 저장할 때 통째로 덮어쓴다** — 쓰기 잠금이
+  항상 걸리지는 않아서, 스크립트가 성공한 뒤 앱이 나중에 저장하면 조용히 덮어쓴다
+  [출처: sources/021-xlsx-programmatic-edit-traps-2026-09-15.md]
+
+## Details
+
+### 셀 치환 패턴
+
+```python
+# 빈 셀(self-closing)과 값 있는 셀 두 형태를 모두 매칭
+pat = re.compile(r'<c r="%s"(?:[^>]*/>|[^>]*>.*?</c>)' % ref, re.S)
+new = ('<c r="%s" s="%s" t="inlineStr">'
+       '<is><t xml:space="preserve">%s</t></is></c>' % (ref, style, esc(value)))
+```
+
+- 기존 `s=`(스타일 인덱스)를 반드시 살려 서식을 보존한다
+- 줄바꿈은 `<t>` 안에 리터럴 개행으로 들어간다 (`&#10;` 아님)
+- 이스케이프는 `&`, `<`, `>` 세 가지면 충분하다
+- 베이스는 스프레드시트 앱이 직접 저장해 유효성이 보장된 파일을 쓴다
+
+### 검증 항목
+
+데이터가 맞는지만 보면 이 버그를 못 잡는다.
+
+1. zip 무결성 (`testzip()`)
+2. XML well-formed
+3. **네임스페이스 선언부가 원본과 바이트 단위로 동일**
+4. 실제로 바뀐 셀이 의도한 것뿐인지 원본과 대조
+
+라이브러리 로드 성공은 앱 호환성의 증거가 아니다. 관대한 파서로 한 검증은 엄격한
+소비자를 대변하지 못한다.
+
+### 동시 편집 대응
+
+- 수정 전 프로세스 목록을 확인하고, 열려 있으면 **닫아 달라고 먼저 요청**한다
+- 작업 후에도 되돌아갔는지 재확인한다
+- 되돌아갔다면 **단순 복원은 위험하다.** 그 사이 사람이 앱에서 직접 넣은 입력이
+  디스크본에만 있을 수 있으므로, 커밋본과 디스크본을 열 단위로 대조해 병합한다
+
+### 일반화
+
+압축 컨테이너 + XML 구조의 문서 포맷(OOXML 계열)에 공통으로 적용된다.
+
+- **재직렬화는 최후의 수단이다** — 파서가 보존하지 않는 메타데이터(접두사, 속성
+  순서, 공백)에 의미가 실려 있을 수 있다. 부분 치환이 항상 더 안전하다
+- **최종 소비자가 거부할 수 있는 규격 항목을 따로 검사 목록에 넣는다**
+- **파일을 단독 점유하는 GUI 앱과 동시에 쓰지 않는다** — 마지막에 저장하는 쪽이 이긴다
+
+## Related
+- [[concept-powershell-regex-text-pitfalls]] — 텍스트 처리에서 도구가 조용히
+  바꿔놓는 것을 놓쳐 생기는 같은 계열의 함정
+- [[concept-hwp-com-document-generation]] — 문서 포맷 자동화의 제약과 우회

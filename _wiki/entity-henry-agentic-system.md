@@ -41,7 +41,6 @@ excerpt: "오현근(Henry)이 설계·운영하는 Claude Code 기반 멀티 에
 | M365, Power Platform | ms_specialist/ | update-tracker-agent |
 | Wiki, 지식베이스 | llm_wiki/ | wiki-ingest/query/lint |
 | Google Drive 정리 | gdrive_organizer/ | gdrive-organizer |
-| 일일 업무 브리핑 | daily_brief/ | daily-brief |
 | 석사 논문 | thesis/ | thesis-advisor |
 
 ### 메모리 4-레이어
@@ -56,7 +55,6 @@ excerpt: "오현근(Henry)이 설계·운영하는 Claude Code 기반 멀티 에
 ### 핵심 스킬
 - `save-log` — 세션 작업 로그 저장
 - `analyze-me` — work_logs 패턴 분석
-- `daily-brief` — 일일 업무 브리핑 생성
 - `status` — 전체 워커 현황 조회
 
 ### 블로그 동기화 메커니즘 (llm_wiki → 공개 위키)
