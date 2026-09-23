@@ -170,7 +170,7 @@ classes: wide
 <!-- ============ EQUIPMENT ============ -->
 <h3 class="sec">🎒 장비</h3>
 <div class="equip">
-  <div class="eq legend"><div class="ic">🦾</div><div><div class="gr">LEGENDARY</div><div class="nm">Claude Code 하네스</div><div class="ds">블로그 발행·카드뉴스·위키 등 10+ 도메인 에이전트를 일상 운영 — 이 페이지도 산출물</div></div></div>
+  <div class="eq legend"><div class="ic">🦾</div><div><div class="gr">LEGENDARY</div><div class="nm">Claude Code 하네스</div><div class="ds">블로그 발행·카드뉴스·위키 등 9개 도메인 워커를 일상 운영 — v12 경량화로 고정 로딩 −31%, 이 페이지도 산출물</div></div></div>
   <div class="eq epic"><div class="ic">🐍</div><div><div class="gr">EPIC</div><div class="nm">Python</div><div class="ds">예측모델(scikit-learn 앙상블)·K-Means 클러스터링·ARIMA 시계열 분석</div></div></div>
   <div class="eq epic"><div class="ic">⚡</div><div><div class="gr">EPIC</div><div class="nm">Power Platform</div><div class="ds">Power Automate 피드백 993건 자동화, Copilot Studio·Power Apps, SharePoint 사이트 2개 구축</div></div></div>
   <div class="eq rare"><div class="ic">📊</div><div><div class="gr">RARE</div><div class="nm">Power BI · Tableau</div><div class="ds">VOC 품질 KPI·AX 절감시간 실시간 대시보드 구축, Tableau 부트캠프 수료</div></div></div>
@@ -193,8 +193,9 @@ classes: wide
 <!-- ============ QUESTS ============ -->
 <h3 class="sec">📜 퀘스트 로그</h3>
 <div class="quest">
-  <div class="q main"><span class="tag">MAIN</span><div><div class="qt">빅데이터 석사 논문</div><div class="qd">성균관대 빅데이터학과 (2025.03~) — 주제 방향 확정, 연구계획서 초안 작성 중 (기업 Copilot 도입효과 분석), 일과 연구를 병행 중</div></div></div>
+  <div class="q main"><span class="tag">MAIN</span><div><div class="qt">빅데이터 석사 논문</div><div class="qd">성균관대 빅데이터학과 (2025.03~) — 주제 확정·지도교수 수락 완료(2026-09) → 본문 작성 단계, 일과 연구를 병행 중</div></div></div>
   <div class="q weekly"><span class="tag">WEEKLY</span><div><div class="qt">자동화 연대기</div><div class="qd">2주에 하나씩 직접 만든 자동화를 기록 — 출퇴근 개발환경, 교회 주보, 멀티채널 발행, 카드뉴스 등 총 8편 계획 → <a href="/categories/#자동화연대기">시리즈 보기</a></div></div></div>
+  <div class="q side"><span class="tag">CLEAR</span><div><div class="qt">하네스 다이어트 v12 ✅</div><div class="qd">반년간 불어난 AI 하네스를 실측으로 진단 — 워커 14→9, 고정 로딩 −31%, 정합성 이상 17→0 → <a href="/posts/harness-v12-slimming/">케이스 스터디</a></div></div></div>
   <div class="q side"><span class="tag">SIDE</span><div><div class="qt">LLM Wiki · 세컨브레인</div><div class="qd">하네스 엔지니어링·에이전틱 패턴 등 공부한 지식을 위키에 실시간 축적 → <a href="/wiki/">Wiki 보기</a></div></div></div>
 </div>
 
@@ -207,7 +208,7 @@ classes: wide
     {nm:'문제정의·기획',en:'Problem Framing',lv:9,g:92,src:'성과 12건 — 약 20개 기관 분석과제 기획 컨설팅, 화장품 위해평가 B2B 모델 설계, AX 피드백 프로세스 기획 등',up:true},
     {nm:'데이터 분석',en:'Data Analysis',lv:8,g:84,src:'성과 8건 — 식수인원 예측모델(MAE 8.17·R² 0.85), 기상특보 시계열 분석(ARIMA), K-Means 클러스터링 2건, 화장품 위해평가 모델',up:true},
     {nm:'자동화·프로세스',en:'Automation',lv:8,g:80,src:'성과 7건 — RPA 9건 구축(연 9,392시간 절감·누적 1.3만건 처리), 수료증 발송 5배 가속, AI 쇼츠 제작 70% 단축',up:true},
-    {nm:'AI·에이전틱',en:'AI & Agentic',lv:8,g:78,src:'성과 7건 — ChatGPT 가이드북 2.0(3만 DL), AI 기술기준 정립, 10+ 도메인 에이전트 하네스 운영 중',up:true},
+    {nm:'AI·에이전틱',en:'AI & Agentic',lv:8,g:78,src:'성과 7건 — ChatGPT 가이드북 2.0(3만 DL), AI 기술기준 정립, 9개 워커 에이전트 하네스 운영·실측 기반 경량화(고정 로딩 −31%)',up:true},
     {nm:'프로젝트 관리',en:'Project Mgmt',lv:7,g:74,src:'성과 7건 — 26억 클라우드 전환 사업, 13,019명 교육 운영, 3년 유지보수 계약 관리(2.3억 절감)'},
     {nm:'보고서·문서화',en:'Documentation',lv:7,g:72,src:'성과 7건 — 정책보고서 2개년 발간, 가이드북 집필·개정, 12년 만의 내규 전부개정'},
     {nm:'커뮤니케이션',en:'Communication',lv:7,g:70,src:'성과 5건 — 개발자↔현업 요구사항 조율, 기관 간담회 11회, 인터뷰 영상 정리로 의견차 최소화'},
