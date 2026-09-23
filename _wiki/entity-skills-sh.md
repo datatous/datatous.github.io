@@ -32,6 +32,7 @@ npx skills update           # 전체 업데이트
 ```
 
 ### Henry 시스템 현황 비교
+
 | 기능 | skills.sh | Henry 시스템 |
 |------|----------|------------|
 | 스킬 구조 | owner/repo@skill | `.claude/skills/*/SKILL.md` |
