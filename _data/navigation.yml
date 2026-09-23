@@ -17,6 +17,10 @@ wiki:
     url: /wiki/
   - title: "Concepts"
     children:
+      - title: "\"그림도 검사 대상으로: 실측에서 생성하는 배선도\""
+        url: /wiki/concept-generated-diagrams-as-consistency-checks/
+      - title: "\"하네스 다이어트: 실측으로 워커를 내리는 법\""
+        url: /wiki/concept-harness-diet-measurement-driven-pruning/
       - title: "12 Agentic Harness Patterns"
         url: /wiki/concept-12-harness-patterns/
       - title: "Claude Code Architecture"

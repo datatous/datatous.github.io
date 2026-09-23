@@ -71,6 +71,10 @@ AI 개발 패러다임의 3세대. Agent = Model + Harness 공식으로, 하네�
 - → [[12 Agentic Harness Patterns]] : 이 개념의 구체적 구현 패턴 목록
 - → [[Claude Code Architecture]] : 권한/컴팩션 상세 구현
 - → [[Henry Agentic System]] : Henry의 하네스 구현체
+- → [[하네스 다이어트: 실측으로 워커를 내리는 법]] : 이 개념을 "무엇을 뺄지" 방향으로
+  적용한 실사례 (2026-09-23)
+- → [[그림도 검사 대상으로: 실측에서 생성하는 배선도]] : 4-Quadrant Defense 중
+  Feedforward·Deterministic 사분면의 실사례 — 그림 생성 자체가 가드레일
 
 ## Open Questions
 - Full context reset 전략: extended session 시 언제 reset할지 가이드라인 미수립
