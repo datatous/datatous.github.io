@@ -1,5 +1,5 @@
 ---
-title: "Wiki — 세컨브레인"
+title: "Wiki · 세컨브레인"
 permalink: /wiki/
 layout: single
 author_profile: false

@@ -12,10 +12,10 @@ excerpt: "2026년 4월 기준 Claude 4.x 주요 신기능. Adaptive Thinking, Ci
 2026년 4월 기준 Claude 4.x 주요 신기능. Adaptive Thinking, Citations API, Routines, 1M Token Context 등 Henry 시스템 하네스 업그레이드에 직접 활용 가능한 기능 포함.
 
 ## Key Facts
-- **Adaptive Thinking**: 도구 호출 사이 추론 가능 (Interleaved Thinking) — Sonnet 4.6, Opus 4.7
-- **Citations API**: 소스 문서 내 정확한 문장 자동 인용 — 전체 모델
+- **Adaptive Thinking**: 도구 호출 사이 추론 가능 (Interleaved Thinking). Sonnet 4.6, Opus 4.7
+- **Citations API**: 소스 문서 내 정확한 문장 자동 인용, 전체 모델
 - **Claude Code Routines**: 반복 작업 오프라인 스케줄링 자동화
-- **1M Token Context (Beta)**: ~750,000단어 = ~2,500페이지 처리 — Sonnet 4.6, Opus 4.6
+- **1M Token Context (Beta)**: ~750,000단어 = ~2,500페이지 처리, Sonnet 4.6, Opus 4.6
 - **Managed Agents (Beta)**: 완전 관리형 에이전트 하네스, 보안 샌드박싱 포함
 
 ## Details

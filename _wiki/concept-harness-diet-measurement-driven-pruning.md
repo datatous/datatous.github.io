@@ -3,26 +3,26 @@ title: "하네스 다이어트: 실측으로 워커를 내리는 법"
 wiki_type: concept
 tags: [harness, orchestration, pruning, measurement, agentic-system, maintenance, claude-code]
 last_modified_at: 2026-09-23
-excerpt: "> 한 줄로 — 안 쓰는 워커는 감으로 못 지운다. 재 보고, 지우지 말고 재우고(archive), 리포 밖까지 따라가서 끈다. 에이전틱 하네스는 늘리기는 쉬운데 줄이기가 어렵다. 내 Claude Code 하네스는 반년 만에 워커 14개·에이전트 14개·스킬 11개로 불었다. 2026-09-23 v12 정리에서 이걸 워커 9 · 에이전트 8 · 스킬 7로 "
+excerpt: "> 한 줄로: 안 쓰는 워커는 감으로 못 지운다. 재 보고, 지우지 말고 재우고(archive), 리포 밖까지 따라가서 끈다. 에이전틱 하네스는 늘리기는 쉬운데 줄이기가 어렵다. 내 Claude Code 하네스는 반년 만에 워커 14개·에이전트 14개·스킬 11개로 불었다. 2026-09-23 v12 정리에서 이걸 워커 9 · 에이전트 8 · 스킬 7로 줄"
 ---
 
 <span class="wiki-type-badge">concept</span>
 
 ## Summary
-> **한 줄로** — 안 쓰는 워커는 감으로 못 지운다. **재 보고, 지우지 말고 재우고(archive), 리포 밖까지 따라가서 끈다.**
+> **한 줄로**: 안 쓰는 워커는 감으로 못 지운다. **재 보고, 지우지 말고 재우고(archive), 리포 밖까지 따라가서 끈다.**
 
 에이전틱 하네스는 늘리기는 쉬운데 줄이기가 어렵다. 내 Claude Code 하네스는 반년 만에 워커 14개·에이전트 14개·스킬 11개로 불었다. 2026-09-23 v12 정리에서 이걸 **워커 9 · 에이전트 8 · 스킬 7**로 줄였고, 세션을 열 때마다 무조건 읽히는 고정 컨텍스트는 **20,629자 → 14,253자(−31%)**가 됐다. 이 페이지는 그때 쓴 판단 기준과 밟은 함정을 정리한 것이다.
 
 ## Key Facts
-- **Codex 미러 폐기** — Claude(`.claude/agents/*.md`)와 Codex(`.codex/agents/*.toml`, `.agents/skills/`)에 정의를 2벌 두고 있었다. `sync_harness_mirror.py --check`를 돌리니 40개 중 **30개가 drift**. 그런데 work_logs 54건 중 Codex를 실제로 쓴 건 **2건**이었다.
-- **워커 6개 휴면** — `ppt_team_agent` · `data_analysis` · `ideaing` · `retrospective` · `higgsfield` · `daily_brief`. 삭제가 아니라 `archive/hibernated-workers/`로 옮겼다.
-- **supervisor 에이전트 폐기** — `henry-orchestrator`가 가리키는 복합 라우팅 7건 중 6건이 이미 휴면 대상이었다. 라우팅 SSOT는 `CLAUDE.md` 표 하나로.
-- **훅 7개 → 2개** — SessionEnd 3중 훅(최대 270초)·알림·PreToolUse 보안 훅을 걷고, 음성 모드 본체인 `UserPromptSubmit`·`Stop` 두 개만 남겼다.
-- **정합성 이상 17건 → 0건** — `tools/harness_map.py --check` 기준.
+- **Codex 미러 폐기**: Claude(`.claude/agents/*.md`)와 Codex(`.codex/agents/*.toml`, `.agents/skills/`)에 정의를 2벌 두고 있었다. `sync_harness_mirror.py --check`를 돌리니 40개 중 **30개가 drift**. 그런데 work_logs 54건 중 Codex를 실제로 쓴 건 **2건**이었다.
+- **워커 6개 휴면**: `ppt_team_agent` · `data_analysis` · `ideaing` · `retrospective` · `higgsfield` · `daily_brief`. 삭제가 아니라 `archive/hibernated-workers/`로 옮겼다.
+- **supervisor 에이전트 폐기**: `henry-orchestrator`가 가리키는 복합 라우팅 7건 중 6건이 이미 휴면 대상이었다. 라우팅 SSOT는 `CLAUDE.md` 표 하나로.
+- **훅 7개 → 2개**: SessionEnd 3중 훅(최대 270초)·알림·PreToolUse 보안 훅을 걷고, 음성 모드 본체인 `UserPromptSubmit`·`Stop` 두 개만 남겼다.
+- **정합성 이상 17건 → 0건**: `tools/harness_map.py --check` 기준.
 
 ## Details
 
-### 한눈에 — 전과 후
+### 한눈에: 전과 후
 
 ```mermaid
 flowchart LR
@@ -58,9 +58,9 @@ flowchart LR
 
 이런 걸 감이 아니라 판단으로 바꾸려면 세 가지를 같이 봐야 한다. 하나만 보면 틀린다.
 
-- **마지막 산출물** — `output/` 파일과 git log. 단, 1년에 한 번 쓰는 계절성 워커는 오판할 수 있다.
-- **work_logs 언급 횟수** — 호출 횟수가 아니라 **프록시**다. 이름만 나오고 실행은 안 됐을 수 있다.
-- **참조 생존** — 그 워커를 가리키는 라우팅표·에이전트·문서가 아직 살아 있나.
+- **마지막 산출물**: `output/` 파일과 git log. 단, 1년에 한 번 쓰는 계절성 워커는 오판할 수 있다.
+- **work_logs 언급 횟수**: 호출 횟수가 아니라 **프록시**다. 이름만 나오고 실행은 안 됐을 수 있다.
+- **참조 생존**: 그 워커를 가리키는 라우팅표·에이전트·문서가 아직 살아 있나.
 
 ```mermaid
 flowchart TD
@@ -85,7 +85,7 @@ flowchart TD
 
 ### 3. 라우터는 워커 수에 맞춘다
 
-revfactory/harness가 Claude Code 팀 구조를 여섯 가지로 이름 붙였다 — **pipeline · fan-out/fan-in · expert pool · producer-reviewer · supervisor · hierarchical delegation**. 이 어휘로 보니 판단이 쉬워졌다.
+revfactory/harness가 Claude Code 팀 구조를 여섯 가지로 이름 붙였다. **pipeline · fan-out/fan-in · expert pool · producer-reviewer · supervisor · hierarchical delegation**. 이 어휘로 보니 판단이 쉬워졌다.
 
 - 지금 내 하네스는 **expert pool**(키워드로 도메인 전문가 선택) + 얕은 **pipeline** 하나(MS 업데이트 → 문서)다.
 - `henry-orchestrator`는 **supervisor**였다. 워커가 14개일 땐 말이 됐다. 복합 경로가 1개뿐인 지금은 중간 단을 한 번 더 거치면서 **컨텍스트만 두 번 쌓는다.**
@@ -97,9 +97,9 @@ revfactory/harness가 Claude Code 팀 구조를 여섯 가지로 이름 붙였�
 
 정의를 두 벌 둘 때 `sync_harness_mirror.py`라는 동기화 스크립트를 만들었다. 임시방편이었다. **돌리는 걸 잊는 순간 다시 어긋나고,** 실제로 그렇게 30개가 어긋났다. 한 벌만 두면 어긋날 수가 없다. `AGENTS.md`는 6,372B에서 841B짜리 포인터(CLAUDE.md를 가리킴 + 복구 절차)가 됐다.
 
-### 5. 지시의 목적을 본다 — 훅 사례
+### 5. 지시의 목적을 본다: 훅 사례
 
-09-08에 "hook 다 꺼"라고 지시해서 세 scope(`.codex/hooks.json`, `.claude/settings.local.json`, `~/.claude/settings.json`)의 command **24개**를 전부 껐다. 그런데 그중 둘은 음성 모드의 본체였다 — `UserPromptSubmit`의 `voice-hook.ps1`(토글)과 `Stop`의 `session_notify.ps1`(답변 낭독). 지시의 **목적은 속도**였으니 속도에 영향을 주는 것만 끄면 된다. 실제 범인은 SessionEnd 3중 훅(최대 270초)이었다. 그래서 v12에서는 그 둘만 남겼다.
+09-08에 "hook 다 꺼"라고 지시해서 세 scope(`.codex/hooks.json`, `.claude/settings.local.json`, `~/.claude/settings.json`)의 command **24개**를 전부 껐다. 그런데 그중 둘은 음성 모드의 본체였다. `UserPromptSubmit`의 `voice-hook.ps1`(토글)과 `Stop`의 `session_notify.ps1`(답변 낭독)이다. 지시의 **목적은 속도**였으니 속도에 영향을 주는 것만 끄면 된다. 실제 범인은 SessionEnd 3중 훅(최대 270초)이었다. 그래서 v12에서는 그 둘만 남겼다.
 
 ### 6. 내릴 땐 참조를 끝까지 따라간다
 
@@ -116,8 +116,8 @@ revfactory/harness가 Claude Code 팀 구조를 여섯 가지로 이름 붙였�
 1. 워커 폴더 + 딸린 에이전트·스킬 정의 → `archive/`
 2. `CLAUDE.md` 라우팅표에서 빼고 휴면 표에 추가
 3. 훅 설정(`settings*.json`)
-4. 다른 문서·스크립트의 참조 — **import 포함**
-5. **리포 밖** — 클라우드 루틴, 외부 스케줄러, MCP 연결
+4. 다른 문서·스크립트의 참조: **import 포함**
+5. **리포 밖**: 클라우드 루틴, 외부 스케줄러, MCP 연결
 6. `python tools/harness_map.py --check` → 0 issues
 
 ### 9. 갈라진 상태로 진단하지 않는다
@@ -129,7 +129,7 @@ revfactory/harness가 Claude Code 팀 구조를 여섯 가지로 이름 붙였�
 - → [그림도 검사 대상으로: 실측에서 생성하는 배선도](/wiki/concept-generated-diagrams-as-consistency-checks/) : 짝이 되는 원칙. 여기가 "무엇을 내릴까"라면 저기는 "줄인 구조를 어떻게 안 낡게 지킬까"
 - → [Harness Engineering](/wiki/concept-harness-engineering/) : 하네스를 하나의 시스템으로 다루는 상위 관점
 - → [12 Agentic Harness Patterns](/wiki/concept-12-harness-patterns/) : 여기서 폐기한 supervisor와 겹치는 오케스트레이션 패턴이 있다. 패턴의 가치는 워커 수·분기 수에 따라 달라진다
-- → [문서 리포가 부푸는 진짜 원인 — 백업의 백업](/wiki/concept-repo-doc-sprawl-diagnosis/) : 같은 계열의 교훈. 리포가 부푸는 건 추가가 아니라 안 치우는 데서 온다
+- → [문서 리포가 부푸는 진짜 원인: 백업의 백업](/wiki/concept-repo-doc-sprawl-diagnosis/) : 같은 계열의 교훈. 리포가 부푸는 건 추가가 아니라 안 치우는 데서 온다
 
 ## Open Questions
 - 세 기준 중 하나만 걸리는 워커를 어떻게 할지는 아직 명시 기준이 없다. 지금은 내가 하나씩 판단한다.

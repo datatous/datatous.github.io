@@ -19,9 +19,9 @@ API 키·클라우드 비용 없이 Windows에서 로컬로 완결되는 음성 
 - **STT**: `faster-whisper` `small` 모델, CPU int8, 완전 로컬 실행. API 키
   불필요, 한국어 인식 품질 실사용 가능 수준. 최초 1회 모델 다운로드 후
   캐시, 최초 로드 약 18초
-- **TTS**: Windows 내장 SAPI(`System.Speech`)의 한국어 음성을 재사용 —
+- **TTS**: Windows 내장 SAPI(`System.Speech`)의 한국어 음성을 재사용, 
   추가 설치·API 불필요
-- **녹음 종료 판정**: 키 입력이 아니라 RMS(음량) 기반 침묵 감지 — 임계값
+- **녹음 종료 판정**: 키 입력이 아니라 RMS(음량) 기반 침묵 감지, 임계값
   이하가 일정 시간(예: 1500ms) 지속되면 자동 종료. 실측 환경 소음 RMS
   21 / 임계값 450 (여유 충분)
 - **병렬 발화 겹침 방지**: 전역 named mutex로 TTS 발화를 직렬화. 동시에
@@ -39,7 +39,7 @@ API 키·클라우드 비용 없이 Windows에서 로컬로 완결되는 음성 
 | `converse(text)` | 말하고 → 듣고 → 텍스트 반환 (대화 한 턴) |
 | `listen()` | 듣기만, 침묵 감지 시 종료 |
 | `say(text)` | 말하기만 |
-| `calibrate()` | 방 소음 측정 — 인식 이상 시 임계값 점검용 |
+| `calibrate()` | 방 소음 측정, 인식 이상 시 임계값 점검용 |
 
 ### 텍스트 정제 (TTS 앞단)
 답변 텍스트를 그대로 읽으면 마크다운·코드블록·URL·이모지까지 낭독되는
@@ -66,12 +66,12 @@ API 키·클라우드 비용 없이 Windows에서 로컬로 완결되는 음성 
 - → [Claude Code Architecture](/wiki/concept-claude-code-architecture/) : 슬래시 명령이 막혀도 MCP 도구는 별도
   레이어로 작동한다는 우회 원리와 연결
 - → [Henry Agentic System](/wiki/entity-henry-agentic-system/) : 하네스에 음성 입출력 도구가 추가된 확장 사례
-- → [텍스트 처리 함정 — PowerShell BOM과 정규식 \s](/wiki/concept-powershell-regex-text-pitfalls/) : 같은 작업에서
+- → [텍스트 처리 함정: PowerShell BOM과 정규식 \s](/wiki/concept-powershell-regex-text-pitfalls/) : 같은 작업에서
   함께 발견된 구현 함정
 
 ## Open Questions
 - 침묵 감지 임계값(RMS/지속시간)이 다른 환경(소음이 큰 공간 등)에서도
-  안정적인지 미검증 — 현재는 단일 환경 실측치만 있음
+  안정적인지 미검증, 현재는 단일 환경 실측치만 있음
 - `medium` 모델로 전환 시 정확도 개선 폭과 지연 시간 트레이드오프 미측정
 
 <p class="wiki-sources"><b>근거 자료</b> <code>013-voice-control-mcp-2026-07-31.md</code></p>

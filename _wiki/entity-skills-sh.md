@@ -14,7 +14,7 @@ Claude Code, GitHub Copilot, Cursor, Cline, Gemini 등 다양한 에이전트 �
 ## Key Facts
 - **총 설치 수**: 91,000+ | 등록 스킬: 246+
 - **주요 공급자**: `vercel-labs/agent-skills`, `anthropics/skills`, `microsoft/azure-skills`
-- **설치 명령**: `npx skills add <owner/repo>` — 프레임워크 무관
+- **설치 명령**: `npx skills add <owner/repo>`: 프레임워크 무관
 - **Henry 시스템 연관**: `.claude/skills/` 구조가 유사하나 내부 전용
 
 ## Details
@@ -40,7 +40,7 @@ npx skills update           # 전체 업데이트
 | 공유 범위 | 글로벌 | 루트 + 워커별 |
 
 ### 향후 고려 사항
-- 스킬 컴포저빌리티 (스킬이 스킬 호출) — 미구현
+- 스킬 컴포저빌리티 (스킬이 스킬 호출): 미구현
 - 스킬 버전 필드 추가 가능
 - 커뮤니티 스킬 설치 (`npx skills add anthropics/...`)
 

@@ -3,14 +3,14 @@ title: "한글(HWP) COM 문서 자동 생성의 함정과 우회"
 wiki_type: concept
 tags: [hwp, com-automation, windows, python, document-generation, encoding]
 last_modified_at: 2026-09-07
-excerpt: "Windows에서 HWPFrame.HwpObject COM으로 서식이 있는 한글 문서를 자동 생성하는 것은 가능하다. 다만 API가 성공을 반환하면서 결과물이 조용히 망가지는 구간이 셋 있다 — ① HTML 삽입 시 한글이 두부로 깨짐(인코딩) ② CP949에 없는 문자가 ?로 사라짐 ③ 표 안 내용이 한 쪽을 넘으면 렌더에서 잘림. 셋 다 반환값으로는 감"
+excerpt: "Windows에서 HWPFrame.HwpObject COM으로 서식이 있는 한글 문서를 자동 생성하는 것은 가능하다. 다만 API가 성공을 반환하면서 결과물이 조용히 망가지는 구간이 셋 있다. ① HTML 삽입 시 한글이 두부로 깨짐(인코딩) ② CP949에 없는 문자가 ?로 사라짐 ③ 표 안 내용이 한 쪽을 넘으면 렌더에서 잘림. 셋 다 반환값으로는 감지"
 ---
 
 <span class="wiki-type-badge">concept</span>
 
 ## Summary
 
-Windows에서 `HWPFrame.HwpObject` COM으로 **서식이 있는 한글 문서를 자동 생성하는 것은 가능하다.** 다만 API가 성공을 반환하면서 결과물이 조용히 망가지는 구간이 셋 있다 — ① HTML 삽입 시 한글이 두부로 깨짐(인코딩) ② CP949에 없는 문자가 `?`로 사라짐 ③ **표 안 내용이 한 쪽을 넘으면 렌더에서 잘림.** 셋 다 반환값으로는 감지되지 않으므로 **매 단계 PDF로 내보내 렌더를 확인하는 것이 유일한 검증 수단**이다.
+Windows에서 `HWPFrame.HwpObject` COM으로 **서식이 있는 한글 문서를 자동 생성하는 것은 가능하다.** 다만 API가 성공을 반환하면서 결과물이 조용히 망가지는 구간이 셋 있다. ① HTML 삽입 시 한글이 두부로 깨짐(인코딩) ② CP949에 없는 문자가 `?`로 사라짐 ③ **표 안 내용이 한 쪽을 넘으면 렌더에서 잘림.** 셋 다 반환값으로는 감지되지 않으므로 **매 단계 PDF로 내보내 렌더를 확인하는 것이 유일한 검증 수단**이다.
 
 ## Key Facts
 
@@ -78,6 +78,6 @@ COM 호출 중 `Hwp.exe`를 강제 종료하면 다음 `Open()`이 `-2147023170`
 
 ## 함께 보기
 
-- concept-powershell-regex-text-pitfalls — Windows 텍스트 처리에서 인코딩이 조용히 망가지는 다른 사례
+- concept-powershell-regex-text-pitfalls: Windows 텍스트 처리에서 인코딩이 조용히 망가지는 다른 사례
 
 <p class="wiki-sources"><b>근거 자료</b> <code>019-hwp-com-document-generation-2026-09-07.md</code></p>

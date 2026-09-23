@@ -43,7 +43,7 @@ PnP PowerShell)로만 가능하다. 더 중요한 건 이 방식이 **성능·�
 | ⑤ Graph API / CSOM | ◎ | 코드 통합 | 개발 연동 |
 | ⑥ 서드파티(ShareGate 등) | ◎ | GUI 일괄 권한 | 툴 도입 조직 |
 
-### 실무 패턴 — 컬럼값 기반 자동 부여
+### 실무 패턴: 컬럼값 기반 자동 부여
 
 임의로 여러 개를 고르는 것보다 **"이 조건이면 열람 허용"을 컬럼 하나로 정의**하는 편이
 유지보수가 쉽다. 조건이 데이터에 있으면 흐름이 멱등해지고, 대상이 바뀌어도 스크립트를
@@ -51,7 +51,7 @@ PnP PowerShell)로만 가능하다. 더 중요한 건 이 방식이 **성능·�
 
 PnP PowerShell은 `Get-PnPListItem`에 CAML 쿼리로 대상을 좁힌 뒤
 `Set-PnPListItemPermission -AddRole "Read" -ClearExisting`으로 상속을 끊고 부여한다.
-Power Automate는 "SharePoint에 HTTP 요청 보내기"로 항목마다 두 번 호출한다 —
+Power Automate는 "SharePoint에 HTTP 요청 보내기"로 항목마다 두 번 호출한다. 
 `breakroleinheritance(copyRoleAssignments=false,clearSubscopes=true)` 후
 `roleassignments/addroleassignment(principalid=…,roledefid=1073741826)`이며
 `1073741826`이 읽기 권한 수준이다.
@@ -62,7 +62,7 @@ Power Automate는 "SharePoint에 HTTP 요청 보내기"로 항목마다 두 번 
 
 - 열람 대상이 명확히 갈리면 목록/라이브러리 또는 사이트를 분리해 그 단위로 권한 부여
 - 정말 항목 단위 통제가 필요하면 5,000 미만으로 설계
-- 부여 대상은 개인이 아니라 **그룹**으로 — 인원 변동 시 권한을 다시 훑지 않아도 된다
+- 부여 대상은 개인이 아니라 **그룹**으로: 인원 변동 시 권한을 다시 훑지 않아도 된다
 
 ## Connections
 

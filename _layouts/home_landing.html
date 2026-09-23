@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{{ site.title }} — {{ site.description | default: '데이터와 자동화로 일하는 방식을 다시 설계합니다' }}</title>
+<title>{{ site.title }} | {{ site.description | default: '데이터와 자동화로 일하는 방식을 다시 설계합니다' }}</title>
 <meta name="description" content="{{ site.description }}">
 <meta property="og:title" content="{{ site.title }}">
 <meta property="og:description" content="{{ site.description }}">
@@ -15,6 +15,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800;900&display=swap" rel="stylesheet">
 <style>
+/* 한글은 단어 단위로 줄바꿈 (2026-09-23, main.scss와 같은 규칙) */
+html{word-break:keep-all;overflow-wrap:break-word}
 *{margin:0;padding:0;box-sizing:border-box}
 :root{--blue:#60a5fa;--ink:#05070f}
 html{scroll-behavior:smooth}
@@ -137,7 +139,7 @@ h1.big{font-family:'Sora';font-weight:900;font-size:clamp(3.4rem,15vw,10rem);let
 
 <!-- NOW BUILDING -->
 <section class="sec reveal" id="now">
-  <div class="eyebrow2" data-edit>NOW BUILDING — 자동화 연대기</div>
+  <div class="eyebrow2" data-edit>NOW BUILDING · 자동화 연대기</div>
   <h2 data-edit>2주에 하나씩, 직접 만든 자동화를 기록합니다</h2>
   <p class="lead" data-edit>이론보다 만든 것, 성공담보다 시행착오를. AX 컨설턴트가 직접 구현하고 이해한 것만 남깁니다.</p>
   <div class="nb-grid">

@@ -3,21 +3,21 @@ title: "그림도 검사 대상으로: 실측에서 생성하는 배선도"
 wiki_type: concept
 tags: [harness, diagram, mermaid, ci-check, documentation, drift-detection, claude-code]
 last_modified_at: 2026-09-23
-excerpt: "> 한 줄로 — 손으로 그린 그림은 그리는 순간부터 낡는다. 그래서 그림은 스크립트가 실측에서 그리고, 그림이 실측과 다르면 --check가 exit 1로 실패하게 했다. 그림이 문서가 아니라 테스트가 된다. 건물 도면에 비유하면 쉽다. 도면을 한 번 그려 벽에 붙여 두면 리모델링할 때마다 조금씩 틀려진다. 그렇다고 매번 사람이 다시 그리는 것도 잊기 쉽다"
+excerpt: "> 한 줄로: 손으로 그린 그림은 그리는 순간부터 낡는다. 그래서 그림은 스크립트가 실측에서 그리고, 그림이 실측과 다르면 --check가 exit 1로 실패하게 했다. 그림이 문서가 아니라 테스트가 된다. 건물 도면에 비유하면 쉽다. 도면을 한 번 그려 벽에 붙여 두면 리모델링할 때마다 조금씩 틀려진다. 그렇다고 매번 사람이 다시 그리는 것도 잊기 쉽다."
 ---
 
 <span class="wiki-type-badge">concept</span>
 
 ## Summary
-> **한 줄로** — 손으로 그린 그림은 그리는 순간부터 낡는다. 그래서 **그림은 스크립트가 실측에서 그리고, 그림이 실측과 다르면 `--check`가 exit 1로 실패하게 했다.** 그림이 문서가 아니라 테스트가 된다.
+> **한 줄로**: 손으로 그린 그림은 그리는 순간부터 낡는다. 그래서 **그림은 스크립트가 실측에서 그리고, 그림이 실측과 다르면 `--check`가 exit 1로 실패하게 했다.** 그림이 문서가 아니라 테스트가 된다.
 
 건물 도면에 비유하면 쉽다. 도면을 한 번 그려 벽에 붙여 두면 리모델링할 때마다 조금씩 틀려진다. 그렇다고 매번 사람이 다시 그리는 것도 잊기 쉽다. 내 하네스는 방식을 바꿨다. **매번 줄자로 다시 재서 도면을 새로 뽑고, 벽에 붙은 도면과 다르면 경보가 울린다.** 여기서 줄자는 `tools/harness_map.py`고, 도면은 Mermaid로 그린 flowchart다.
 
 ## Key Facts
-- **Mermaid를 골랐다** — GitHub이 ` ```mermaid ` 펜스를 네이티브로 렌더하고(2022~), Claude Artifact도 렌더한다. 텍스트라서 git diff에 찍히고 PR에서 리뷰된다. 무엇보다 **스크립트가 생성할 수 있다.**
-- **생성 → 주입** — `harness_map.py`가 디스크와 git을 실측해서 `ref/harness-map.json`을 만들고, flowchart를 `ARCHITECTURE.md`의 `<!-- harness-map:begin -->`~`<!-- harness-map:end -->` 사이에 끼워 넣는다.
-- **검사** — `--check`는 주입된 그림이 최신 실측과 다르면 exit 1. 라우팅·에이전트·스킬·참조·예산·톤 게이트까지 7가지를 본다. v12 첫 실행에서 17건이 걸렸고 지금은 0건이다.
-- **외부 자동 생성 서비스는 기각** — GitDiagram·Swark 같은 서비스는 리포를 외부 LLM에 넘겨야 한다. 외부로 보낼 수 없는 자료가 섞인 리포라 처음부터 불가였다. 성능 문제가 아니라 **데이터 경계** 문제라서 도구가 좋아져도 답이 안 바뀐다.
+- **Mermaid를 골랐다**. GitHub이 ` ```mermaid ` 펜스를 네이티브로 렌더하고(2022~), Claude Artifact도 렌더한다. 텍스트라서 git diff에 찍히고 PR에서 리뷰된다. 무엇보다 **스크립트가 생성할 수 있다.**
+- **생성 → 주입**: `harness_map.py`가 디스크와 git을 실측해서 `ref/harness-map.json`을 만들고, flowchart를 `ARCHITECTURE.md`의 `<!-- harness-map:begin -->`~`<!-- harness-map:end -->` 사이에 끼워 넣는다.
+- **검사**: `--check`는 주입된 그림이 최신 실측과 다르면 exit 1. 라우팅·에이전트·스킬·참조·예산·톤 게이트까지 7가지를 본다. v12 첫 실행에서 17건이 걸렸고 지금은 0건이다.
+- **외부 자동 생성 서비스는 기각**: GitDiagram·Swark 같은 서비스는 리포를 외부 LLM에 넘겨야 한다. 외부로 보낼 수 없는 자료가 섞인 리포라 처음부터 불가였다. 성능 문제가 아니라 **데이터 경계** 문제라서 도구가 좋아져도 답이 안 바뀐다.
 
 ## Details
 
@@ -69,21 +69,21 @@ python tools/harness_map.py --check    # 정합성만 검사, 어긋나면 exit 
 
 ### `--check`가 보는 일곱 가지
 
-1. 라우팅표 ↔ 디스크 — 표에는 있는데 폴더가 없거나, 그 반대
+1. 라우팅표 ↔ 디스크: 표에는 있는데 폴더가 없거나, 그 반대
 2. 아무도 부르지 않는 에이전트
-3. 스킬 폴더명 ↔ frontmatter `name` 불일치 — 어긋나면 호출명이 조용히 폴더명으로 바뀐다
+3. 스킬 폴더명 ↔ frontmatter `name` 불일치: 어긋나면 호출명이 조용히 폴더명으로 바뀐다
 4. 이미 휴면·폐기된 대상을 아직 가리키는 문서
 5. 세션 고정 로딩이 예산(20,000자)을 넘는지
 6. `ARCHITECTURE.md`에 박힌 그림이 실측과 같은지
-7. 톤 게이트 배선 — `CLAUDE.md`와 에이전트 8개가 모두 `knowledge/voice.md`를 거치는지 (현재 8/8)
+7. 톤 게이트 배선: `CLAUDE.md`와 에이전트 8개가 모두 `knowledge/voice.md`를 거치는지 (현재 8/8)
 
 못 보는 것도 있다. **리포 밖 층**(클라우드 루틴 등)과 **파이썬 import 참조**다. 실제로 v12 직후 `hook_gate.py`를 archive로 옮긴 뒤 이걸 import하던 `publish_wiki.py`가 멈춰 있었는데, `--check`는 0건이었다.
 
-### 그림이 그리는 약속까지 검사한다 — 톤 게이트
+### 그림이 그리는 약속까지 검사한다: 톤 게이트
 
 7번이 이 페이지에서 제일 중요하다고 생각한다. 그림이 실측과 똑같아도, **그림이 약속하는 흐름을 실제로 안 지키면** 그림은 거짓말을 하는 셈이다.
 
-내 하네스는 답변·문서·시각물이 나가기 전에 전부 `knowledge/voice.md`(톤 SSOT)를 거친다. 이걸 "나가기 전에 `/voice-check`를 부르세요" 같은 별도 명령으로 만들면 결국 안 쓰인다. 그래서 **이미 항상 지나가는 길목**에 박았다 — 에이전트 8개의 "내보내기 직전" 단계와 `publish-post`·`status`·`optimize`·`save-log` 스킬 안에. 그리고 `--check`가 그 연결이 끊겼는지 본다.
+내 하네스는 답변·문서·시각물이 나가기 전에 전부 `knowledge/voice.md`(톤 SSOT)를 거친다. 이걸 "나가기 전에 `/voice-check`를 부르세요" 같은 별도 명령으로 만들면 결국 안 쓰인다. 그래서 **이미 항상 지나가는 길목**에 박았다. 에이전트 8개의 "내보내기 직전" 단계와 `publish-post`·`status`·`optimize`·`save-log` 스킬 안에. 그리고 `--check`가 그 연결이 끊겼는지 본다.
 
 ```mermaid
 flowchart TD
@@ -116,7 +116,7 @@ Mermaid에도 한계는 있다. `architecture-beta`의 아이콘 팩은 GitHub·
 ## Connections
 - → [하네스 다이어트: 실측으로 워커를 내리는 법](/wiki/concept-harness-diet-measurement-driven-pruning/) : 짝이 되는 원칙. 저기가 "무엇을 내릴까"라면 여기는 "줄인 구조를 어떻게 안 낡게 지킬까"
 - → [Henry Agentic System](/wiki/entity-henry-agentic-system/) : 이 생성·검사 장치가 돌고 있는 하네스
-- → [Harness Engineering](/wiki/concept-harness-engineering/) : Feedforward·Deterministic 방어의 구체 사례 — 그림 생성 자체가 가드레일이다
+- → [Harness Engineering](/wiki/concept-harness-engineering/) : Feedforward·Deterministic 방어의 구체 사례, 그림 생성 자체가 가드레일이다
 
 ## Open Questions
 - `--check`가 실패하면 지금은 내가 재실행한다. 실패 시 자동 재생성까지 붙일지는 미정이다.

@@ -136,7 +136,7 @@ classes: wide
 
 <!-- ============ HERO ============ -->
 <div class="rpg-hero"><div class="rpg-hero-in">
-  <div class="avatar-frame" role="img" aria-label="Henry 일러스트 — 카페에서 데이터를 보는 모습">
+  <div class="avatar-frame" role="img" aria-label="Henry 일러스트, 카페에서 데이터를 보는 모습">
     <img src="/assets/images/henry-portrait.png" alt="Henry">
     <span class="scrim"></span>
     <span class="orb o1"></span><span class="orb o2"></span><span class="orb o3"></span>
@@ -145,9 +145,9 @@ classes: wide
     <div class="kicker">PLAYER PROFILE</div>
     <h2>Henry</h2>
     <div class="cls">Class. <b>AX Consultant</b> · Data &amp; Automation Specialist</div>
-    <div class="cls" style="font-size:.86rem;margin-top:6px;color:#94a3b8;">공공 데이터 3년 → AX 교육 13,019명 → 에이전틱 시스템 운영 — 데이터 분석과 자동화로 일하는 방식을 바꿔왔습니다.</div>
+    <div class="cls" style="font-size:.86rem;margin-top:6px;color:#94a3b8;">공공 데이터 3년 → AX 교육 13,019명 → 에이전틱 시스템 운영, 데이터 분석과 자동화로 일하는 방식을 바꿔왔습니다.</div>
     <div class="rpg-badges"><span>📊 Data</span><span>🤖 AI·Agentic</span><span>⚡ Automation</span><span>🎓 빅데이터 석사 수련 중</span></div>
-    <div class="rpg-lv">LEVEL <b>28</b> <small>— 성과 1건 = 1레벨. 직접 만든 것만 카운트.</small>
+    <div class="rpg-lv">LEVEL <b>28</b> <small>· 성과 1건 = 1레벨. 직접 만든 것만 카운트.</small>
       <div class="xpbar"><i></i></div>
     </div>
   </div>
@@ -161,58 +161,58 @@ classes: wide
 <!-- ============ CLASS TREE ============ -->
 <h3 class="sec">🧭 전직 트리</h3>
 <div class="tree">
-  <div class="node"><div class="yr">~2020</div><div class="jb">경영학도</div><div class="ds">컴퓨터공학 멀티클래스 — 전공자들 사이에서 평균 A로 부전공 획득</div></div>
-  <div class="node"><div class="yr">2022–2025</div><div class="jb">공공 Data Keeper</div><div class="ds">KCA 3년 — 데이터 품질·개방·정책연구, RPA·클라우드 전환</div></div>
-  <div class="node"><div class="yr">2025</div><div class="jb">AX Educator</div><div class="ds">KMA — KT AX 디그리 2.0 운영, 수강생 13,019명</div></div>
-  <div class="node"><div class="yr">2026~</div><div class="jb">AX Consultant ★</div><div class="ds">MuniLabs — 에이전틱 시스템 설계·운용 + 석사 수련 병행</div></div>
+  <div class="node"><div class="yr">~2020</div><div class="jb">경영학도</div><div class="ds">컴퓨터공학 멀티클래스: 전공자들 사이에서 평균 A로 부전공 획득</div></div>
+  <div class="node"><div class="yr">2022–2025</div><div class="jb">공공 Data Keeper</div><div class="ds">KCA 3년: 데이터 품질·개방·정책연구, RPA·클라우드 전환</div></div>
+  <div class="node"><div class="yr">2025</div><div class="jb">AX Educator</div><div class="ds">KMA: KT AX 디그리 2.0 운영, 수강생 13,019명</div></div>
+  <div class="node"><div class="yr">2026~</div><div class="jb">AX Consultant ★</div><div class="ds">MuniLabs: 에이전틱 시스템 설계·운용 + 석사 수련 병행</div></div>
 </div>
 
 <!-- ============ EQUIPMENT ============ -->
 <h3 class="sec">🎒 장비</h3>
 <div class="equip">
-  <div class="eq legend"><div class="ic">🦾</div><div><div class="gr">LEGENDARY</div><div class="nm">Claude Code 하네스</div><div class="ds">블로그 발행·카드뉴스·위키 등 9개 도메인 워커를 일상 운영 — v12 경량화로 고정 로딩 −31%, 이 페이지도 산출물</div></div></div>
+  <div class="eq legend"><div class="ic">🦾</div><div><div class="gr">LEGENDARY</div><div class="nm">Claude Code 하네스</div><div class="ds">블로그 발행·카드뉴스·위키 등 9개 도메인 워커를 일상 운영, v12 경량화로 고정 로딩 −31%, 이 페이지도 산출물</div></div></div>
   <div class="eq epic"><div class="ic">🐍</div><div><div class="gr">EPIC</div><div class="nm">Python</div><div class="ds">예측모델(scikit-learn 앙상블)·K-Means 클러스터링·ARIMA 시계열 분석</div></div></div>
   <div class="eq epic"><div class="ic">⚡</div><div><div class="gr">EPIC</div><div class="nm">Power Platform</div><div class="ds">Power Automate 피드백 993건 자동화, Copilot Studio·Power Apps, SharePoint 사이트 2개 구축</div></div></div>
   <div class="eq rare"><div class="ic">📊</div><div><div class="gr">RARE</div><div class="nm">Power BI · Tableau</div><div class="ds">VOC 품질 KPI·AX 절감시간 실시간 대시보드 구축, Tableau 부트캠프 수료</div></div></div>
-  <div class="eq rare"><div class="ic">🗄️</div><div><div class="gr">RARE</div><div class="nm">SQL · DBeaver</div><div class="ds">SQLD 보유 — 개방 데이터 81건 품질진단·정비에 실전 사용</div></div></div>
-  <div class="eq rare"><div class="ic">🎨</div><div><div class="gr">RARE</div><div class="nm">Figma · Vrew · GA4</div><div class="ds">AI 쇼츠 가이드 7편 제작, GA4 자격증(2026) — 콘텐츠·분석 보조 장비</div></div></div>
+  <div class="eq rare"><div class="ic">🗄️</div><div><div class="gr">RARE</div><div class="nm">SQL · DBeaver</div><div class="ds">SQLD 보유: 개방 데이터 81건 품질진단·정비에 실전 사용</div></div></div>
+  <div class="eq rare"><div class="ic">🎨</div><div><div class="gr">RARE</div><div class="nm">Figma · Vrew · GA4</div><div class="ds">AI 쇼츠 가이드 7편 제작, GA4 자격증(2026). 콘텐츠·분석 보조 장비</div></div></div>
 </div>
 
 <!-- ============ TROPHIES ============ -->
 <h3 class="sec">🏆 업적</h3>
 <div class="trophy">
-  <div class="tp"><div class="em">🏆</div><div class="tt">과기정통부 표창 (2024.12)</div><div class="ds">공공데이터 활성화 유공 — 데이터 품질·개방·연계 강화 성과로 수여</div></div>
-  <div class="tp"><div class="em">🥇</div><div class="tt">평가 2년 연속 '우수' 등급</div><div class="ds">공공데이터 제공운영·데이터기반행정 실태점검, 기관 최초 — 품질관리 점수 만점</div></div>
-  <div class="tp"><div class="em">💯</div><div class="tt">성과관리 수준진단 100점</div><div class="ds">전자정부 성과관리, 기관 최초 (2024) — 9개 시스템 총괄, 3년 연속 90점 이상</div></div>
-  <div class="tp"><div class="em">📘</div><div class="tt">가이드북 다운로드 3만+</div><div class="ds">ChatGPT 업무활용 가이드북 2.0 집필·개정 총괄 — 교육영상 9건 별도 제작</div></div>
-  <div class="tp"><div class="em">⏱️</div><div class="tt">연 9,392시간 절감</div><div class="ds">RPA 9건 구축·고도화 + 26억 규모 차세대 시스템 클라우드 전환 — 절감 인력 4명 신규사업 전환</div></div>
-  <div class="tp"><div class="em">🎓</div><div class="tt">수강생 13,019명 교육 운영</div><div class="ds">KT AX 디그리 2.0 — 수료 6,124명, 전문가 심층 피드백 993건 지원</div></div>
-  <div class="tp"><div class="em">🦥</div><div class="tt">자동화 연대기 연재 중</div><div class="ds">2주 1편, 직접 만들고 이해한 자동화만 기록 — 총 8편 계획</div></div>
+  <div class="tp"><div class="em">🏆</div><div class="tt">과기정통부 표창 (2024.12)</div><div class="ds">공공데이터 활성화 유공: 데이터 품질·개방·연계 강화 성과로 수여</div></div>
+  <div class="tp"><div class="em">🥇</div><div class="tt">평가 2년 연속 '우수' 등급</div><div class="ds">공공데이터 제공운영·데이터기반행정 실태점검, 기관 최초, 품질관리 점수 만점</div></div>
+  <div class="tp"><div class="em">💯</div><div class="tt">성과관리 수준진단 100점</div><div class="ds">전자정부 성과관리, 기관 최초 (2024): 9개 시스템 총괄, 3년 연속 90점 이상</div></div>
+  <div class="tp"><div class="em">📘</div><div class="tt">가이드북 다운로드 3만+</div><div class="ds">ChatGPT 업무활용 가이드북 2.0 집필·개정 총괄, 교육영상 9건 별도 제작</div></div>
+  <div class="tp"><div class="em">⏱️</div><div class="tt">연 9,392시간 절감</div><div class="ds">RPA 9건 구축·고도화 + 26억 규모 차세대 시스템 클라우드 전환, 절감 인력 4명 신규사업 전환</div></div>
+  <div class="tp"><div class="em">🎓</div><div class="tt">수강생 13,019명 교육 운영</div><div class="ds">KT AX 디그리 2.0: 수료 6,124명, 전문가 심층 피드백 993건 지원</div></div>
+  <div class="tp"><div class="em">🦥</div><div class="tt">자동화 연대기 연재 중</div><div class="ds">2주 1편, 직접 만들고 이해한 자동화만 기록, 총 8편 계획</div></div>
 </div>
 
 <!-- ============ QUESTS ============ -->
 <h3 class="sec">📜 퀘스트 로그</h3>
 <div class="quest">
-  <div class="q main"><span class="tag">MAIN</span><div><div class="qt">빅데이터 석사 논문</div><div class="qd">성균관대 빅데이터학과 (2025.03~) — 주제 확정·지도교수 수락 완료(2026-09) → 본문 작성 단계, 일과 연구를 병행 중</div></div></div>
-  <div class="q weekly"><span class="tag">WEEKLY</span><div><div class="qt">자동화 연대기</div><div class="qd">2주에 하나씩 직접 만든 자동화를 기록 — 출퇴근 개발환경, 교회 주보, 멀티채널 발행, 카드뉴스 등 총 8편 계획 → <a href="/categories/#자동화연대기">시리즈 보기</a></div></div></div>
-  <div class="q side"><span class="tag">CLEAR</span><div><div class="qt">하네스 다이어트 v12 ✅</div><div class="qd">반년간 불어난 AI 하네스를 실측으로 진단 — 워커 14→9, 고정 로딩 −31%, 정합성 이상 17→0 → <a href="/posts/harness-v12-slimming/">케이스 스터디</a></div></div></div>
+  <div class="q main"><span class="tag">MAIN</span><div><div class="qt">빅데이터 석사 논문</div><div class="qd">성균관대 빅데이터학과 (2025.03~): 주제 확정·지도교수 수락 완료(2026-09) → 본문 작성 단계, 일과 연구를 병행 중</div></div></div>
+  <div class="q weekly"><span class="tag">WEEKLY</span><div><div class="qt">자동화 연대기</div><div class="qd">2주에 하나씩 직접 만든 자동화를 기록: 출퇴근 개발환경, 교회 주보, 멀티채널 발행, 카드뉴스 등 총 8편 계획 → <a href="/categories/#자동화연대기">시리즈 보기</a></div></div></div>
+  <div class="q side"><span class="tag">CLEAR</span><div><div class="qt">하네스 다이어트 v12 ✅</div><div class="qd">반년간 불어난 AI 하네스를 실측으로 진단: 워커 14→9, 고정 로딩 −31%, 정합성 이상 17→0 → <a href="/posts/harness-v12-slimming/">케이스 스터디</a></div></div></div>
   <div class="q side"><span class="tag">SIDE</span><div><div class="qt">LLM Wiki · 세컨브레인</div><div class="qd">하네스 엔지니어링·에이전틱 패턴 등 공부한 지식을 위키에 실시간 축적 → <a href="/wiki/">Wiki 보기</a></div></div></div>
 </div>
 
-<div class="rpg-cta">파티 모집 중 — 자동화 아이디어, 협업, 강의 문의는 <a href="/profile/">텍스트 소개 · 연락처</a>에서. 🌿</div>
+<div class="rpg-cta">파티 모집 중! 자동화 아이디어, 협업, 강의 문의는 <a href="/profile/">텍스트 소개 · 연락처</a>에서. 🌿</div>
 
 <script>
 /* ===== stats: data-driven from achievements DB ===== */
 (function(){
   var stats=[
-    {nm:'문제정의·기획',en:'Problem Framing',lv:9,g:92,src:'성과 12건 — 약 20개 기관 분석과제 기획 컨설팅, 화장품 위해평가 B2B 모델 설계, AX 피드백 프로세스 기획 등',up:true},
-    {nm:'데이터 분석',en:'Data Analysis',lv:8,g:84,src:'성과 8건 — 식수인원 예측모델(MAE 8.17·R² 0.85), 기상특보 시계열 분석(ARIMA), K-Means 클러스터링 2건, 화장품 위해평가 모델',up:true},
-    {nm:'자동화·프로세스',en:'Automation',lv:8,g:80,src:'성과 7건 — RPA 9건 구축(연 9,392시간 절감·누적 1.3만건 처리), 수료증 발송 5배 가속, AI 쇼츠 제작 70% 단축',up:true},
-    {nm:'AI·에이전틱',en:'AI & Agentic',lv:8,g:78,src:'성과 7건 — ChatGPT 가이드북 2.0(3만 DL), AI 기술기준 정립, 9개 워커 에이전트 하네스 운영·실측 기반 경량화(고정 로딩 −31%)',up:true},
-    {nm:'프로젝트 관리',en:'Project Mgmt',lv:7,g:74,src:'성과 7건 — 26억 클라우드 전환 사업, 13,019명 교육 운영, 3년 유지보수 계약 관리(2.3억 절감)'},
-    {nm:'보고서·문서화',en:'Documentation',lv:7,g:72,src:'성과 7건 — 정책보고서 2개년 발간, 가이드북 집필·개정, 12년 만의 내규 전부개정'},
-    {nm:'커뮤니케이션',en:'Communication',lv:7,g:70,src:'성과 5건 — 개발자↔현업 요구사항 조율, 기관 간담회 11회, 인터뷰 영상 정리로 의견차 최소화'},
-    {nm:'BI·시각화',en:'BI & Viz',lv:6,g:64,src:'성과 4건 — VOC 품질 Power BI 대시보드, AX 절감시간 실시간 대시보드(총 3,547분 추적)'}
+    {nm:'문제정의·기획',en:'Problem Framing',lv:9,g:92,src:'성과 12건: 약 20개 기관 분석과제 기획 컨설팅, 화장품 위해평가 B2B 모델 설계, AX 피드백 프로세스 기획 등',up:true},
+    {nm:'데이터 분석',en:'Data Analysis',lv:8,g:84,src:'성과 8건: 식수인원 예측모델(MAE 8.17·R² 0.85), 기상특보 시계열 분석(ARIMA), K-Means 클러스터링 2건, 화장품 위해평가 모델',up:true},
+    {nm:'자동화·프로세스',en:'Automation',lv:8,g:80,src:'성과 7건: RPA 9건 구축(연 9,392시간 절감·누적 1.3만건 처리), 수료증 발송 5배 가속, AI 쇼츠 제작 70% 단축',up:true},
+    {nm:'AI·에이전틱',en:'AI & Agentic',lv:8,g:78,src:'성과 7건: ChatGPT 가이드북 2.0(3만 DL), AI 기술기준 정립, 9개 워커 에이전트 하네스 운영·실측 기반 경량화(고정 로딩 −31%)',up:true},
+    {nm:'프로젝트 관리',en:'Project Mgmt',lv:7,g:74,src:'성과 7건: 26억 클라우드 전환 사업, 13,019명 교육 운영, 3년 유지보수 계약 관리(2.3억 절감)'},
+    {nm:'보고서·문서화',en:'Documentation',lv:7,g:72,src:'성과 7건: 정책보고서 2개년 발간, 가이드북 집필·개정, 12년 만의 내규 전부개정'},
+    {nm:'커뮤니케이션',en:'Communication',lv:7,g:70,src:'성과 5건: 개발자↔현업 요구사항 조율, 기관 간담회 11회, 인터뷰 영상 정리로 의견차 최소화'},
+    {nm:'BI·시각화',en:'BI & Viz',lv:6,g:64,src:'성과 4건: VOC 품질 Power BI 대시보드, AX 절감시간 실시간 대시보드(총 3,547분 추적)'}
   ];
   var wrap=document.getElementById('stats');if(!wrap)return;
   stats.forEach(function(s){

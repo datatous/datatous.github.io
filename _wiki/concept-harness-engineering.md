@@ -14,7 +14,7 @@ AI 개발 패러다임의 3세대. Agent = Model + Harness 공식으로, 하네�
 ## Key Facts
 - **패러다임 진화**: Prompt Engineering(2022-24) → Context Engineering(2025) → Harness Engineering(2026+)
 - **하네스 구성**: 컨텍스트 큐레이션 + 도구 관리 + 권한 제어 + 오류 복구
-- **KV-cache**: prefix 안정화로 최대 10x 비용 절감 가능 — 에이전트 파일 섹션 순서가 캐시 히트율 결정
+- **KV-cache**: prefix 안정화로 최대 10x 비용 절감 가능, 에이전트 파일 섹션 순서가 캐시 히트율 결정
 - **도구 권한 3단계**: Auto-approved(읽기 전용) → Prompt for confirmation(상태 변경) → Require explicit approval(고위험)
 - **deny-first 파이프라인**: allow → ask → deny 순서 규칙 적용
 
@@ -68,7 +68,7 @@ AI 개발 패러다임의 3세대. Agent = Model + Harness 공식으로, 하네�
 - → [하네스 다이어트: 실측으로 워커를 내리는 법](/wiki/concept-harness-diet-measurement-driven-pruning/) : 이 개념을 "무엇을 뺄지" 방향으로
   적용한 실사례 (2026-09-23)
 - → [그림도 검사 대상으로: 실측에서 생성하는 배선도](/wiki/concept-generated-diagrams-as-consistency-checks/) : 4-Quadrant Defense 중
-  Feedforward·Deterministic 사분면의 실사례 — 그림 생성 자체가 가드레일
+  Feedforward·Deterministic 사분면의 실사례, 그림 생성 자체가 가드레일
 
 ## Open Questions
 - Full context reset 전략: extended session 시 언제 reset할지 가이드라인 미수립

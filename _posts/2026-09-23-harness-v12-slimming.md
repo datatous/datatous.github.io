@@ -49,7 +49,7 @@ excerpt: "반년 동안 불어난 Claude Code 하네스를 실측으로 진단�
 
 여기에 두 가지가 더 얹혀 있었다.
 
-- **매뉴얼이 두 권이었다.** Claude Code와 Codex를 둘 다 쓰려고 정의를 두 벌 유지했다 — `.claude/agents/*.md`와 `.codex/agents/*.toml`. 둘을 맞추는 동기화 스크립트(`sync_harness_mirror.py`)도 만들었다.
+- **매뉴얼이 두 권이었다.** Claude Code와 Codex를 둘 다 쓰려고 정의를 두 벌(`.claude/agents/*.md`, `.codex/agents/*.toml`) 유지했다. 둘을 맞추는 동기화 스크립트(`sync_harness_mirror.py`)도 만들었다.
 - **안내데스크가 있었다.** 요청이 오면 `henry-orchestrator` 에이전트가 먼저 받아서 어느 워커로 보낼지 정했다. 에이전트 팀 패턴으로 말하면 **supervisor** 구조다.
 
 ```mermaid
@@ -92,10 +92,10 @@ flowchart LR
 순서가 중요했다.
 
 1. **먼저 합쳤다.** `main`을 병합하고 나서야 쟀다. 기준이 둘이면 진단도 둘이 된다.
-2. **지우지 않고 재웠다.** 워커 6개(`ppt_team_agent` · `data_analysis` · `ideaing` · `retrospective` · `higgsfield` · `daily_brief`)와 거기 딸린 에이전트 5개·스킬 3개를 `archive/`로 옮기고 복구 절차를 남겼다. 쓸 만한 건 건져냈다 — 회고 워커가 모은 패턴은 공용 지식 문서로 승격했다. 되살리려면 "이번엔 왜 쓸 건지"부터 답하게 해 뒀다.
+2. **지우지 않고 재웠다.** 워커 6개(`ppt_team_agent` · `data_analysis` · `ideaing` · `retrospective` · `higgsfield` · `daily_brief`)와 거기 딸린 에이전트 5개·스킬 3개를 `archive/`로 옮기고 복구 절차를 남겼다. 쓸 만한 건 건져냈다. 회고 워커가 모은 패턴은 공용 지식 문서로 승격했다. 되살리려면 "이번엔 왜 쓸 건지"부터 답하게 해 뒀다.
 3. **안내데스크를 없앴다.** 라우팅은 `CLAUDE.md` 안의 표 하나로 정했다. 메인 세션이 그 표를 보고 바로 워커를 부른다. 지금 구조는 **expert pool**(키워드로 전문가 선택)에 얕은 **pipeline** 하나(MS 업데이트 → 문서)가 붙은 모양이다. 워커가 14개일 땐 supervisor가 말이 됐지만, 9개에 이어지는 경로가 하나뿐이면 중간 단은 비용만 낸다.
 4. **복사본 매뉴얼을 없앴다.** 동기화 스크립트는 임시방편이었다. 돌리는 걸 잊는 순간 다시 어긋나고, 실제로 그렇게 됐다. 한 벌만 두니 어긋날 수가 없다.
-5. **훅은 7개에서 2개로.** 처음 지시는 "훅 다 꺼"였다. 그런데 그중 둘은 음성 모드(말로 시키고 소리로 듣는 기능)의 본체였다 — `UserPromptSubmit`(토글)과 `Stop`(답변 낭독). 지시의 목적은 **속도**였으니 속도를 잡아먹던 SessionEnd 훅만 걷고 그 둘은 남겼다.
+5. **훅은 7개에서 2개로.** 처음 지시는 "훅 다 꺼"였다. 그런데 그중 둘은 음성 모드(말로 시키고 소리로 듣는 기능)의 본체였다. `UserPromptSubmit`(토글)과 `Stop`(답변 낭독)이다. 지시의 목적은 **속도**였으니 속도를 잡아먹던 SessionEnd 훅만 걷고 그 둘은 남겼다.
 
 어떤 걸 내릴지는 세 가지를 같이 보고 정했다. 하나만 보면 틀린다.
 
@@ -135,7 +135,7 @@ python tools/harness_map.py --check    # 정합성만 검사, 어긋나면 exit 
 
 처음 돌렸을 때 **17건**이 걸렸고, 지금은 **0건**이다.
 
-배선도 그림도 같은 스크립트가 그린다. 실측 데이터를 **Mermaid** flowchart로 바꿔 `ARCHITECTURE.md`에 끼워 넣고, 누가 손으로 고치면 `--check`가 잡는다. 이 리포에서 손으로 관리하던 목록은 **예외 없이** 어긋났다 — 라우팅표도, 오케스트레이터 명단도, 복사본 매뉴얼도. <mark>손으로 그린 그림은 그리는 순간부터 낡는다.</mark>
+배선도 그림도 같은 스크립트가 그린다. 실측 데이터를 **Mermaid** flowchart로 바꿔 `ARCHITECTURE.md`에 끼워 넣고, 누가 손으로 고치면 `--check`가 잡는다. 이 리포에서 손으로 관리하던 목록은 **예외 없이** 어긋났다. 라우팅표도, 오케스트레이터 명단도, 복사본 매뉴얼도 그랬다. <mark>손으로 그린 그림은 그리는 순간부터 낡는다.</mark>
 
 리포를 넣으면 다이어그램을 그려 주는 외부 서비스(GitDiagram·Swark)도 후보였다. 편하긴 한데 이 리포에는 외부로 내보내면 안 되는 자료가 섞여 있어서 기각했다. 파일 구조를 그려 주는 도구(GitNexus)는 내가 알고 싶은 "요청이 어디로 흐르는가"를 못 보여 줬다.
 
@@ -199,8 +199,8 @@ flowchart TD
 
 더 자세한 방법론과 기술 디테일은 위키에 따로 정리해 뒀다.
 
-- [하네스 다이어트: 실측으로 워커를 내리는 법](/wiki/concept-harness-diet-measurement-driven-pruning/) — 판단 기준, 폐기 체크리스트
-- [그림도 검사 대상으로: 실측에서 생성하는 배선도](/wiki/concept-generated-diagrams-as-consistency-checks/) — `--check` 7항목, 도구 비교
-- [Henry Agentic System](/wiki/entity-henry-agentic-system/) — 지금 구조 한눈에
+- [하네스 다이어트: 실측으로 워커를 내리는 법](/wiki/concept-harness-diet-measurement-driven-pruning/): 판단 기준, 폐기 체크리스트
+- [그림도 검사 대상으로: 실측에서 생성하는 배선도](/wiki/concept-generated-diagrams-as-consistency-checks/): `--check` 7항목, 도구 비교
+- [Henry Agentic System](/wiki/entity-henry-agentic-system/): 지금 구조 한눈에
 
 #ClaudeCode #하네스엔지니어링 #멀티에이전트 #에이전틱시스템 #Mermaid #자동화 #최적화

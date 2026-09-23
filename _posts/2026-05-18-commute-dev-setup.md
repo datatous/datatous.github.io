@@ -31,7 +31,7 @@ header:
 
 > **3줄 요약**
 > - 수원↔잠실 왕복 3시간, 워크데이 기준 한 달 <mark>60시간을 개발 시간</mark>으로 바꿨다.
-> - Claude Code를 폰에서 — 처음엔 Happy 앱, 지금은 공식 Remote Control로 갈아탔다.
+> - 폰에서 Claude Code를 쓴다. 처음엔 Happy 앱이었고, 지금은 공식 Remote Control로 갈아탔다.
 > - PC와 폰을 **Git**으로 묶으니 세 기기가 한 작업실처럼 움직인다.
 
 **이런 분께 권해요** 🙋
