@@ -3,20 +3,20 @@ title: "편집 가능한 아티팩트와 SSOT 대기함 패턴"
 wiki_type: concept
 tags: [artifact, live-doc, ssot, staging, yaml, dependency-graph, claude-code]
 last_modified_at: 2026-08-21
-excerpt: "로컬 파일이 상태의 단일 원본인데 그 상태를 웹/폰에서 고치고 싶을 때의 구조. 발행 페이지는 로컬 파일에 쓸 수 없으므로, 페이지를 **두 번째 원본이 아니라 대기함**으로 만들고 로컬 스크립트가 되돌려 쓴다."
+excerpt: "로컬 파일이 상태의 단일 원본인데 그 상태를 웹/폰에서 고치고 싶을 때의 구조. 발행 페이지는 로컬 파일에 쓸 수 없으므로, 페이지를 두 번째 원본이 아니라 대기함으로 만들고 로컬 스크립트가 되돌려 쓴다."
 ---
 
 <span class="wiki-type-badge">concept</span>
 
 ## Summary
-로컬 파일이 상태의 단일 원본인데 그 상태를 웹/폰에서 고치고 싶을 때의 구조. 발행 페이지는 로컬 파일에 쓸 수 없으므로, 페이지를 **두 번째 원본이 아니라 대기함**으로 만들고 로컬 스크립트가 되돌려 쓴다. [출처: sources/015-editable-artifact-staging-2026-08-21.md]
+로컬 파일이 상태의 단일 원본인데 그 상태를 웹/폰에서 고치고 싶을 때의 구조. 발행 페이지는 로컬 파일에 쓸 수 없으므로, 페이지를 **두 번째 원본이 아니라 대기함**으로 만들고 로컬 스크립트가 되돌려 쓴다.
 
 ## Key Facts
-- 아티팩트 `artifact` capability(live doc)에서 저장되는 것은 **뷰어의 제스처가 DOM 을 바꾼 결과**뿐이다. 스크립트가 로드 시 그린 것은 문서가 아니다 [출처: sources/015-…]
-- 따라서 내용은 **HTML 로 서빙**해야 하고, 렌더는 클라이언트 JS 가 아니라 생성 스크립트가 맡는다 [출처: sources/015-…]
-- 필터·정렬 같은 뷰어별 상태는 `data-local-*` / `<artifact-local>` 로 분리한다. 일반 class 로 숨기면 그 숨김이 저장돼 모두에게 적용된다 [출처: sources/015-…]
-- 발행된 아티팩트를 가져오면 **렌더된 텍스트가 아니라 원본 HTML** 이 온다. 대기 항목 파서는 `data-*` 를 직접 읽는 쪽이 정확하다 [출처: sources/015-…]
-- YAML 을 파싱→덤프하면 주석이 날아간다. 수술적 라인 치환을 쓰되 **블록 경계를 캐시하지 말 것** [출처: sources/015-…]
+- 아티팩트 `artifact` capability(live doc)에서 저장되는 것은 **뷰어의 제스처가 DOM 을 바꾼 결과**뿐이다. 스크립트가 로드 시 그린 것은 문서가 아니다
+- 따라서 내용은 **HTML 로 서빙**해야 하고, 렌더는 클라이언트 JS 가 아니라 생성 스크립트가 맡는다
+- 필터·정렬 같은 뷰어별 상태는 `data-local-*` / `<artifact-local>` 로 분리한다. 일반 class 로 숨기면 그 숨김이 저장돼 모두에게 적용된다
+- 발행된 아티팩트를 가져오면 **렌더된 텍스트가 아니라 원본 HTML** 이 온다. 대기 항목 파서는 `data-*` 를 직접 읽는 쪽이 정확하다
+- YAML 을 파싱→덤프하면 주석이 날아간다. 수술적 라인 치환을 쓰되 **블록 경계를 캐시하지 말 것**
 
 ## Details
 
@@ -49,5 +49,7 @@ excerpt: "로컬 파일이 상태의 단일 원본인데 그 상태를 웹/폰�
 - 검증기에서 "문장은 있는데 id 없음" / "없는 id 참조"를 잡아야 간선이 조용히 사라지지 않는다
 
 ## Related
-- [[concept-harness-engineering]] — 하네스 설계 원칙
-- [[entity-henry-agentic-system]] — 이 패턴이 적용된 시스템
+- concept-harness-engineering — 하네스 설계 원칙
+- entity-henry-agentic-system — 이 패턴이 적용된 시스템
+
+<p class="wiki-sources"><b>근거 자료</b> <code>015-editable-artifact-staging-2026-08-21.md</code></p>

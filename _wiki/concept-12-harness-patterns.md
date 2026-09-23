@@ -9,13 +9,13 @@ excerpt: "Claude Code 기반 에이전틱 하네스에서 검증된 12개 설계
 <span class="wiki-type-badge">concept</span>
 
 ## Summary
-Claude Code 기반 에이전틱 하네스에서 검증된 12개 설계 패턴. 메모리·컨텍스트·보안·오케스트레이션 4개 범주로 구성. [출처: sources/002-harness-12-patterns.md]
+Claude Code 기반 에이전틱 하네스에서 검증된 12개 설계 패턴. 메모리·컨텍스트·보안·오케스트레이션 4개 범주로 구성.
 
 ## Key Facts
-- **#3 Tiered Memory**: 항상 로드(인덱스 200줄) / 온디맨드(주제별) / 검색(전체 기록) 3계층 [출처: sources/002-harness-12-patterns.md]
-- **#4 Dream Consolidation**: 백그라운드에서 메모리 정리·재구성, 중복 제거 [출처: sources/002-harness-12-patterns.md]
-- **#1 Persistent Instruction File**: CLAUDE.md로 구현 — 세션마다 자동 로드 [출처: sources/002-harness-12-patterns.md]
-- **#2 Scoped Context Assembly**: 계층적 파일 로딩, `.claude/rules/`로 구현 [출처: sources/002-harness-12-patterns.md]
+- **#3 Tiered Memory**: 항상 로드(인덱스 200줄) / 온디맨드(주제별) / 검색(전체 기록) 3계층
+- **#4 Dream Consolidation**: 백그라운드에서 메모리 정리·재구성, 중복 제거
+- **#1 Persistent Instruction File**: CLAUDE.md로 구현 — 세션마다 자동 로드
+- **#2 Scoped Context Assembly**: 계층적 파일 로딩, `.claude/rules/`로 구현
 
 ## Details
 
@@ -78,11 +78,13 @@ Claude Code 기반 에이전틱 하네스에서 검증된 12개 설계 패턴. �
 - → **Henry 시스템**: eda-agent, update-tracker-agent, ppt-builder ✅
 
 ## Connections
-- → [[Harness Engineering]] : 이 패턴들의 이론적 기반
-- → [[skills.sh]] : 패턴 #10, #11의 커뮤니티 구현체
-- → [[하네스 다이어트: 실측으로 워커를 내리는 법]] : #8 Fork-Join을 조율하던
+- → [Harness Engineering](/wiki/concept-harness-engineering/) : 이 패턴들의 이론적 기반
+- → [skills.sh](/wiki/entity-skills-sh/) : 패턴 #10, #11의 커뮤니티 구현체
+- → [하네스 다이어트: 실측으로 워커를 내리는 법](/wiki/concept-harness-diet-measurement-driven-pruning/) : #8 Fork-Join을 조율하던
   감독자 에이전트가 2026-09-23 워커 9개 규모에서는 폐기됐다 — 패턴 가치는
   워커 수·분기 수에 따라 달라진다는 사례
 
 ## Open Questions
 - 패턴 #5 Progressive Compaction: Henry 시스템에서 명확한 구현 방안 미정
+
+<p class="wiki-sources"><b>근거 자료</b> <code>002-harness-12-patterns.md</code></p>

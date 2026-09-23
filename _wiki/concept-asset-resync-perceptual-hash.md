@@ -3,7 +3,7 @@ title: "순번 파일명 자산 폴더의 재동기화 — 지각 해시 대조"
 wiki_type: concept
 tags: [asset-pipeline, google-drive, perceptual-hash, dhash, sync, gotcha]
 last_modified_at: 2026-08-25
-excerpt: "`1.jpg` `2.jpg` … 처럼 번호로 정렬되는 클라우드 폴더를 사이트 이미지 슬롯의 원본(SSOT)으로 쓰면, 사람이 중간에 한 장 끼워 넣는 순간 뒤의 파일이 전부 한 칸씩 밀려 **내용↔슬롯 매핑이 조용히 어긋난다.** '2장 추가됨'으로 보이는 변경이 실제로는 8개 슬롯의 재배치였던 사례에서, API 메타데이터로는 판별이 안 되고 **썸네일 지"
+excerpt: "1.jpg 2.jpg … 처럼 번호로 정렬되는 클라우드 폴더를 사이트 이미지 슬롯의 원본(SSOT)으로 쓰면, 사람이 중간에 한 장 끼워 넣는 순간 뒤의 파일이 전부 한 칸씩 밀려 내용↔슬롯 매핑이 조용히 어긋난다. '2장 추가됨'으로 보이는 변경이 실제로는 8개 슬롯의 재배치였던 사례에서, API 메타데이터로는 판별이 안 되고 썸네일 지각 해시 대조로만 "
 ---
 
 <span class="wiki-type-badge">concept</span>
@@ -15,7 +15,6 @@ excerpt: "`1.jpg` `2.jpg` … 처럼 번호로 정렬되는 클라우드 폴더�
 변경이 실제로는 8개 슬롯의 재배치였던 사례에서, API 메타데이터로는 판별이
 안 되고 **썸네일 지각 해시 대조**로만 확정할 수 있었다. 이때 판별자는
 해밍거리의 절대 임계값이 아니라 **1위 매칭과 2위 매칭의 격차**다.
-[출처: sources/017-asset-resync-perceptual-hash-2026-08-25.md]
 
 ## Key Facts
 
@@ -23,27 +22,20 @@ excerpt: "`1.jpg` `2.jpg` … 처럼 번호로 정렬되는 클라우드 폴더�
 - 번호 기반 파일명은 **위치를 표현하지 정체를 표현하지 않는다.** 중간 삽입이
   일어나면 사람은 뒤 파일들을 전부 리네임해서 순서를 유지하는데, 이때
   파일명↔내용 대응이 통째로 이동한다
-  [출처: sources/017-asset-resync-perceptual-hash-2026-08-25.md]
 - 증상이 "추가"로 위장된다는 점이 위험하다 — 추가된 개수만큼만 처리하면
   나머지가 뒤섞인 채 배포된다
-  [출처: sources/017-asset-resync-perceptual-hash-2026-08-25.md]
 
 ### 메타데이터는 가설까지만
 - `createdTime` 이 최신인 항목은 신규 업로드분으로 잡힌다. 여기까지는 유효하다
-  [출처: sources/017-asset-resync-perceptual-hash-2026-08-25.md]
 - **이름만 바뀐 파일도 `modifiedTime` 이 갱신된다** — "수정됨" 신호만으로는
   내용이 바뀐 파일과 리네임된 파일을 구분할 수 없다
-  [출처: sources/017-asset-resync-perceptual-hash-2026-08-25.md]
 - `size` 메타데이터가 실제 파일과 어긋나는 사례도 관측됐다. 단독 근거로 쓰지 않는다
-  [출처: sources/017-asset-resync-perceptual-hash-2026-08-25.md]
 
 ### 확정은 썸네일 + dHash
 - 원본을 전부 받으면 수백 MB지만, **공개 썸네일 엔드포인트**(`sz=w500`)로
   장당 100KB 수준의 프록시를 받아 비교하면 충분하다
-  [출처: sources/017-asset-resync-perceptual-hash-2026-08-25.md]
 - dHash(16×16 → 256비트)는 그레이스케일 축소 후 인접 픽셀의 밝기 대소만
   비트로 남겨, 밝기·대비·JPEG 재압축·약한 크롭에 둔감하다
-  [출처: sources/017-asset-resync-perceptual-hash-2026-08-25.md]
 
 ### 절대 임계값이 아니라 격차로 판단한다 — 핵심
 실측 해밍거리(/256):
@@ -56,18 +48,14 @@ excerpt: "`1.jpg` `2.jpg` … 처럼 번호로 정렬되는 클라우드 폴더�
 
 - 42~48 구간 때문에 단일 임계값이 깨진다. 50에서 자르면 아슬아슬하고,
   20에서 자르면 재보정본을 신규로 오판한다
-  [출처: sources/017-asset-resync-perceptual-hash-2026-08-25.md]
 - 대신 **1위 매칭과 2위 매칭의 격차**를 본다. 동일 사진이면 1위가 압도적으로
   낮고 2위와 크게 벌어지며(예: 42 vs 117), 신규 사진이면 1위와 2위가 나란히
   높다(예: 105 vs 110). 격차가 절대값보다 훨씬 안정적인 판별자다
-  [출처: sources/017-asset-resync-perceptual-hash-2026-08-25.md]
 
 ### 재배치는 역순으로
 - `g7→g8, g8→g9, …` 를 앞에서부터 실행하면 아직 안 옮긴 파일을 덮어쓴다.
   **큰 번호부터** 옮기면 목적지가 항상 비어 있다
-  [출처: sources/017-asset-resync-perceptual-hash-2026-08-25.md]
 - 버전 관리 중이면 `git mv` 로 옮겨 이름 변경 이력을 남긴다
-  [출처: sources/017-asset-resync-perceptual-hash-2026-08-25.md]
 
 ## 적용 절차
 
@@ -79,13 +67,13 @@ excerpt: "`1.jpg` `2.jpg` … 처럼 번호로 정렬되는 클라우드 폴더�
 
 ## Gotchas
 - **EXIF 방향**: ffmpeg 은 회전 태그를 픽셀에 자동 반영한다. 별도 처리 불필요
-  [출처: sources/017-asset-resync-perceptual-hash-2026-08-25.md]
 - **종료 코드가 실패 지점을 말해주지 않는다**: 빌드 스크립트가 exit 1 로 끝났지만
   실제 실패는 마지막 진단용 `print` 의 콘솔 인코딩 오류였고, 파일 쓰기는 그 앞에서
   이미 끝나 있었다. 스크립트를 쓸 때 **부수적 출력은 핵심 작업 뒤에** 두고,
   실패를 읽을 때는 종료 코드가 아니라 트레이스백의 줄 번호를 본다
-  [출처: sources/017-asset-resync-perceptual-hash-2026-08-25.md]
 
 ## 관련
-- [[concept-powershell-regex-text-pitfalls]] — 인코딩·텍스트 처리 함정 계열
-- [[concept-12-harness-patterns]] — 검증 가능한 중간 산출물로 확정하는 패턴
+- concept-powershell-regex-text-pitfalls — 인코딩·텍스트 처리 함정 계열
+- concept-12-harness-patterns — 검증 가능한 중간 산출물로 확정하는 패턴
+
+<p class="wiki-sources"><b>근거 자료</b> <code>017-asset-resync-perceptual-hash-2026-08-25.md</code></p>

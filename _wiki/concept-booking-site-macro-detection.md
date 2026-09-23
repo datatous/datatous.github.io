@@ -3,7 +3,7 @@ title: "예매 사이트 매크로 탐지와 자동화 중단 판단"
 wiki_type: concept
 tags: [automation, anti-bot, playwright, recon, gotcha, decision-criteria]
 last_modified_at: 2026-08-21
-excerpt: "예매 사이트의 매크로 탐지는 요청 **빈도**가 아니라 브라우저 **자동화 지문**을 본다. 폴링 간격을 늘려도 회피되지 않으므로, '천천히 돌리면 괜찮겠지'라는 설계 전제는 성립하지 않는다. 자동화를 시도하기 전에 정찰(recon)로 차단 여부를 먼저 확인하고, 차단이 확인되면 **공식 대체 기능이 같은 결과를 주는지**를 검토하는 것이 순서다."
+excerpt: "예매 사이트의 매크로 탐지는 요청 빈도가 아니라 브라우저 자동화 지문을 본다. 폴링 간격을 늘려도 회피되지 않으므로, '천천히 돌리면 괜찮겠지'라는 설계 전제는 성립하지 않는다. 자동화를 시도하기 전에 정찰(recon)로 차단 여부를 먼저 확인하고, 차단이 확인되면 공식 대체 기능이 같은 결과를 주는지를 검토하는 것이 순서다."
 ---
 
 <span class="wiki-type-badge">concept</span>
@@ -19,16 +19,13 @@ excerpt: "예매 사이트의 매크로 탐지는 요청 **빈도**가 아니라
 
 - headless Chromium(Playwright)으로 조회 버튼을 **1회** 클릭한 시점에 매크로 차단
   모달(`CODE : -4003`)이 떴다. 폴링·반복 요청은 없었다.
-  [출처: sources/014-booking-site-macro-detection-2026-08-21.md]
 - 탐지 정책이 클라이언트에 그대로 노출된다 — `GET /com/macro.do` 가
   `ccUseyn:"Y"`, `ccLimitcount:"100"`, `ccLimitTime:"3"` 형태의 JSON을 반환한다.
   다만 임계값 이전에 지문 단계에서 먼저 걸린다.
-  [출처: sources/014-booking-site-macro-detection-2026-08-21.md]
 - 코레일은 **예약대기**를 공식 제공한다: 매진 열차 대기 신청 → 취소·반환표 발생 시
   신청 순서대로 자동 배정 → 등록한 휴대폰으로 배정 알림 → 기한 내 미결제 시 자동 취소.
-  [출처: sources/014-booking-site-macro-detection-2026-08-21.md]
 - 취소표는 미결제분 자동 취소와 시스템 정산 반영이 겹치는 **새벽 3시 30분 전후**에
-  집중 발생한다. [출처: sources/014-booking-site-macro-detection-2026-08-21.md]
+  집중 발생한다.
 
 ## Details
 
@@ -64,7 +61,6 @@ excerpt: "예매 사이트의 매크로 탐지는 요청 **빈도**가 아니라
 
 이 사례에서 정찰이 실제로 잡아낸 것: 진입 URL 오류 1건, 로그인 감지 오탐 1건,
 입력 불가 요소 1건, 그리고 프로젝트 자체를 중단시킨 매크로 차단 1건.
-[출처: sources/014-booking-site-macro-detection-2026-08-21.md]
 
 ### 실측 구조 메모 (코레일, 2026-08-21 기준)
 
@@ -75,13 +71,15 @@ excerpt: "예매 사이트의 매크로 탐지는 요청 **빈도**가 아니라
 
 ## Connections
 
-- → [[메일 첨부파일 자동화의 MCP 제약과 우회 경로]] : 도구·서비스 측 제약을 먼저 확인하고
+- → [메일 첨부파일 자동화의 MCP 제약과 우회 경로](/wiki/concept-mail-attachment-automation-constraint/) : 도구·서비스 측 제약을 먼저 확인하고
   우회 경로를 설계에 반영하는 같은 계열의 문제. 단 그쪽은 **허용된 우회**(Apps Script
   브리지)가 존재했고, 이 사례는 우회 자체가 금지 대상이라는 점이 갈린다
-- → [[Henry Agentic System]] : 정찰 우선 원칙은 외부 사이트를 다루는 모든 워커
+- → [Henry Agentic System](/wiki/entity-henry-agentic-system/) : 정찰 우선 원칙은 외부 사이트를 다루는 모든 워커
   (블로그 발행, 카페 게시 등)에 공통 적용된다
 
 ## Open Questions
 
 - 지문 탐지가 headless 한정인지, headed 실행에서도 동일하게 걸리는지는 미검증
   (headed 시도는 계정 리스크 때문에 하지 않음)
+
+<p class="wiki-sources"><b>근거 자료</b> <code>014-booking-site-macro-detection-2026-08-21.md</code></p>

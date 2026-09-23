@@ -9,15 +9,15 @@ excerpt: "에이전트가 자기 안에서 같은 CLI 를 새로 띄우면, 환�
 <span class="wiki-type-badge">concept</span>
 
 ## Summary
-에이전트가 자기 안에서 같은 CLI 를 새로 띄우면, 환경변수 상속 때문에 "부모의 자식 세션"으로 인식돼 독립 등록되지 않는다. 사람이 직접 터미널에서 하면 되는 일이 에이전트가 하면 안 되는 전형적 원인이다. [출처: sources/016-spawning-claude-sessions-2026-08-22.md]
+에이전트가 자기 안에서 같은 CLI 를 새로 띄우면, 환경변수 상속 때문에 "부모의 자식 세션"으로 인식돼 독립 등록되지 않는다. 사람이 직접 터미널에서 하면 되는 일이 에이전트가 하면 안 되는 전형적 원인이다.
 
 ## Key Facts
-- 세션 프로세스에 `CLAUDECODE=1`, `CLAUDE_CODE_CHILD_SESSION=1`, `CLAUDE_CODE_SESSION_ID`, 부모의 메시징 파이프가 들어 있고 **자식이 전부 상속**한다 [출처: sources/016-…]
-- 띄우기 전에 그 변수들을 제거해야 새 세션이 독립적으로 등록된다 [출처: sources/016-…]
-- Remote Control 은 세션이 아니라 **서버**(`claude rc`)다. 실행한 디렉터리에 세션이 최대 32개 붙는다 [출처: sources/016-…]
-- 모바일 앱의 **기기 목록이 비어 있으면 서버가 안 떠 있는 것** — 세션 목록만 보면 오진한다 [출처: sources/016-…]
-- 출력을 리다이렉트해 띄우면 TTY 가 없어 비대화형으로 떨어지고 죽는다 [출처: sources/016-…]
-- 터미널 에뮬레이터로 감싸면 뒤에 붙인 CLI 옵션을 에뮬레이터가 파싱해 먹는다 [출처: sources/016-…]
+- 세션 프로세스에 `CLAUDECODE=1`, `CLAUDE_CODE_CHILD_SESSION=1`, `CLAUDE_CODE_SESSION_ID`, 부모의 메시징 파이프가 들어 있고 **자식이 전부 상속**한다
+- 띄우기 전에 그 변수들을 제거해야 새 세션이 독립적으로 등록된다
+- Remote Control 은 세션이 아니라 **서버**(`claude rc`)다. 실행한 디렉터리에 세션이 최대 32개 붙는다
+- 모바일 앱의 **기기 목록이 비어 있으면 서버가 안 떠 있는 것** — 세션 목록만 보면 오진한다
+- 출력을 리다이렉트해 띄우면 TTY 가 없어 비대화형으로 떨어지고 죽는다
+- 터미널 에뮬레이터로 감싸면 뒤에 붙인 CLI 옵션을 에뮬레이터가 파싱해 먹는다
 
 ## Details
 
@@ -54,5 +54,7 @@ excerpt: "에이전트가 자기 안에서 같은 CLI 를 새로 띄우면, 환�
 3·4를 먼저 보면 "등록 파일이 없다 → 기동 실패"처럼 그럴듯하지만 틀린 결론에 쉽게 도달한다.
 
 ## Related
-- [[concept-editable-artifact-staging]] — 사람과 에이전트가 같은 자원을 함께 쓸 때의 설계
-- [[entity-henry-agentic-system]]
+- concept-editable-artifact-staging — 사람과 에이전트가 같은 자원을 함께 쓸 때의 설계
+- entity-henry-agentic-system
+
+<p class="wiki-sources"><b>근거 자료</b> <code>016-spawning-claude-sessions-2026-08-22.md</code></p>

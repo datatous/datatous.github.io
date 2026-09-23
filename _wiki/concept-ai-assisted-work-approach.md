@@ -3,7 +3,7 @@ title: "Henry의 AI 보조 업무 접근 방식"
 wiki_type: concept
 tags: [ai-workflow, report-writing, claude, methodology, copilot-poc]
 last_modified_at: 2026-05-29
-excerpt: "Henry는 AI(Claude)를 직접 결과물 생성 도구로 쓰기보다 **판단·정리·검증의 파트너**로 활용한다. PPT나 문서 작성 시 AI가 파일을 직접 수정하지 않고, 사람이 키인할 수 있는 정리된 텍스트를 제공하는 방식을 선호한다. 데이터는 항상 원본 소스와 대조 검증 후 확정한다."
+excerpt: "Henry는 AI(Claude)를 직접 결과물 생성 도구로 쓰기보다 판단·정리·검증의 파트너로 활용한다. PPT나 문서 작성 시 AI가 파일을 직접 수정하지 않고, 사람이 키인할 수 있는 정리된 텍스트를 제공하는 방식을 선호한다. 데이터는 항상 원본 소스와 대조 검증 후 확정한다."
 ---
 
 <span class="wiki-type-badge">concept</span>
@@ -14,12 +14,12 @@ Henry는 AI(Claude)를 직접 결과물 생성 도구로 쓰기보다 **판단·
 
 ## Key Facts
 
-- **보고서 작성 방식**: PPT 직접 편집 대신, 슬라이드 사진 업로드 → AI가 키인 텍스트 정리 → 사람이 직접 입력. AI는 편집 도구가 아닌 컨텐츠 정리 보조 역할. [출처: sources/006-session-client-report-2026-05-29.md]
-- **데이터 검증 원칙**: 수치는 원본 데이터 파일(Excel, 총정리 MD)과 대조 확인 후 사용. 원본이 갱신될 예정이면 중간 수치를 명시적으로 "현재 기준"으로 표시. [출처: sources/006-session-client-report-2026-05-29.md]
-- **PDF 텍스트 추출 장벽 우회**: PowerPoint 생성 PDF는 CIDFont 인코딩 문제로 텍스트 추출 불가. PyMuPDF로 페이지를 PNG 이미지로 변환 후 Claude의 시각 인식으로 내용 추출하는 방식으로 해결. [출처: sources/006-session-client-report-2026-05-29.md]
-- **툴 선택 기준 — 스킬 vs MCP**: MCP는 토큰 소비가 많아 부담. 같은 기능이면 skills.sh 스킬을 먼저 시도하고, 스킬이 없을 때 MCP를 고려. [출처: sources/006-session-client-report-2026-05-29.md]
-- **다중 소스 교차 검증**: 항목명 확인 시 Draft MD와 최종 PDF를 모두 대조해 불일치를 발견한 사례가 있다. 버전이 갈리면 항상 최신 원본이 우선. [출처: sources/006-session-client-report-2026-05-29.md]
-- **세션 로그 누적 저장**: 작업 결과를 `키인내용_세션로그.md` 같은 파일에 슬라이드별로 누적해 다음 세션에서도 이어서 사용할 수 있도록 관리. [출처: sources/006-session-client-report-2026-05-29.md]
+- **보고서 작성 방식**: PPT 직접 편집 대신, 슬라이드 사진 업로드 → AI가 키인 텍스트 정리 → 사람이 직접 입력. AI는 편집 도구가 아닌 컨텐츠 정리 보조 역할.
+- **데이터 검증 원칙**: 수치는 원본 데이터 파일(Excel, 총정리 MD)과 대조 확인 후 사용. 원본이 갱신될 예정이면 중간 수치를 명시적으로 "현재 기준"으로 표시.
+- **PDF 텍스트 추출 장벽 우회**: PowerPoint 생성 PDF는 CIDFont 인코딩 문제로 텍스트 추출 불가. PyMuPDF로 페이지를 PNG 이미지로 변환 후 Claude의 시각 인식으로 내용 추출하는 방식으로 해결.
+- **툴 선택 기준 — 스킬 vs MCP**: MCP는 토큰 소비가 많아 부담. 같은 기능이면 skills.sh 스킬을 먼저 시도하고, 스킬이 없을 때 MCP를 고려.
+- **다중 소스 교차 검증**: 항목명 확인 시 Draft MD와 최종 PDF를 모두 대조해 불일치를 발견한 사례가 있다. 버전이 갈리면 항상 최신 원본이 우선.
+- **세션 로그 누적 저장**: 작업 결과를 `키인내용_세션로그.md` 같은 파일에 슬라이드별로 누적해 다음 세션에서도 이어서 사용할 수 있도록 관리.
 
 ## Details
 
@@ -80,10 +80,12 @@ clip.save("page1.png")
 
 ## Connections
 
-- → [[Harness Engineering]] : AI 도구 활용 방식은 전반적인 하네스 설계 철학과 연결
-- → [[skills.sh]] : 스킬 우선 접근의 구체적 생태계
+- → [Harness Engineering](/wiki/concept-harness-engineering/) : AI 도구 활용 방식은 전반적인 하네스 설계 철학과 연결
+- → [skills.sh](/wiki/entity-skills-sh/) : 스킬 우선 접근의 구체적 생태계
 
 ## Open Questions
 
 - kordoc MCP가 실제로 한국어 PDF 텍스트 추출에 효과적인지 검증 필요 (현 세션에서 `.mcp.json` 생성 후 재시작 필요)
 - PyMuPDF 시각 접근 방식과 kordoc MCP 방식의 정확도 비교
+
+<p class="wiki-sources"><b>근거 자료</b> <code>006-session-client-report-2026-05-29.md</code></p>

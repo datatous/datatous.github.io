@@ -1,93 +1,125 @@
 ---
-title: "\"그림도 검사 대상으로: 실측에서 생성하는 배선도\""
+title: "그림도 검사 대상으로: 실측에서 생성하는 배선도"
 wiki_type: concept
-tags: [harness, diagram, mermaid, ci-check, documentation, drift-detection]
+tags: [harness, diagram, mermaid, ci-check, documentation, drift-detection, claude-code]
 last_modified_at: 2026-09-23
-excerpt: "손으로 그린 아키텍처 다이어그램은 **그리는 순간부터 낡기 시작한다** — 구조가 바뀌어도 그림은 스스로 안 바뀐다. 해법은 그림을 사람이 그리지 않고 **스크립트가 실측에서 생성**하게 하고, 생성된 그림이 최신 실측과 다르면 검사가 실패하도록 만드는 것이다. 이러면 문서 하나가 낡는 게 아니라 '검사 대상'이 된다."
+excerpt: "> 한 줄로 — 손으로 그린 그림은 그리는 순간부터 낡는다. 그래서 그림은 스크립트가 실측에서 그리고, 그림이 실측과 다르면 --check가 exit 1로 실패하게 했다. 그림이 문서가 아니라 테스트가 된다. 건물 도면에 비유하면 쉽다. 도면을 한 번 그려 벽에 붙여 두면 리모델링할 때마다 조금씩 틀려진다. 그렇다고 매번 사람이 다시 그리는 것도 잊기 쉽다"
 ---
 
 <span class="wiki-type-badge">concept</span>
 
 ## Summary
-손으로 그린 아키텍처 다이어그램은 **그리는 순간부터 낡기 시작한다** — 구조가 바뀌어도
-그림은 스스로 안 바뀐다. 해법은 그림을 사람이 그리지 않고 **스크립트가 실측에서
-생성**하게 하고, 생성된 그림이 최신 실측과 다르면 검사가 실패하도록 만드는 것이다.
-이러면 문서 하나가 낡는 게 아니라 "검사 대상"이 된다. [출처: sources/024-harness-generated-diagram-check-gate-2026-09-23.md]
+> **한 줄로** — 손으로 그린 그림은 그리는 순간부터 낡는다. 그래서 **그림은 스크립트가 실측에서 그리고, 그림이 실측과 다르면 `--check`가 exit 1로 실패하게 했다.** 그림이 문서가 아니라 테스트가 된다.
+
+건물 도면에 비유하면 쉽다. 도면을 한 번 그려 벽에 붙여 두면 리모델링할 때마다 조금씩 틀려진다. 그렇다고 매번 사람이 다시 그리는 것도 잊기 쉽다. 내 하네스는 방식을 바꿨다. **매번 줄자로 다시 재서 도면을 새로 뽑고, 벽에 붙은 도면과 다르면 경보가 울린다.** 여기서 줄자는 `tools/harness_map.py`고, 도면은 Mermaid로 그린 flowchart다.
 
 ## Key Facts
-- 채택한 다이어그램 문법은 **코드 저장소 플랫폼과 AI 대화형 산출물 플랫폼 양쪽에서
-  추가 라이브러리 설치 없이 네이티브로 렌더된다** — 그리고 텍스트이므로 git diff에
-  찍히고 리뷰 대상이 된다 [출처: sources/024-harness-generated-diagram-check-gate-2026-09-23.md]
-- 실측 스크립트가 실제 폴더 구조·라우팅 표·git 활동에서 그림을 만들어 아키텍처
-  문서의 지정된 위치에 주입한다. 정합성 검사는 **주입된 그림이 최신 실측과 다르면
-  실패 처리**한다 [출처: sources/024-harness-generated-diagram-check-gate-2026-09-23.md]
-- 같은 검사가 "산출 경로가 공통 톤 기준(SSOT 문서)을 거치는지"도 함께 확인한다 —
-  배선이 끊기면 그림뿐 아니라 톤 게이트 누락도 걸린다
-  [출처: sources/024-harness-generated-diagram-check-gate-2026-09-23.md]
-- 외부 SaaS형 "리포를 AI에 넣으면 다이어그램을 자동 생성해준다" 서비스는 **고객
-  프로젝트 자료가 섞인 리포를 통째로 넘길 수 없다**는 이유로 기각했다
-  [출처: sources/024-harness-generated-diagram-check-gate-2026-09-23.md]
-- 배선도를 다시 그릴 때, 조직도(누가 누구 밑에) 형태보다 **모든 산출 경로가 공통
-  기준점으로 수렴하는 실제 흐름**을 중심에 두는 편이 실제 작동을 더 정확히 보여줬다
-  [출처: sources/024-harness-generated-diagram-check-gate-2026-09-23.md]
+- **Mermaid를 골랐다** — GitHub이 ` ```mermaid ` 펜스를 네이티브로 렌더하고(2022~), Claude Artifact도 렌더한다. 텍스트라서 git diff에 찍히고 PR에서 리뷰된다. 무엇보다 **스크립트가 생성할 수 있다.**
+- **생성 → 주입** — `harness_map.py`가 디스크와 git을 실측해서 `ref/harness-map.json`을 만들고, flowchart를 `ARCHITECTURE.md`의 `<!-- harness-map:begin -->`~`<!-- harness-map:end -->` 사이에 끼워 넣는다.
+- **검사** — `--check`는 주입된 그림이 최신 실측과 다르면 exit 1. 라우팅·에이전트·스킬·참조·예산·톤 게이트까지 7가지를 본다. v12 첫 실행에서 17건이 걸렸고 지금은 0건이다.
+- **외부 자동 생성 서비스는 기각** — GitDiagram·Swark 같은 서비스는 리포를 외부 LLM에 넘겨야 한다. 외부로 보낼 수 없는 자료가 섞인 리포라 처음부터 불가였다. 성능 문제가 아니라 **데이터 경계** 문제라서 도구가 좋아져도 답이 안 바뀐다.
 
 ## Details
 
-### 왜 손으로 그린 다이어그램이 항상 낡는가
+### 실제로 생성된 그림
 
-다이어그램은 코드가 아니라서 빌드가 깨지지 않는다. 구조를 바꾸는 작업(워커 추가,
-에이전트 폐기, 라우팅 변경)과 다이어그램을 갱신하는 작업이 물리적으로 분리돼 있으면,
-후자는 "여유 있을 때 하는 일"로 밀린다. 이 리포에서 손으로 관리하던 다른 목록들
-(라우팅 표, 참조 목록)이 전부 어긋났던 것과 같은 실패 패턴이다 — [[하네스 다이어트: 실측으로 워커를 내리는 법]] 참조.
+예부터 보자. 아래가 `harness_map.py`가 2026-09-23에 실측해서 `ARCHITECTURE.md`에 넣은 그림 그대로다. 사람이 한 줄도 안 그렸다.
 
-### 해법의 두 층
+```mermaid
+flowchart TD
+    REQ([요청]) --> ROUTE[CLAUDE.md 라우팅표]
+    ROUTE --> church_posting["church_posting<br/><small>church-poster</small>"]
+    ROUTE --> llm_wiki["llm_wiki<br/><small>wiki-ingest · wiki-query · wiki-lint</small>"]
+    ROUTE --> ms_specialist["ms_specialist<br/><small>update-tracker-agent</small>"]
+    ROUTE --> writing["writing<br/><small>write-for-me · write-for-company</small>"]
+    ROUTE -.-> DIRECT["직접 처리<br/><small>automation-series · portfolio · thesis · wedding</small>"]
+    ms_specialist -- "MS 업데이트 → 보고서" --> writing
+    writing -- "초안 → 깃블로그·네이버·카드뉴스" --> blog_sync[/"tools/blog_sync"/]
+    llm_wiki -- "위키 → 공개 발행" --> datatous_github_io[/"datatous.github.io"/]
+    DIRECT -.-> logs[(work_logs/)]
+    classDef live stroke-width:2px;
+    class church_posting,llm_wiki,ms_specialist,writing live;
+```
 
-1. **생성**: 사람이 그리지 않는다. 스크립트가 실제 디렉터리·설정·git 로그를 읽어
-   다이어그램 문법으로 된 텍스트를 만들어 문서에 주입한다.
-2. **검사**: 생성 결과가 문서에 이미 박혀 있는 것과 다르면 실패시킨다. 즉 "생성 스크립트를
-   돌리는 걸 잊었다"는 상태 자체를 검사가 잡아낸다. 생성만 하고 검사가 없으면 결국
-   "돌리는 걸 잊는" 문제로 되돌아간다.
+누가 이 블록을 손으로 고치거나, 워커를 추가해 놓고 스크립트를 안 돌리면 `--check`가 바로 잡는다.
 
-이 둘을 분리해서 이해하는 게 중요하다. 생성만으로는 "최신 상태로 만드는 법"만
-생기고 "최신 상태를 강제하는 법"은 안 생긴다.
+### 생성과 검사는 따로 필요하다
 
-### 무엇을 검사에 포함시킬지 고르는 기준
+```mermaid
+flowchart TD
+  D[("디스크 · git<br/>폴더 · 정의 · 로그")] --> M["harness_map.py<br/>실측"]
+  M --> J["ref/harness-map.json"]
+  M --> G["Mermaid flowchart"]
+  G --> A["ARCHITECTURE.md<br/>marker 사이에 주입"]
+  A --> C{"--check<br/>주입본 = 실측?"}
+  C -- 같다 --> OK["exit 0"]
+  C -- 다르다 --> F["exit 1<br/>→ 재생성"]
+```
 
-배선도뿐 아니라, **그 배선도가 진짜라고 믿게 만드는 다른 문서·규칙**도 같은 검사에
-얹을 수 있다. 이 사례에서는 "출력 경로가 공통 톤 기준 문서를 실제로 거치는가"를
-같은 검사에 포함시켰다. 그림이 맞아도 그 그림이 그리는 배선이 실제로 안 지켜지면
-그림은 거짓말을 하는 셈이기 때문이다. 검사는 "그림이 실측과 같은가"뿐 아니라
-"실측이 문서가 주장하는 약속(예: 톤 게이트)을 실제로 지키는가"까지 넓힐 수 있다.
+- **생성만 있으면** "최신으로 만드는 법"은 생기지만 "최신을 강제하는 법"은 없다. 결국 "스크립트 돌리는 걸 잊었다"로 돌아간다. 동기화 스크립트를 두고도 Codex 미러가 30개 어긋났던 것과 같은 이야기다.
+- **검사만 있으면** 어긋난 걸 알아도 고치는 게 수작업이다.
+- 둘이 같이 있어야 "잊어도 걸리고, 걸리면 한 줄로 고친다"가 된다.
 
-### 외부 도구를 기각한 일반 기준
+```bash
+python tools/harness_map.py            # 실측 → JSON + Mermaid 주입 + 콘솔 요약
+python tools/harness_map.py --check    # 정합성만 검사, 어긋나면 exit 1
+```
 
-리포를 통째로 외부 서비스에 넘겨 다이어그램·설명 문서를 자동 생성하는 방식은
-매력적이지만, **민감한 프로젝트 자료가 섞인 리포에는 원천적으로 쓸 수 없다.** 이건
-도구의 성능 문제가 아니라 데이터 경계 문제라서, 도구가 아무리 좋아져도 해소되지
-않는다. 비슷한 이유로 이 리포는 자체 스크립트가 로컬에서 실측하고, 결과만
-(민감 정보를 뺀 형태로) 공개 문서에 반영하는 구조를 택했다.
+워커·에이전트·스킬을 넣거나 뺀 **직후**에 돌린다. `/status`·`/optimize` 스킬도 내부에서 이걸 호출한다.
 
-또한 코드 의존 그래프를 뽑는 도구들은 "파일이 파일을 어떻게 참조하는가"는
-잘 보여주지만, 에이전트 정의와 폴더 규약으로 이루어진 하네스 같은 구조에서는
-**"요청이 실제로 어디로 흐르는가"**를 보여주지 못한다. 운영 지도로서 필요한 건
-후자다 — 이 구분이 도구를 고를 때의 실질적인 판단 기준이었다.
+### `--check`가 보는 일곱 가지
 
-### 별도 단계가 아니라 기존 흐름 안에 박아 넣기
+1. 라우팅표 ↔ 디스크 — 표에는 있는데 폴더가 없거나, 그 반대
+2. 아무도 부르지 않는 에이전트
+3. 스킬 폴더명 ↔ frontmatter `name` 불일치 — 어긋나면 호출명이 조용히 폴더명으로 바뀐다
+4. 이미 휴면·폐기된 대상을 아직 가리키는 문서
+5. 세션 고정 로딩이 예산(20,000자)을 넘는지
+6. `ARCHITECTURE.md`에 박힌 그림이 실측과 같은지
+7. 톤 게이트 배선 — `CLAUDE.md`와 에이전트 8개가 모두 `knowledge/voice.md`를 거치는지 (현재 8/8)
 
-톤 기준 같은 공통 규칙을 배선도에 넣을 때, "이 단계를 밟으세요"라는 별도 명령·
-체크리스트 항목으로 추가하는 방식은 결국 안 쓰인다. 대신 **이미 항상 지나가는
-경로(답변 생성, 문서 저장, 발행) 중간에 통과 지점으로 끼워 넣는 편**이 실제로
-지켜졌다. 배선도를 그릴 때도 그 실제 통과 지점을 그대로 그려야 그림과 실제가 맞는다.
+못 보는 것도 있다. **리포 밖 층**(클라우드 루틴 등)과 **파이썬 import 참조**다. 실제로 v12 직후 `hook_gate.py`를 archive로 옮긴 뒤 이걸 import하던 `publish_wiki.py`가 멈춰 있었는데, `--check`는 0건이었다.
+
+### 그림이 그리는 약속까지 검사한다 — 톤 게이트
+
+7번이 이 페이지에서 제일 중요하다고 생각한다. 그림이 실측과 똑같아도, **그림이 약속하는 흐름을 실제로 안 지키면** 그림은 거짓말을 하는 셈이다.
+
+내 하네스는 답변·문서·시각물이 나가기 전에 전부 `knowledge/voice.md`(톤 SSOT)를 거친다. 이걸 "나가기 전에 `/voice-check`를 부르세요" 같은 별도 명령으로 만들면 결국 안 쓰인다. 그래서 **이미 항상 지나가는 길목**에 박았다 — 에이전트 8개의 "내보내기 직전" 단계와 `publish-post`·`status`·`optimize`·`save-log` 스킬 안에. 그리고 `--check`가 그 연결이 끊겼는지 본다.
+
+```mermaid
+flowchart TD
+  R([요청]) --> T["CLAUDE.md<br/>라우팅표"]
+  T --> W["워커 · 에이전트<br/>작업"]
+  W --> V["🗣️ knowledge/voice.md<br/>톤 게이트"]
+  V -. 글이면 .-> S["+ writing-styles.md"]
+  V -. 시각물이면 .-> F["+ frontend-design"]
+  V --> O["답변 · 문서 · 시각물"]
+  O --> P["발행 대기<br/>컨펌 후 공개"]
+  classDef gate fill:#2563eb,color:#ffffff,stroke:#1d4ed8,stroke-width:2px;
+  class V gate;
+```
+
+### 다른 도구는 왜 안 썼나
+
+| 후보 | 무엇인가 | 안 맞는 이유 |
+|------|---------|------------|
+| Structurizr / C4 | DSL로 모델을 쓰면 여러 뷰를 뽑는 models-as-code | 컨테이너·컴포넌트 같은 소프트웨어 어휘라 마크다운 에이전트 정의 하네스에 겉돈다. Java CLI 의존 |
+| GitDiagram · Swark · Datadef | 리포를 LLM에 넣어 다이어그램 자동 생성 | 리포를 외부로 보내야 한다. 코드 AST 기반이라 폴더 규약 구조에선 뽑을 게 없다 |
+| GitNexus · Git Visualizer | 파일·import 그래프 시각화 | 보여주는 게 **파일 구조**다. 알고 싶은 건 **요청이 어디로 흐르는가** |
+| Gource | 커밋 이력 애니메이션 | 회고용으로는 재밌지만 운영 지도가 아니다 |
+
+Mermaid에도 한계는 있다. `architecture-beta`의 아이콘 팩은 GitHub·GitLab·Notion·Confluence 어디서도 안 뜬다. 그래서 flowchart 같은 코어 문법만 쓴다.
+
+### 조직도가 아니라 배선도로 그린다
+
+처음엔 "누가 누구 밑에 있나" 식의 조직도로 그렸다. 그런데 이 하네스의 워커들은 서로 말을 주고받지 않는다. 앞 워커가 `output/`에 떨군 파일을 뒷 워커가 `input/`에서 집어 갈 뿐이다. 그래서 **선이 이어져 있으면 일이 흐르고, 끊겨 있으면 안 흐르는 배선도**로 그리는 게 맞았다. 톤 게이트처럼 모든 산출이 한 점으로 모이는 구조도 배선도에서만 보인다.
 
 ## Connections
-- → [[하네스 다이어트: 실측으로 워커를 내리는 법]] : 같은 세션에서 나온 자매 원칙.
-  다이어트가 "무엇을 내릴지"를 다룬다면, 이 페이지는 "줄인 구조를 어떻게 안 낡게
-  지킬지"를 다룬다
-- → [[Henry Agentic System]] : 이 검사·생성 장치가 실제로 적용된 하네스
-- → [[Harness Engineering]] : 결정론적/예방적 방어(Feedforward·Deterministic 사분면)의
-  구체 사례 — 그림 생성 자체가 가드레일 역할을 한다
+- → [하네스 다이어트: 실측으로 워커를 내리는 법](/wiki/concept-harness-diet-measurement-driven-pruning/) : 짝이 되는 원칙. 저기가 "무엇을 내릴까"라면 여기는 "줄인 구조를 어떻게 안 낡게 지킬까"
+- → [Henry Agentic System](/wiki/entity-henry-agentic-system/) : 이 생성·검사 장치가 돌고 있는 하네스
+- → [Harness Engineering](/wiki/concept-harness-engineering/) : Feedforward·Deterministic 방어의 구체 사례 — 그림 생성 자체가 가드레일이다
 
 ## Open Questions
-- 검사가 실패했을 때 자동으로 그림을 재생성해 고치는 자동 복구 경로는 아직 없다 —
-  지금은 실패를 신호로 사람이 재실행한다.
-- 생성 대상 범위를 배선도·톤 게이트 외 다른 규칙(예: 권한 경계)까지 넓힐지는 미정.
+- `--check`가 실패하면 지금은 내가 재실행한다. 실패 시 자동 재생성까지 붙일지는 미정이다.
+- 검사 범위를 리포 밖 층(클라우드 루틴)과 파이썬 import 참조로 넓힐지 고민 중이다.
+
+<p class="wiki-sources"><b>근거 자료</b> <code>024-harness-generated-diagram-check-gate-2026-09-23.md</code> · <code>026-harness-v12-technical-details-2026-09-23.md</code> · <code>025-wiki-publish-pipeline-fixes-2026-09-23.md</code></p>

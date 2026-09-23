@@ -1,131 +1,109 @@
 ---
 title: "Henry Agentic System"
 wiki_type: entity
-tags: [agentic-system, harness, orchestrator, workers, henry]
+tags: [agentic-system, harness, claude-code, workers, expert-pool, henry]
 last_modified_at: 2026-09-23
-excerpt: "Henry가 설계·운영하는 Claude Code 기반 멀티 에이전트 시스템. 2026-09-23 기준 **'전문가 풀' 구조** — 키워드로 도메인 워커를 고르는 얕은 라우팅이 중심이고, 복합 도메인을 조율하던 별도 오케스트레이터 에이전트는 폐기됐다. 라우팅 기준은 단일 문서(`CLAUDE.md`) 표 하나가 SSOT이며, 구조 정합성은 사람이 손으로 관리"
+excerpt: "> 한 줄로 — 내가 Claude Code 위에 직접 만든 개인 자동화 하네스다. 폴더 하나가 작업자(워커) 한 명이고, 요청은 CLAUDE.md 라우팅표를 보고 맞는 워커로 바로 간다. 2026-09-23 v12 기준 워커 9 · 에이전트 8 · 스킬 7. 사무실에 비유하면 이렇다. 워커는 각자 자기 책상(폴더)에서 일하고, 서로 말을 걸지 않는다. 앞사"
 ---
 
 <span class="wiki-type-badge">entity</span>
 
 ## Summary
-Henry가 설계·운영하는 Claude Code 기반 멀티 에이전트 시스템. 2026-09-23 기준
-**"전문가 풀" 구조** — 키워드로 도메인 워커를 고르는 얕은 라우팅이 중심이고, 복합 도메인을
-조율하던 별도 오케스트레이터 에이전트는 폐기됐다. 라우팅 기준은 단일 문서(`CLAUDE.md`)
-표 하나가 SSOT이며, 구조 정합성은 사람이 손으로 관리하는 목록이 아니라 실측 스크립트가
-검사한다. [출처: sources/023-harness-v12-orchestration-slimming-2026-09-23.md]
+> **한 줄로** — 내가 Claude Code 위에 직접 만든 개인 자동화 하네스다. **폴더 하나가 작업자(워커) 한 명**이고, 요청은 `CLAUDE.md` 라우팅표를 보고 맞는 워커로 바로 간다. 2026-09-23 v12 기준 워커 9 · 에이전트 8 · 스킬 7.
+
+사무실에 비유하면 이렇다. 워커는 각자 자기 책상(폴더)에서 일하고, 서로 말을 걸지 않는다. 앞사람이 `output/` 트레이에 서류를 두면 뒷사람이 `input/` 트레이에서 가져간다. 안내데스크(오케스트레이터)는 v12에서 없앴다. 이제는 벽에 붙은 안내표(`CLAUDE.md`) 한 장이 그 역할을 한다. 블로그 발행, 지식 위키, MS 업데이트 추적, 논문, 개인 생활 도메인까지 맡기고 있다.
 
 ## Key Facts
-- **루트 경로**: 로컬 개발 리포 (경로는 머신마다 다름 — 리포 내 참조는 루트 기준 상대경로 사용)
-- **진입점 겸 라우팅 SSOT**: `CLAUDE.md` 표 하나. 별도 라우터 에이전트는 2026-09-23 폐기됨 —
-  복합 라우팅 경로가 1개뿐인 규모에서는 중간 단을 하나 더 거치면 컨텍스트만 두 번 쌓인다
-  [출처: sources/023-harness-v12-orchestration-slimming-2026-09-23.md]
-- **활성 워커 노드**: 9개(도메인별 폴더) + 산출물 0건으로 휴면 처리된 6개(코드는 삭제 대신
-  별도 보관 영역으로 이관). 딸린 에이전트·스킬 정의도 함께 이관해 "고아 정의"를 남기지 않는다
-  [출처: sources/023-harness-v12-orchestration-slimming-2026-09-23.md]
-- **정의는 한 벌만 유지**: 과거엔 보조 런타임용 정의 미러도 병행했으나, 실사용 대비 드리프트가
-  압도적으로 커서(작업 로그 54건 중 실사용 2건 vs 정의 파일 40개 중 30개 불일치) 2026-09-23에
-  폐기하고 정의를 하나로 합쳤다 [출처: sources/023-harness-v12-orchestration-slimming-2026-09-23.md]
-- **자동 실행 훅은 2개만 유지**(음성 대화 모드의 토글·발화 구현체). 세션 자동 백업·알림·
-  보안 훅류는 제거하고 필요 시 수동 호출로 전환했다 [출처: sources/023-harness-v12-orchestration-slimming-2026-09-23.md]
-- **구조 정합성은 실측 스크립트가 검사한다** — 라우팅↔디스크 불일치, 아무도 안 부르는
-  에이전트, 배선도(다이어그램)가 실측과 다른지, 출력 경로가 톤 기준 문서를 거치는지까지
-  검사하고 어긋나면 실패 처리한다. 배선도는 사람이 그리지 않고 이 스크립트가 실측에서
-  생성한다 [출처: sources/024-harness-generated-diagram-check-gate-2026-09-23.md]
-- **메모리 시스템**: 사용자 홈의 `.claude/projects/<프로젝트>/memory/` — 4가지 타입 (user/feedback/project/reference)
-- **스킬**: `.claude/skills/` — 재사용 가능한 루틴 (save-log, analyze-me 등)
-- **공개 위키 동기화 기준 확정**: `wiki/pages/*.md`는 프론트매터의 공개 여부 필드를
-  fail-closed(필드 없으면 비공개)로 읽어 공개 대상만 동기화한다. 과거엔 이 필드가 없어
-  전량 무필터 동기화였으나 이후 발행 기준 문서로 보완됐다
-- **음성 입출력 도구 추가**: 하네스에 로컬 음성 대화 MCP 도구(말하기·듣기·
-  대화 한 턴·소음 보정)와 답변 자동 낭독 훅을 추가했다. 네이티브 슬래시
-  음성 명령이 막혀 있던 환경에서 MCP 도구로 우회 구현한 사례
-  [출처: sources/013-voice-control-mcp-2026-07-31.md]
+- **구조는 expert pool + 얕은 pipeline** — 키워드로 도메인 워커를 고르고, 이어지는 경로는 MS 업데이트 → 문서 하나뿐이다. supervisor(`henry-orchestrator`)는 2026-09-23에 폐기했다.
+- **라우팅 SSOT = `CLAUDE.md` 표 하나** — 라우터 에이전트를 한 단 더 거치면 컨텍스트가 두 번 쌓인다.
+- **정의는 한 벌** — 에이전트는 `.claude/agents/*.md`, 스킬은 `.claude/skills/*/SKILL.md`, 둘 다 리포 루트에만 둔다. Codex 미러(`.codex/`·`.agents/`)는 drift 30/40으로 폐기했다.
+- **훅은 2개** — 음성 모드용 `UserPromptSubmit`(토글)·`Stop`(답변 낭독)만. 세션 기록·백업·위키 발행은 `/save-log`와 명시 실행으로 돌린다.
+- **세션 고정 로딩 14,946자 / 예산 20,000자** — 8월 기준선 20,629자에서 v12로 14,253자(−31%), 이후 톤 규칙을 얹어 지금 값이 됐다.
+- **구조는 사람이 아니라 스크립트가 잰다** — `python tools/harness_map.py --check`가 0 issues여야 정상이다.
 
 ## Details
 
-### 라우팅 구조 (2026-09-23 기준)
+### 요청 하나가 흐르는 길
 
-라우팅 표 자체를 이 위키 페이지에 다시 옮겨 적지 않는다 — 손으로 두 곳에 같은 표를
-유지하면 반드시 어긋난다는 게 이 시스템 자체의 교훈이다([[하네스 다이어트: 실측으로 워커를 내리는 법]]).
-대신 구조만 요약한다.
+```mermaid
+flowchart TD
+  R([요청]) --> T["CLAUDE.md<br/>라우팅표"]
+  T --> A["ms_specialist"]
+  T --> B["writing"]
+  T --> C["llm_wiki"]
+  T --> D["church_posting"]
+  T -.-> E["직접 처리"]
+  A -- "output/ → input/" --> B
+  A --> V["🗣️ voice.md<br/>톤 게이트"]
+  B --> V
+  C --> V
+  D --> V
+  E --> V
+  V --> O["답변 · 문서 · 시각물"]
+  O --> P["발행<br/>blog_sync · datatous.github.io"]
+  classDef gate fill:#2563eb,color:#ffffff,stroke:#1d4ed8,stroke-width:2px;
+  class V gate;
+```
 
-| 구분 | 특징 |
+- **워커별 담당 에이전트** — `ms_specialist` → `update-tracker-agent`, `writing` → `write-for-me`·`write-for-company`, `llm_wiki` → `wiki-ingest`·`wiki-query`·`wiki-lint`, `church_posting` → `church-poster`. `thesis`·`portfolio`·`automation-series`와 개인 생활 도메인은 메인 세션이 직접 처리한다.
+- **웹 조사는 `research-agent`가 공용으로** 맡는다. 일부러 Write·Bash 권한을 주지 않았다. 믿을 수 없는 웹 콘텐츠를 다루니까 격리하는 거다.
+- **모든 산출은 `knowledge/voice.md`를 거친다.** 글이면 `writing-styles.md`, 시각물이면 `frontend-design` 스킬이 추가로 붙는다. 별도 명령이 아니라 에이전트 8개의 "내보내기 직전" 단계에 박혀 있다.
+- 라우팅표 원문은 여기 옮겨 적지 않는다. 같은 표를 두 곳에 두면 반드시 어긋난다는 게 이 시스템이 배운 교훈이다. 정본은 `CLAUDE.md`다.
+
+### 지금 물려 있는 것 (2026-09-23 실측)
+
+| 구분 | 수 | 목록 |
+|------|----|------|
+| 에이전트 | 8 | `church-poster` · `research-agent` · `update-tracker-agent` · `wiki-ingest` · `wiki-lint` · `wiki-query` · `write-for-company` · `write-for-me` |
+| 스킬 | 7 | `analyze-me` · `new-task` · `optimize` · `publish-post` · `save-log` · `status` · `style` |
+| 훅 | 2 | `UserPromptSubmit` → `voice-hook.ps1` · `Stop` → `session_notify.ps1` |
+| 휴면 워커 | 6 | `ppt_team_agent` · `data_analysis` · `ideaing` · `retrospective` · `higgsfield` · `daily_brief` → `archive/hibernated-workers/` |
+
+### 메모리 — 4가지 타입
+
+Claude Code 자동 메모리(`~/.claude/projects/<프로젝트>/memory/`)를 쓴다. 파일 하나에 사실 하나를 담고, `MEMORY.md`가 인덱스다. 인덱스는 매 세션 로드되니까 한 줄씩만 쓴다.
+
+- `user` — 나에 대한 것(역할, 선호, CLI 숙련도)
+- `feedback` — 내가 교정하거나 확인해 준 작업 방식. 이유(Why)와 적용법(How to apply)을 같이 적는다
+- `project` — 진행 중인 일의 상태·기한
+- `reference` — 외부 시스템 포인터와 도구 함정
+
+### 공개 위키 발행 — llm_wiki → datatous.github.io
+
+`python tools/blog_sync/publish_wiki.py` 한 줄이 변환(`wiki_to_blog.py`)부터 블로그 repo 커밋·푸시까지 한다.
+
+- **fail-closed** — 프론트매터에 `visibility: public`이 없으면 안 나간다. 공개 사이트라서 실수로 나가는 것보다 실수로 안 나가는 쪽이 낫다.
+- **공개본은 읽기 좋게 가공한다** — `위키링크`는 실제 링크로 바꾸고, 문장마다 붙은 출처 태그는 페이지 끝 "근거 자료" 한 줄로 모은다. Mermaid 블록은 사이트에서 그림으로 렌더된다. 원본 규칙은 그대로 둔다.
+- **발행은 한 체크아웃에서만** — 변환기는 "원본에 없는 공개 페이지는 지운다". 다른 체크아웃에서 발행하면 거기 없는 페이지가 사이트에서 사라진다.
+
+### 음성 입출력
+
+네이티브 슬래시 음성 명령이 막힌 환경이라 로컬 음성 MCP 도구(말하기·듣기·대화 한 턴·소음 보정)로 우회했다. 답변 자동 낭독은 `Stop` 훅이 한다. v12에서 훅을 거의 다 걷었을 때도 이 둘은 남겼다.
+
+### 걸어온 길
+
+| 시점 | 구조 |
 |------|------|
-| 상시 워커 | 자주 호출되는 도메인(M365/Power Platform, 글쓰기·보고서, 지식베이스 위키, 발행 파이프라인 등) |
-| 호출 시 가동 워커 | 특정 요청이 있을 때만 도는 도메인(석사 논문, 성과 포트폴리오, 개인 생활 도메인 워커 등) |
-| 웹 검색 전용 | 쓰기 권한 없이 조사만 하는 격리된 워커 — 비신뢰 웹 콘텐츠를 다루기 때문에 의도적으로 쓰기 권한을 안 준다 |
-| 휴면 워커 | 산출물 0건 근거로 내려간 6개. 코드는 별도 보관 영역에 보존, 되살리기 전 "이번엔 왜 필요한가"를 먼저 답해야 한다 |
+| 2026-05 | Orchestrator + Worker. 라우터 에이전트가 요청을 받아 워커로 분배 |
+| 2026-08-21 | 사수/부사수(producer-reviewer) 폐기 — 5개월 가동률 0% |
+| 2026-09-08 | "hook 다 꺼" — 3개 scope의 command 24개 비활성화 |
+| 2026-09-09 | Orca 워크트리 감사, 저사용 스킬 3종·워커 1개 archive |
+| 2026-09-23 | **v12** — Codex 미러·supervisor 폐기, 워커 14→9, 훅 7→2, `harness_map.py`, 톤 SSOT |
 
-라우팅 판단의 유일한 기준 문서는 `CLAUDE.md`의 표다. 이 페이지가 아니라 그 표가 SSOT다.
-
-### 메모리 4-레이어
-
-| 레이어 | 내용 |
-|--------|------|
-| user | Henry 프로필, 선호도, 역할 |
-| feedback | 과거 교정·확인된 접근방식 |
-| project | 진행 중 프로젝트 현황 |
-| reference | 외부 시스템 포인터 |
-
-### 핵심 스킬
-- `save-log` — 세션 작업 로그 저장
-- `analyze-me` — work_logs 패턴 분석
-- `status` — 전체 워커 현황 조회
-
-### 블로그 동기화 메커니즘 (llm_wiki → 공개 위키)
-
-`tools/blog_sync/wiki_to_blog.py`가 `llm_wiki/wiki/pages/*.md`를 읽어
-datatous.github.io의 `_wiki/` 콘텐츠로 변환·배포한다. 2026-07-21 당시엔 페이지 단위
-제외 조건이 없어 전량 무필터 동기화였다. 이후 프론트매터에 공개 여부 필드를 두고
-**필드가 없으면 비공개로 취급하는 fail-closed 방식**으로 보완됐다 — 공개 사이트라
-실수로 나가는 쪽보다 실수로 안 나가는 쪽이 안전하다는 기준. 새 페이지를 만들 때는
-그 자리에서 공개 여부와 중요도를 함께 정한다.
-
-### 구조 정합성 검사 (신규, 2026-09-23)
-
-디렉터리 구조·라우팅·에이전트/스킬 정의·배선도(다이어그램)를 실측하는 스크립트가
-있다. 평시 실행은 실측 결과를 문서에 반영하고, 검사 모드는 아래를 확인해 어긋나면
-실패 처리한다.
-
-- 라우팅 표에 있는 워커가 실제 디렉터리로 존재하는지(그 반대도)
-- 정의는 있는데 아무 경로도 가리키지 않는 에이전트가 있는지
-- 스킬 디렉터리명과 정의 내부 이름이 일치하는지(불일치하면 호출명이 조용히
-  디렉터리명으로 바뀌는 문제가 생긴다)
-- 살아 있는 문서가 이미 휴면·폐기된 대상을 계속 참조하는지
-- 배선도(다이어그램)가 최신 실측과 다른지
-- 산출 경로가 공통 톤 기준 문서를 실제로 거치는지
-- 세션마다 고정으로 로드되는 컨텍스트 총량이 예산을 넘는지
-
-이 검사는 구조를 바꾼 직후 실행하는 걸 원칙으로 한다.
-[출처: sources/024-harness-generated-diagram-check-gate-2026-09-23.md]
-
-### 이력 — v11 이하 구조 (지금은 유효하지 않음)
-
-2026-09-23 이전에는 복합 도메인 작업을 조율하는 별도 오케스트레이터 에이전트가
-있었고, 주 런타임과 보조 런타임(Codex) 양쪽에 에이전트·스킬 정의를 두 벌로
-유지했다. 워커는 최대 14개까지 늘었다가, 실측 결과 산출물이 없는 워커·실사용이
-거의 없는 보조 런타임·참조 대상을 잃은 오케스트레이터를 함께 정리하면서 현재
-구조로 줄었다. 이 정리 과정의 방법론은 [[하네스 다이어트: 실측으로 워커를 내리는 법]]에
-따로 정리했다. [출처: sources/023-harness-v12-orchestration-slimming-2026-09-23.md]
+어떻게 줄였는지는 [하네스 다이어트: 실측으로 워커를 내리는 법](/wiki/concept-harness-diet-measurement-driven-pruning/)에, 줄인 구조를 어떻게 지키는지는 [그림도 검사 대상으로: 실측에서 생성하는 배선도](/wiki/concept-generated-diagrams-as-consistency-checks/)에 따로 정리했다.
 
 ## Connections
-- → [[Harness Engineering]] : 시스템이 구현하는 패러다임
-- → [[12 Agentic Harness Patterns]] : 구현된 패턴 목록. 이 시스템이 폐기한
-  "감독자(오케스트레이터)" 패턴이 여기 목록의 오케스트레이션 패턴 항목과 겹친다
-- → [[Claude Code Architecture]] : 기반 아키텍처
-- → [[하네스 다이어트: 실측으로 워커를 내리는 법]] : 14개까지 늘었던 워커를
-  9개로 줄인 방법론 (2026-09-23)
-- → [[그림도 검사 대상으로: 실측에서 생성하는 배선도]] : 구조 정합성 검사와
-  배선도 생성 장치의 상세
-- → [[메일 첨부파일 자동화의 MCP 제약과 우회 경로]] : 개인 데이터 파이프라인을 이
-  하네스에 통합할 때 함께 고려해야 할 공개 동기화 제약
-- → [[로컬 음성 에이전트 파이프라인 구성 패턴 (Windows)]] : 하네스에 추가된
-  음성 입출력 확장
+- → [하네스 다이어트: 실측으로 워커를 내리는 법](/wiki/concept-harness-diet-measurement-driven-pruning/) : 14개까지 늘었던 워커를 9개로 줄인 방법
+- → [그림도 검사 대상으로: 실측에서 생성하는 배선도](/wiki/concept-generated-diagrams-as-consistency-checks/) : `harness_map.py --check`와 자동 생성 배선도
+- → [Harness Engineering](/wiki/concept-harness-engineering/) : 이 시스템이 따르는 상위 관점
+- → [12 Agentic Harness Patterns](/wiki/concept-12-harness-patterns/) : 패턴 목록. 여기서 폐기한 supervisor와 겹치는 항목이 있다
+- → [Claude Code Architecture](/wiki/concept-claude-code-architecture/) : 기반 아키텍처
+- → [메일 첨부파일 자동화의 MCP 제약과 우회 경로](/wiki/concept-mail-attachment-automation-constraint/) : 개인 데이터 파이프라인을 붙일 때의 제약
+- → [로컬 음성 에이전트 파이프라인 구성 패턴 (Windows)](/wiki/concept-local-voice-agent-pipeline/) : 음성 입출력 확장의 상세
 
 ## Open Questions
-- 워커 간 output → input 파이프라인 자동화 미완성
-- 토큰 사용량 모니터링 대시보드 없음
-- 실측 3기준(산출물 날짜·언급 빈도·참조 생존) 중 일부만 걸리는 워커를 휴면시킬지
-  판단하는 명시 기준은 아직 없음 — 현재는 사람이 개별 판단
-- 리포 밖 자동화 층(예약 실행 등)을 코드 정리와 함께 자동 점검하는 장치는 아직 없음
+- 워커 간 `output/ → input/` 전달은 아직 메인 세션이 손으로 이어 준다. 자동 연결은 미완성이다.
+- 리포 밖 층(클라우드 루틴)과 파이썬 import 참조는 `--check`가 못 본다.
+- 토큰 사용량은 세션 단위로만 본다. 워커별 비용 대시보드는 없다.
+
+<p class="wiki-sources"><b>근거 자료</b> <code>023-harness-v12-orchestration-slimming-2026-09-23.md</code> · <code>026-harness-v12-technical-details-2026-09-23.md</code> · <code>024-harness-generated-diagram-check-gate-2026-09-23.md</code> · <code>007-harness-claude-md-snapshot.md</code> · <code>025-wiki-publish-pipeline-fixes-2026-09-23.md</code> · <code>013-voice-control-mcp-2026-07-31.md</code></p>
