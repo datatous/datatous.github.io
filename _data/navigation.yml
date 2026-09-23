@@ -49,6 +49,8 @@ wiki:
         url: /wiki/concept-booking-site-macro-detection/
       - title: "편집 가능한 아티팩트와 SSOT 대기함 패턴"
         url: /wiki/concept-editable-artifact-staging/
+      - title: "네이버 메일 IMAP 연동 — 인증 강제와 인코딩 함정"
+        url: /wiki/concept-naver-mail-imap-integration/
       - title: "연구 주제 선정 게이트 방법론"
         url: /wiki/concept-research-topic-gating/
       - title: "한글(HWP) COM 문서 자동 생성의 함정과 우회"

@@ -2,7 +2,7 @@
 title: "Henry Agentic System"
 wiki_type: entity
 tags: [agentic-system, harness, orchestrator, workers, henry]
-last_modified_at: 2026-07-31
+last_modified_at: 2026-09-23
 excerpt: "오현근(Henry)이 설계·운영하는 Claude Code 기반 멀티 에이전트 시스템. Orchestrator + Worker 패턴으로 도메인별 워커 노드가 분리된 구조이며, 메모리·스킬·라우팅 테이블이 하네스 레이어에서 관리된다."
 ---
 
@@ -27,6 +27,9 @@ excerpt: "오현근(Henry)이 설계·운영하는 Claude Code 기반 멀티 에
   대화 한 턴·소음 보정)와 답변 자동 낭독 훅을 추가했다. 네이티브 슬래시
   음성 명령이 막혀 있던 환경에서 MCP 도구로 우회 구현한 사례
   [출처: sources/013-voice-control-mcp-2026-07-31.md]
+- **메일 조회 도구 추가**: 파이썬 표준 라이브러리만으로 구현한 읽기 전용 IMAP
+  메일 조회 도구를 하네스에 추가했다(2026-09-23). 삭제·이동·발송 기능은 없고
+  조회 전용이다. [출처: sources/022-naver-mail-imap-technical-2026-09-23.md]
 
 ## Details
 
@@ -74,6 +77,8 @@ datatous.github.io의 `_wiki/` 콘텐츠로 변환·배포한다. 2026-07-21 기
   하네스에 통합할 때 함께 고려해야 할 공개 동기화 제약
 - → [[로컬 음성 에이전트 파이프라인 구성 패턴 (Windows)]] : 하네스에 추가된
   음성 입출력 확장
+- → [[concept-naver-mail-imap-integration]] : 하네스에 추가된 읽기 전용 메일
+  조회 도구와 구현 함정
 
 ## Open Questions
 - 워커 간 output → input 파이프라인 자동화 미완성
