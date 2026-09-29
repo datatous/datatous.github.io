@@ -20,6 +20,7 @@ excerpt: "> 한 줄로: 내가 Claude Code 위에 직접 만든 개인 자동화
 - **훅은 2개**: 음성 모드용 `UserPromptSubmit`(토글)·`Stop`(답변 낭독)만. 세션 기록·백업·위키 발행은 `/save-log`와 명시 실행으로 돌린다.
 - **세션 고정 로딩 14,946자 / 예산 20,000자**: 8월 기준선 20,629자에서 v12로 14,253자(−31%), 이후 톤 규칙을 얹어 지금 값이 됐다.
 - **구조는 사람이 아니라 스크립트가 잰다**. `python tools/harness_map.py --check`가 0 issues여야 정상이다.
+- **메일 조회 도구**: 파이썬 표준 라이브러리만으로 만든 읽기 전용 IMAP 메일 조회 도구를 붙였다(2026-09-23). 삭제·이동·발송은 없고 조회만 한다.
 
 ## Details
 
@@ -100,10 +101,11 @@ Claude Code 자동 메모리(`~/.claude/projects/<프로젝트>/memory/`)를 쓴
 - → [Claude Code Architecture](/wiki/concept-claude-code-architecture/) : 기반 아키텍처
 - → [메일 첨부파일 자동화의 MCP 제약과 우회 경로](/wiki/concept-mail-attachment-automation-constraint/) : 개인 데이터 파이프라인을 붙일 때의 제약
 - → [로컬 음성 에이전트 파이프라인 구성 패턴 (Windows)](/wiki/concept-local-voice-agent-pipeline/) : 음성 입출력 확장의 상세
+- → [네이버 메일 IMAP 연동 — 인증 강제와 인코딩 함정](/wiki/concept-naver-mail-imap-integration/) : 읽기 전용 메일 조회 도구와 구현 함정
 
 ## Open Questions
 - 워커 간 `output/ → input/` 전달은 아직 메인 세션이 손으로 이어 준다. 자동 연결은 미완성이다.
 - 리포 밖 층(클라우드 루틴)과 파이썬 import 참조는 `--check`가 못 본다.
 - 토큰 사용량은 세션 단위로만 본다. 워커별 비용 대시보드는 없다.
 
-<p class="wiki-sources"><b>근거 자료</b> <code>023-harness-v12-orchestration-slimming-2026-09-23.md</code> · <code>026-harness-v12-technical-details-2026-09-23.md</code> · <code>024-harness-generated-diagram-check-gate-2026-09-23.md</code> · <code>007-harness-claude-md-snapshot.md</code> · <code>025-wiki-publish-pipeline-fixes-2026-09-23.md</code> · <code>013-voice-control-mcp-2026-07-31.md</code></p>
+<p class="wiki-sources"><b>근거 자료</b> <code>023-harness-v12-orchestration-slimming-2026-09-23.md</code> · <code>026-harness-v12-technical-details-2026-09-23.md</code> · <code>024-harness-generated-diagram-check-gate-2026-09-23.md</code> · <code>022-naver-mail-imap-technical-2026-09-23.md</code> · <code>007-harness-claude-md-snapshot.md</code> · <code>025-wiki-publish-pipeline-fixes-2026-09-23.md</code> · <code>013-voice-control-mcp-2026-07-31.md</code></p>
