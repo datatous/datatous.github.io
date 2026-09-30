@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="robots" content="noindex, nofollow" />
+<meta name="color-scheme" content="light dark" />
+<title>나와의 채팅 메모</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+<style>
+  /* 깃블로그 톤(블루·슬레이트)을 따른다. 색은 상태를 뜻한다: 파랑=기본, 주황=임박, 빨강=지남/실패, 초록=완료 */
+  :root{
+    --bg:#f8fafc; --surface:#ffffff; --surface-2:#f1f5f9;
+    --ink:#0f172a; --ink-2:#1f2937; --muted:#64748b; --line:#e2e8f0;
+    --accent:#2563eb; --accent-ink:#1d4ed8; --accent-soft:#eff6ff; --accent-border:#bfdbfe;
+    --warn:#b45309; --warn-soft:#fef3c7; --bad:#b91c1c; --bad-soft:#fee2e2; --ok:#15803d; --ok-soft:#dcfce7;
+    --shadow:0 1px 2px rgba(15,23,42,.05), 0 4px 16px rgba(15,23,42,.05);
+    --r:14px; --maxw:760px;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --bg:#0b1120; --surface:#111827; --surface-2:#1e293b;
+      --ink:#f1f5f9; --ink-2:#e2e8f0; --muted:#94a3b8; --line:#1f2a3c;
+      --accent:#60a5fa; --accent-ink:#93c5fd; --accent-soft:#172554; --accent-border:#1e3a8a;
+      --warn:#fbbf24; --warn-soft:#3a2a07; --bad:#f87171; --bad-soft:#3b1414; --ok:#4ade80; --ok-soft:#0f2e1a;
+      --shadow:0 1px 2px rgba(0,0,0,.3), 0 4px 16px rgba(0,0,0,.25);
+    }
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{background:var(--bg);color:var(--ink);font:15px/1.6 "Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+       -webkit-font-smoothing:antialiased;word-break:keep-all;overflow-wrap:anywhere}
+  a{color:var(--accent)}
+  button,input{font:inherit;color:inherit}
+  .hidden{display:none!important}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:20px 16px 48px}
+
+  /* 잠금 */
+  #gate{min-height:100dvh;display:grid;place-items:center;padding:16px}
+  .lockcard{width:100%;max-width:340px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);
+            box-shadow:var(--shadow);padding:28px 22px;text-align:center}
+  .lockcard h1{font-size:19px;margin:6px 0 4px}
+  .lockcard p{color:var(--muted);font-size:13.5px;margin:0 0 16px}
+  .lockcard input[type=password]{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:10px;background:var(--surface-2);font-size:16px}
+  .lockcard input[type=password]:focus{outline:2px solid var(--accent-border);border-color:var(--accent)}
+  .remember{display:flex;gap:6px;align-items:center;justify-content:center;margin:10px 0 14px;font-size:13px;color:var(--muted)}
+  .btn{border:0;border-radius:10px;padding:11px 16px;font-weight:700;cursor:pointer;background:var(--surface-2)}
+  .btn.primary{background:var(--accent);color:#fff;width:100%}
+  .btn:disabled{opacity:.6;cursor:default}
+  .err{min-height:18px;margin-top:10px;font-size:13px;font-weight:600;color:var(--bad)}
+  .err.busy{color:var(--muted)}
+
+  /* 머리 */
+  header .kicker{font-size:12px;font-weight:700;letter-spacing:.06em;color:var(--accent);text-transform:uppercase}
+  header h1{font-size:24px;margin:2px 0 6px;letter-spacing:-.01em}
+  .statusline{font-size:13px;color:var(--muted)}
+  .banner{margin:12px 0 0;padding:10px 12px;border-radius:10px;font-size:13.5px;background:var(--bad-soft);color:var(--bad);font-weight:600}
+
+  /* 한 화면 요약 */
+  .glance{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:16px 0 12px}
+  .glance button{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px 8px;text-align:left;cursor:pointer}
+  .glance b{display:block;font-size:20px;line-height:1.2}
+  .glance span{font-size:12px;color:var(--muted)}
+  .glance .soon b{color:var(--warn)}
+  .glance .late b{color:var(--bad)}
+
+  /* 필터 */
+  .tools{display:flex;flex-direction:column;gap:10px;margin:4px 0 14px}
+  .search{width:100%;padding:11px 14px;border:1px solid var(--line);border-radius:10px;background:var(--surface);font-size:16px}
+  .tabs,.tags{display:flex;flex-wrap:wrap;gap:6px}
+  .chip{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:5px 12px;font-size:13px;cursor:pointer;white-space:nowrap}
+  .chip[aria-pressed=true]{background:var(--accent);border-color:var(--accent);color:#fff}
+  .tags .chip{font-size:12.5px;padding:3px 10px;color:var(--muted)}
+  .tags .chip[aria-pressed=true]{color:#fff}
+
+  /* 목록 */
+  .list{display:flex;flex-direction:column;gap:10px}
+  .card{display:block;text-decoration:none;color:inherit;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);
+        padding:14px 15px;box-shadow:var(--shadow)}
+  .card:hover{border-color:var(--accent-border)}
+  .card.done{opacity:.6}
+  .card .top{display:flex;gap:8px;align-items:flex-start}
+  .card .ico{flex:none;font-size:16px;line-height:1.5}
+  .card h2{font-size:16px;margin:0;line-height:1.45;flex:1}
+  .card.done h2{text-decoration:line-through}
+  .card p{margin:6px 0 8px;color:var(--ink-2);font-size:14px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .meta{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:12px;color:var(--muted)}
+  .tag{background:var(--surface-2);border-radius:6px;padding:1px 7px}
+  .due{border-radius:6px;padding:1px 7px;font-weight:700;background:var(--accent-soft);color:var(--accent-ink)}
+  .due.soon{background:var(--warn-soft);color:var(--warn)}
+  .due.late{background:var(--bad-soft);color:var(--bad)}
+  .due.done,.state.done{background:var(--ok-soft);color:var(--ok)}
+  .state{border-radius:6px;padding:1px 7px;font-weight:700}
+  .empty{text-align:center;color:var(--muted);padding:40px 0;font-size:14px}
+
+  /* 상세 */
+  .back{display:inline-flex;align-items:center;gap:4px;margin:16px 0 14px;font-size:14px;text-decoration:none;font-weight:600}
+  article h1{font-size:22px;margin:0 0 8px;line-height:1.4}
+  article .meta{margin-bottom:14px}
+  .summary{background:var(--accent-soft);border:1px solid var(--accent-border);border-radius:12px;padding:12px 14px;margin:0 0 18px}
+  .body h3{font-size:14px;color:var(--muted);margin:22px 0 8px;font-weight:700}
+  .body h4{font-size:12.5px;color:var(--muted);margin:14px 0 4px;font-weight:600;font-variant-numeric:tabular-nums}
+  .body blockquote{margin:0;padding:8px 12px;border-left:3px solid var(--accent-border);background:var(--surface);border-radius:0 8px 8px 0;font-size:14.5px}
+  .body p{margin:8px 0}
+  .body .note{font-size:13px;color:var(--muted);font-style:italic}
+  .body code{background:var(--surface-2);border-radius:5px;padding:0 5px;font-size:13px}
+  .editpath{margin-top:28px;font-size:12px;color:var(--muted)}
+  footer{margin-top:36px;display:flex;justify-content:space-between;align-items:center;font-size:12.5px;color:var(--muted)}
+  footer button{background:none;border:0;color:var(--muted);text-decoration:underline;cursor:pointer;padding:0}
+</style>
+</head>
+<body>
+
+<div id="gate" class="hidden">
+  <form class="lockcard" id="lockForm" autocomplete="on">
+    <div style="font-size:30px">🔒</div>
+    <h1>메모가 잠겨 있어요</h1>
+    <p>암호를 넣으면 이 브라우저 안에서만 풀려요.</p>
+    <input type="text" name="username" value="memo" autocomplete="username" class="hidden" readonly />
+    <input type="password" id="pw" placeholder="암호" autocomplete="current-password" />
+    <label class="remember"><input type="checkbox" id="remember" checked /> 이 기기에서 기억하기</label>
+    <button class="btn primary" id="unlockBtn" type="submit">열기</button>
+    <div class="err" id="err"></div>
+  </form>
+</div>
+
+<div class="wrap hidden" id="app">
+  <header>
+    <div class="kicker">Henry · Memo</div>
+    <h1>나와의 채팅 메모</h1>
+    <div class="statusline" id="statusline"></div>
+    <div class="banner hidden" id="banner"></div>
+  </header>
+  <main id="view"></main>
+  <footer>
+    <a href="/">datatous</a>
+    <button type="button" id="lockBtn">이 기기에서 잠그기</button>
+  </footer>
+</div>
+
+<script>
+"use strict";
+const LS_PW = "memo_pw_v1";
+const KIND = {todo:{ico:"✅", name:"할 일"}, link:{ico:"🔗", name:"링크"}, note:{ico:"📝", name:"메모"}};
+let DATA = null, PAGES = [], filter = {tab:"all", tag:"", q:""};
+
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const store = {
+  get(){ try{ return localStorage.getItem(LS_PW); }catch(e){ return null; } },
+  set(v){ try{ localStorage.setItem(LS_PW, v); }catch(e){} },
+  del(){ try{ localStorage.removeItem(LS_PW); }catch(e){} },
+};
+
+/* ── 복호화: base64( salt[16] || iv[12] || ciphertext+tag ), PBKDF2-SHA256 → AES-GCM-256.
+   tools/memo_daily.py 의 encrypt()와 짝이다. */
+async function decrypt(pw){
+  const raw = Uint8Array.from(atob(DATA.blob), c => c.charCodeAt(0));
+  const salt = raw.slice(0,16), iv = raw.slice(16,28), ct = raw.slice(28);
+  const km = await crypto.subtle.importKey("raw", new TextEncoder().encode(pw), "PBKDF2", false, ["deriveKey"]);
+  const key = await crypto.subtle.deriveKey({name:"PBKDF2", salt, iterations:DATA.iter || 250000, hash:"SHA-256"},
+                                            km, {name:"AES-GCM", length:256}, false, ["decrypt"]);
+  const pt = await crypto.subtle.decrypt({name:"AES-GCM", iv}, key, ct);
+  return JSON.parse(new TextDecoder().decode(pt));
+}
+
+/* ── 날짜 */
+function today(){ const d = new Date(); d.setHours(0,0,0,0); return d; }
+function parseDay(s){ const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(s || ""); return m ? new Date(+m[1], +m[2]-1, +m[3]) : null; }
+function md(s){ const d = parseDay(s); return d ? `${d.getMonth()+1}/${d.getDate()}` : ""; }
+function dday(s){ const d = parseDay(s); return d ? Math.round((d - today()) / 86400000) : null; }
+function dueInfo(p){
+  if (!p.due) return null;
+  if (p.status === "done") return {cls:"done", text:`${md(p.due)} 완료`};
+  const n = dday(p.due);
+  if (p.kind !== "todo") return {cls:"", text:`${md(p.due)}`};
+  if (n < 0) return {cls:"late", text:`${md(p.due)}까지 · ${-n}일 지남`};
+  if (n === 0) return {cls:"late", text:`${md(p.due)}까지 · 오늘`};
+  return {cls: n <= 7 ? "soon" : "", text:`${md(p.due)}까지 · D-${n}`};
+}
+
+/* ── 아주 작은 마크다운: 먼저 전부 escape 하고, 쓰는 문법(###, ##, >, -, *보충*, **, `, URL)만 되살린다 */
+function inline(s){
+  return esc(s)
+    .replace(/`([^`]+)`/g, "<code>$1</code>")
+    .replace(/\*\*([^*]+)\*\*/g, "<b>$1</b>")
+    .replace(/(https?:\/\/[^\s<>"']+)/g, u => `<a href="${u}" target="_blank" rel="noopener noreferrer">${u}</a>`);
+}
+function renderMd(src){
+  const out = []; let quote = [], list = [];
+  const flush = () => {
+    if (quote.length){ out.push(`<blockquote>${quote.map(inline).join("<br>")}</blockquote>`); quote = []; }
+    if (list.length){ out.push(`<ul>${list.map(x => `<li>${inline(x)}</li>`).join("")}</ul>`); list = []; }
+  };
+  for (const line of String(src || "").split("\n")){
+    let m;
+    if ((m = /^>\s?(.*)$/.exec(line))){ if (list.length) flush(); quote.push(m[1]); continue; }
+    if ((m = /^[-*]\s+(.*)$/.exec(line)) && !/^\*[^*].*\*$/.test(line)){ if (quote.length) flush(); list.push(m[1]); continue; }
+    flush();
+    if (!line.trim()) continue;
+    if ((m = /^###\s+(.*)$/.exec(line))) out.push(`<h4>${inline(m[1])}</h4>`);
+    else if ((m = /^##\s+(.*)$/.exec(line))) out.push(`<h3>${inline(m[1])}</h3>`);
+    else if ((m = /^\*([^*].*)\*$/.exec(line))) out.push(`<p class="note">${inline(m[1])}</p>`);
+    else out.push(`<p>${inline(line)}</p>`);
+  }
+  flush();
+  return out.join("");
+}
+
+/* ── 화면 */
+function sorted(list){
+  // 열린 할 일은 기한 가까운 순, 나머지는 최근 수정 순
+  return [...list].sort((a, b) => {
+    const at = a.kind === "todo" && a.status === "open" && a.due, bt = b.kind === "todo" && b.status === "open" && b.due;
+    if (filter.tab === "todo" && at && bt) return a.due.localeCompare(b.due);
+    return (b.updated || "").localeCompare(a.updated || "") || (b.slug).localeCompare(a.slug);
+  });
+}
+function matches(p){
+  if (filter.tab === "done") { if (p.status !== "done") return false; }
+  else {
+    if (p.status === "done") return false;
+    if (filter.tab !== "all" && p.kind !== filter.tab) return false;
+  }
+  if (filter.tag && !(p.tags || []).includes(filter.tag)) return false;
+  if (filter.q){
+    const q = filter.q.toLowerCase();
+    const hay = [p.title, p.summary, p.body, (p.tags || []).join(" ")].join("\n").toLowerCase();
+    if (!hay.includes(q)) return false;
+  }
+  return true;
+}
+function card(p){
+  const k = KIND[p.kind] || KIND.note, d = dueInfo(p);
+  return `<a class="card ${p.status === "done" ? "done" : ""}" href="#/${encodeURIComponent(p.slug)}">
+    <div class="top"><span class="ico" aria-label="${k.name}">${k.ico}</span><h2>${esc(p.title)}</h2></div>
+    <p>${esc(p.summary)}</p>
+    <div class="meta">
+      ${d ? `<span class="due ${d.cls}">${esc(d.text)}</span>` : ""}
+      ${(p.tags || []).map(t => `<span class="tag">#${esc(t)}</span>`).join("")}
+      <span>${esc(md(p.updated))} 수정</span>
+    </div></a>`;
+}
+function renderList(){
+  const open = PAGES.filter(p => p.status !== "done");
+  const todos = open.filter(p => p.kind === "todo");
+  const soon = todos.filter(p => { const n = dday(p.due); return n !== null && n >= 0 && n <= 7; });
+  const late = todos.filter(p => { const n = dday(p.due); return n !== null && n < 0; });
+  const tags = [...new Set(open.flatMap(p => p.tags || []))].sort((a, b) => a.localeCompare(b, "ko"));
+  const tabs = [["all","전체"],["todo","할 일"],["link","링크"],["note","메모"],["done","완료"]];
+  const shown = sorted(PAGES.filter(matches));
+  $("view").innerHTML = `
+    <div class="glance">
+      <button type="button" data-go="todo"><b>${todos.length}</b><span>열린 할 일</span></button>
+      <button type="button" data-go="todo" class="soon"><b>${soon.length}</b><span>7일 안 마감</span></button>
+      <button type="button" data-go="todo" class="${late.length ? "late" : ""}"><b>${late.length}</b><span>기한 지남</span></button>
+    </div>
+    <div class="tools">
+      <input class="search" id="q" type="search" placeholder="검색 (제목, 내용, 태그)" value="${esc(filter.q)}" />
+      <div class="tabs">${tabs.map(([v, n]) => `<button type="button" class="chip" data-tab="${v}" aria-pressed="${filter.tab === v}">${n}</button>`).join("")}</div>
+      ${tags.length ? `<div class="tags">${tags.map(t => `<button type="button" class="chip" data-tag="${esc(t)}" aria-pressed="${filter.tag === t}">#${esc(t)}</button>`).join("")}</div>` : ""}
+    </div>
+    <div class="list">${shown.length ? shown.map(card).join("") :
+      `<div class="empty">${PAGES.length ? "조건에 맞는 메모가 없어요" : "아직 정리된 메모가 없어요.<br>나와의 채팅에 보내 두면 다음 날 아침 8시에 여기 정리돼요."}</div>`}</div>`;
+  const q = $("q");
+  q.oninput = () => { filter.q = q.value; const pos = q.selectionStart; renderList(); const n = $("q"); n.focus(); n.setSelectionRange(pos, pos); };
+  document.querySelectorAll("[data-tab]").forEach(b => b.onclick = () => { filter.tab = b.dataset.tab; renderList(); });
+  document.querySelectorAll("[data-tag]").forEach(b => b.onclick = () => { filter.tag = filter.tag === b.dataset.tag ? "" : b.dataset.tag; renderList(); });
+  document.querySelectorAll("[data-go]").forEach(b => b.onclick = () => { filter.tab = b.dataset.go; filter.tag = ""; renderList(); });
+}
+function renderPage(slug){
+  const p = PAGES.find(x => x.slug === slug);
+  if (!p){ location.hash = ""; return; }
+  const k = KIND[p.kind] || KIND.note, d = dueInfo(p);
+  $("view").innerHTML = `
+    <a class="back" href="#">← 목록</a>
+    <article>
+      <h1>${k.ico} ${esc(p.title)}</h1>
+      <div class="meta">
+        <span class="state ${p.status === "done" ? "done" : ""}">${p.status === "done" ? "완료" : k.name}</span>
+        ${d ? `<span class="due ${d.cls}">${esc(d.text)}</span>` : ""}
+        ${(p.tags || []).map(t => `<span class="tag">#${esc(t)}</span>`).join("")}
+        <span>${esc(md(p.created))} 작성 · ${esc(md(p.updated))} 수정</span>
+      </div>
+      ${p.summary ? `<div class="summary">${inline(p.summary)}</div>` : ""}
+      <div class="body">${renderMd(p.body)}</div>
+      <div class="editpath">고치려면 <code>memo/pages/${esc(p.slug)}.md</code> 를 수정하거나, 나와의 채팅에 <code>#완료 ${esc(p.title.slice(0, 12))}</code> 를 보내요.</div>
+    </article>`;
+  window.scrollTo(0, 0);
+}
+function route(){
+  const m = /^#\/(.+)$/.exec(location.hash);
+  if (m) renderPage(decodeURIComponent(m[1])); else renderList();
+}
+
+function at(s){ const m = /^\d{4}-(\d{2})-(\d{2}) (\d{2}:\d{2})/.exec(s || ""); return m ? `${+m[1]}/${+m[2]} ${m[3]}` : "-"; }
+function showStatus(){
+  const s = DATA.status || {};
+  $("statusline").textContent = `마지막 정리 ${at(DATA.built)} · 메모 ${PAGES.length}개`;
+  const bad = s.ok === false;
+  $("banner").classList.toggle("hidden", !bad);
+  if (bad) $("banner").textContent = `⚠ ${at(s.at)} 수집 실패: ${s.message} (1시간마다 다시 시도해요)`;
+}
+function start(data){
+  PAGES = data.pages || [];
+  $("gate").classList.add("hidden");
+  $("app").classList.remove("hidden");
+  showStatus();
+  route();
+}
+
+function showGate(msg){
+  $("gate").classList.remove("hidden");
+  $("app").classList.add("hidden");
+  const err = $("err"), btn = $("unlockBtn"), pw = $("pw");
+  err.className = "err"; err.textContent = msg || "";
+  if (!(window.crypto && crypto.subtle)){ err.textContent = "이 브라우저에선 열 수 없어요 (https 주소로 열어주세요)"; btn.disabled = true; return; }
+  $("lockForm").onsubmit = async e => {
+    e.preventDefault();
+    if (!pw.value){ pw.focus(); return; }
+    btn.disabled = true; err.className = "err busy"; err.textContent = "여는 중…";
+    try{
+      const data = await decrypt(pw.value);
+      if ($("remember").checked) store.set(pw.value); else store.del();
+      start(data);
+    }catch(x){
+      err.className = "err"; err.textContent = "암호가 맞지 않아요";
+      btn.disabled = false; pw.select();
+    }
+  };
+  pw.focus();
+}
+
+$("lockBtn").onclick = () => { store.del(); PAGES = []; $("view").innerHTML = ""; $("pw").value = ""; showGate("이 기기에서 잠갔어요"); };
+window.addEventListener("hashchange", () => { if (PAGES.length || DATA) route(); });
+
+(async function boot(){
+  try{
+    const r = await fetch("data.json", {cache:"no-store"});
+    DATA = r.ok ? await r.json() : {};
+  }catch(e){ DATA = {}; }
+  if (!DATA.blob){
+    $("gate").classList.add("hidden"); $("app").classList.remove("hidden");
+    PAGES = []; showStatus(); renderList(); return;
+  }
+  const saved = store.get();
+  if (saved){
+    try{ start(await decrypt(saved)); return; }
+    catch(e){ store.del(); showGate("저장된 암호가 바뀌었어요. 다시 넣어주세요"); return; }
+  }
+  showGate();
+})();
+</script>
+</body>
+</html>
