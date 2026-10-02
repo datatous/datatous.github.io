@@ -164,7 +164,7 @@ classes: wide
   <div class="node"><div class="yr">~2020</div><div class="jb">경영학도</div><div class="ds">컴퓨터공학 멀티클래스: 전공자들 사이에서 평균 A로 부전공 획득</div></div>
   <div class="node"><div class="yr">2022–2025</div><div class="jb">공공 Data Keeper</div><div class="ds">KCA 3년: 데이터 품질·개방·정책연구, RPA·클라우드 전환</div></div>
   <div class="node"><div class="yr">2025</div><div class="jb">AX Educator</div><div class="ds">KMA: KT AX 디그리 2.0 운영, 수강생 13,019명</div></div>
-  <div class="node"><div class="yr">2026~</div><div class="jb">AX Consultant ★</div><div class="ds">MuniLabs: 에이전틱 시스템 설계·운용 + 석사 수련 병행</div></div>
+  <div class="node"><div class="yr">2026~</div><div class="jb">AX Consultant ★</div><div class="ds">MuniLabs: 기업 Copilot·AX 도입 컨설팅 — 활용 미션 설계, 현업 밀착 가이드, 성과 분석·보고 + 석사 수련 병행</div></div>
 </div>
 
 <!-- ============ EQUIPMENT ============ -->
