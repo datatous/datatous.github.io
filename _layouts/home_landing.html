@@ -282,7 +282,10 @@ summary:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
   <h2 data-edit>직접 맡겨 본 기록</h2>
   <p class="lead" data-edit>출퇴근길 개발부터 교회 주보, AI 작업 환경을 줄인 경험까지. 무엇을 맡겼고 무엇이 남았는지 다시 읽는다.</p>
   <div class="nb-grid">
-    {% assign series = site.posts | where_exp:"p","p.categories contains '자동화연대기' or p.url == '/posts/harness-v12-slimming/'" | sort:"date" | reverse %}
+    {% comment %} Jekyll 3.10 (GitHub Pages) where_exp has no and/or — build two lists and concat {% endcomment %}
+    {% assign series_field = site.posts | where_exp:"p","p.categories contains '자동화연대기'" %}
+    {% assign series_case = site.posts | where_exp:"p","p.url == '/posts/harness-v12-slimming/'" %}
+    {% assign series = series_field | concat: series_case | sort:"date" | reverse %}
     {% for p in series %}
     <a class="nb" href="{{ p.url | relative_url }}">
       {% if p.header.teaser %}<img src="{{ p.header.teaser | relative_url }}" alt="" width="640" height="360" loading="lazy">{% endif %}
