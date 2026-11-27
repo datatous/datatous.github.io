@@ -137,7 +137,7 @@ classes: wide
 <!-- ============ HERO ============ -->
 <div class="rpg-hero"><div class="rpg-hero-in">
   <div class="avatar-frame" role="img" aria-label="Henry 일러스트, 카페에서 데이터를 보는 모습">
-    <img src="/assets/images/henry-portrait.png" alt="Henry">
+    <img src="/assets/images/henry-portrait.png" alt="카페에서 데이터를 살펴보는 Henry 일러스트" width="892" height="1026">
     <span class="scrim"></span>
     <span class="orb o1"></span><span class="orb o2"></span><span class="orb o3"></span>
   </div>
@@ -161,7 +161,7 @@ classes: wide
 <!-- ============ CLASS TREE ============ -->
 <h3 class="sec">🧭 전직 트리</h3>
 <div class="tree">
-  <div class="node"><div class="yr">~2020</div><div class="jb">경영학도</div><div class="ds">컴퓨터공학 멀티클래스: 전공자들 사이에서 평균 A로 부전공 획득</div></div>
+  <div class="node"><div class="yr">~2020</div><div class="jb">경영학도</div><div class="ds">충남대학교 경영학·컴퓨터공학 복수전공</div></div>
   <div class="node"><div class="yr">2022–2025</div><div class="jb">공공 Data Keeper</div><div class="ds">KCA 3년: 데이터 품질·개방·정책연구, RPA·클라우드 전환</div></div>
   <div class="node"><div class="yr">2025</div><div class="jb">AX Educator</div><div class="ds">KMA: KT AX 디그리 2.0 운영, 수강생 13,019명</div></div>
   <div class="node"><div class="yr">2026~</div><div class="jb">AX Consultant ★</div><div class="ds">MuniLabs: 기업 Copilot·AX 도입 컨설팅 — 활용 미션 설계, 현업 밀착 가이드, 성과 분석·보고 + 석사 수련 병행</div></div>
@@ -170,7 +170,7 @@ classes: wide
 <!-- ============ EQUIPMENT ============ -->
 <h3 class="sec">🎒 장비</h3>
 <div class="equip">
-  <div class="eq legend"><div class="ic">🦾</div><div><div class="gr">LEGENDARY</div><div class="nm">Claude Code 하네스</div><div class="ds">블로그 발행·카드뉴스·위키 등 9개 도메인 워커를 일상 운영, v12 경량화로 고정 로딩 −31%, 이 페이지도 산출물</div></div></div>
+  <div class="eq legend"><div class="ic">🦾</div><div><div class="gr">LEGENDARY</div><div class="nm">Claude Code 하네스</div><div class="ds">블로그 발행·카드뉴스·위키 작업을 맡기는 개인 시스템. v12 경량화 기록은 아래 케이스 스터디로</div></div></div>
   <div class="eq epic"><div class="ic">🐍</div><div><div class="gr">EPIC</div><div class="nm">Python</div><div class="ds">예측모델(scikit-learn 앙상블)·K-Means 클러스터링·ARIMA 시계열 분석</div></div></div>
   <div class="eq epic"><div class="ic">⚡</div><div><div class="gr">EPIC</div><div class="nm">Power Platform</div><div class="ds">Power Automate 피드백 993건 자동화, Copilot Studio·Power Apps, SharePoint 사이트 2개 구축</div></div></div>
   <div class="eq rare"><div class="ic">📊</div><div><div class="gr">RARE</div><div class="nm">Power BI · Tableau</div><div class="ds">VOC 품질 KPI·AX 절감시간 실시간 대시보드 구축, Tableau 부트캠프 수료</div></div></div>
@@ -187,16 +187,16 @@ classes: wide
   <div class="tp"><div class="em">📘</div><div class="tt">가이드북 다운로드 3만+</div><div class="ds">ChatGPT 업무활용 가이드북 2.0 집필·개정 총괄, 교육영상 9건 별도 제작</div></div>
   <div class="tp"><div class="em">⏱️</div><div class="tt">연 9,392시간 절감</div><div class="ds">RPA 9건 구축·고도화 + 26억 규모 차세대 시스템 클라우드 전환, 절감 인력 4명 신규사업 전환</div></div>
   <div class="tp"><div class="em">🎓</div><div class="tt">수강생 13,019명 교육 운영</div><div class="ds">KT AX 디그리 2.0: 수료 6,124명, 전문가 심층 피드백 993건 지원</div></div>
-  <div class="tp"><div class="em">🦥</div><div class="tt">자동화 연대기 연재 중</div><div class="ds">2주 1편, 직접 만들고 이해한 자동화만 기록, 총 8편 계획</div></div>
+  <div class="tp"><div class="em">🦥</div><div class="tt">자동화 연대기 · 현장 기록</div><div class="ds">직접 만든 자동화 EP.00~02를 남겼다. 지난 기록은 지금의 질문으로 다시 읽는다.</div></div>
 </div>
 
 <!-- ============ QUESTS ============ -->
 <h3 class="sec">📜 퀘스트 로그</h3>
 <div class="quest">
-  <div class="q main"><span class="tag">MAIN</span><div><div class="qt">빅데이터 석사 논문</div><div class="qd">성균관대 빅데이터학과 (2025.03~): 주제 확정·지도교수 수락 완료(2026-09) → 본문 작성 단계, 일과 연구를 병행 중</div></div></div>
-  <div class="q weekly"><span class="tag">WEEKLY</span><div><div class="qt">자동화 연대기</div><div class="qd">2주에 하나씩 직접 만든 자동화를 기록: 출퇴근 개발환경, 교회 주보, 멀티채널 발행, 카드뉴스 등 총 8편 계획 → <a href="/categories/#자동화연대기">시리즈 보기</a></div></div></div>
-  <div class="q side"><span class="tag">CLEAR</span><div><div class="qt">하네스 다이어트 v12 ✅</div><div class="qd">반년간 불어난 AI 하네스를 실측으로 진단: 워커 14→9, 고정 로딩 −31%, 정합성 이상 17→0 → <a href="/posts/harness-v12-slimming/">케이스 스터디</a></div></div></div>
-  <div class="q side"><span class="tag">SIDE</span><div><div class="qt">LLM Wiki · 세컨브레인</div><div class="qd">하네스 엔지니어링·에이전틱 패턴 등 공부한 지식을 위키에 실시간 축적 → <a href="/wiki/">Wiki 보기</a></div></div></div>
+  <div class="q main"><span class="tag">MAIN</span><div><div class="qt">AI에게 넘기지 않을 것들</div><div class="qd">트렌드·논문·책·현장 기록으로 내가 끝까지 해야 할 일을 살펴본다. <a href="/posts/what-we-keep/">첫 글</a>과 <a href="/keep/">서가부터 보기</a></div></div></div>
+  <div class="q side"><span class="tag">STUDY</span><div><div class="qt">빅데이터 석사 연구</div><div class="qd">성균관대 빅데이터학과(2025.03~). 일과 연구를 병행 중</div></div></div>
+  <div class="q side"><span class="tag">CLEAR</span><div><div class="qt">하네스 다이어트 v12 · 2026.09 기록</div><div class="qd">반년간 불어난 AI 하네스를 실측으로 진단: 워커 14→9, 고정 로딩 −31%, 정합성 이상 17→0 → <a href="/posts/harness-v12-slimming/">케이스 스터디</a></div></div></div>
+  <div class="q side"><span class="tag">SIDE</span><div><div class="qt">LLM Wiki · 세컨브레인</div><div class="qd">공부하고 만든 개념을 출처와 함께 정리한다. <a href="/wiki/">Wiki 보기</a></div></div></div>
 </div>
 
 <div class="rpg-cta">파티 모집 중! 자동화 아이디어, 협업, 강의 문의는 <a href="/profile/">텍스트 소개 · 연락처</a>에서. 🌿</div>

@@ -1,15 +1,17 @@
 main:
-  - title: "Posts"
+  - title: "글"
     url: /posts/
-  - title: "Shelf"
+  - title: "서가"
     url: /keep/
+  - title: "현장"
+    url: /#field
   - title: "Categories"
     url: /categories/
   - title: "Tags"
     url: /tags/
   - title: "Wiki"
     url: /wiki/
-  - title: "About"
+  - title: "Henry"
     url: /about/
 
 # wiki 사이드바 내비게이션 — tools/blog_sync/wiki_to_blog.py가 자동 갱신

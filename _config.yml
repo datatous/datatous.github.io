@@ -12,7 +12,7 @@ description: "AX 컨설턴트 Henry가 AI에게 넘기지 말아야 할 것과 �
 url: "https://datatous.github.io"
 baseurl: ""
 repository: "datatous/datatous.github.io"
-og_image: "/assets/images/og-cover.png"  # 공유 미리보기 기본 이미지
+og_image: "/assets/images/og-hub.png"  # 공유 미리보기 기본 이미지
 
 words_per_minute: 200
 search: true
@@ -20,7 +20,7 @@ search_full_content: true
 
 author:
   name: "Henry"
-  avatar: ""
+  avatar: "/assets/images/henry-portrait.png"
   bio: "AX 컨설턴트<br>AI에게 넘기지 않을 것들을 연구합니다"
   location: "Seoul, Korea"
   links:

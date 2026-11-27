@@ -14,6 +14,9 @@ excerpt: "다 맡길 수 있어도, 이건 내가 한다.<br>AI에게 넘기지 
 ---
 
 <style>
+.kp-jump{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 24px}
+.kp-jump a{display:inline-block;padding:10px 16px;border:1px solid #bfdbfe;border-radius:99px;font-size:.9rem;text-decoration:none}
+.kp-kind{scroll-margin-top:24px}
 .kp-intro{font-size:1.02rem;line-height:1.8}
 .kp-keep{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:1rem 0 1.4rem}
 .kp-keep div{border:1px solid #dbeafe;background:#eff6ff;border-radius:14px;padding:16px 18px;color:#0f172a;line-height:1.6}
@@ -34,6 +37,11 @@ excerpt: "다 맡길 수 있어도, 이건 내가 한다.<br>AI에게 넘기지 
 .kp-item .b a{font-size:.76rem;font-weight:700;border-radius:99px;padding:3px 10px;background:#2563eb;color:#fff;text-decoration:none}
 @media (max-width:640px){.kp-keep{grid-template-columns:1fr}}
 </style>
+
+<nav class="kp-jump" aria-label="서가 바로가기" markdown="0">
+  <a href="{{ '/posts/what-we-keep/' | relative_url }}">첫 글에서 시작하기</a>
+  <a href="#shelf">모아 둔 자료 보기</a>
+</nav>
 
 ## 무엇을 연구하나요
 
@@ -71,7 +79,9 @@ excerpt: "다 맡길 수 있어도, 이건 내가 한다.<br>AI에게 넘기지 
 
 연구가 말한 것과 내 해석을 나눠 적습니다. 실험 · 설문 · 기업 보고서 · 저자 주장은 같은 무게로 다루지 않습니다. 생각이 바뀌면 예전 노트를 지우지 않고 고친 이유를 덧붙입니다.
 
-## 쓴 노트
+## 시작 글
+
+이 질문을 시작한 글이다. 자료를 읽고 쓴 남김 노트는 서가의 ‘노트 읽기’ 링크로 따로 이어 간다.
 
 {% assign notes = site.categories['넘기지않을것들'] %}
 {% if notes and notes.size > 0 %}
@@ -84,7 +94,13 @@ excerpt: "다 맡길 수 있어도, 이건 내가 한다.<br>AI에게 넘기지 
 첫 노트를 쓰는 중입니다.
 {% endif %}
 
-## 서가
+<div id="shelf"></div>
+
+## 모아 둔 자료
+
+<nav class="kp-jump" aria-label="자료 종류" markdown="0">
+  <a href="#trend">트렌드</a><a href="#paper">논문</a><a href="#book">책</a><a href="#field">현장</a>
+</nav>
 
 상태는 **꽂아 둠 → 읽는 중 → 노트 발행 → 다시 봄** 순서로 바뀝니다. 읽은 범위는 항목마다 따로 적습니다.
 
