@@ -164,7 +164,7 @@ classes: wide
   <div class="node"><div class="yr">~2020</div><div class="jb">경영학도</div><div class="ds">충남대학교 경영학·컴퓨터공학 복수전공</div></div>
   <div class="node"><div class="yr">2022–2025</div><div class="jb">공공 Data Keeper</div><div class="ds">KCA 3년: 데이터 품질·개방·정책연구, RPA·클라우드 전환</div></div>
   <div class="node"><div class="yr">2025</div><div class="jb">AX Educator</div><div class="ds">KMA: KT AX 디그리 2.0 운영, 수강생 13,019명</div></div>
-  <div class="node"><div class="yr">2026~</div><div class="jb">AX Consultant ★</div><div class="ds">MuniLabs: 기업 Copilot·AX 도입 컨설팅 — 활용 미션 설계, 현업 밀착 가이드, 성과 분석·보고 + 석사 수련 병행</div></div>
+  <div class="node"><div class="yr">2026~</div><div class="jb">AX Consultant ★</div><div class="ds">무늬랩스: 대기업 Copilot·AX 도입 컨설팅. 활용 미션 설계, 현업 밀착 가이드, 성과 분석·보고를 맡는다. 석사 수련도 병행한다.</div></div>
 </div>
 
 <!-- ============ EQUIPMENT ============ -->
@@ -181,7 +181,7 @@ classes: wide
 <!-- ============ TROPHIES ============ -->
 <h3 class="sec">🏆 업적</h3>
 <div class="trophy">
-  <div class="tp"><div class="em">🏆</div><div class="tt">과기정통부 표창 (2024.12)</div><div class="ds">공공데이터 활성화 유공: 데이터 품질·개방·연계 강화 성과로 수여</div></div>
+  <div class="tp"><div class="em">🏆</div><div class="tt">과기정통부 장관 표창 (2024.12)</div><div class="ds">공공데이터 활성화 유공: 데이터 품질·개방·연계 강화 성과로 수여</div></div>
   <div class="tp"><div class="em">🥇</div><div class="tt">평가 2년 연속 '우수' 등급</div><div class="ds">공공데이터 제공운영·데이터기반행정 실태점검, 기관 최초, 품질관리 점수 만점</div></div>
   <div class="tp"><div class="em">💯</div><div class="tt">성과관리 수준진단 100점</div><div class="ds">전자정부 성과관리, 기관 최초 (2024): 9개 시스템 총괄, 3년 연속 90점 이상</div></div>
   <div class="tp"><div class="em">📘</div><div class="tt">가이드북 다운로드 3만+</div><div class="ds">ChatGPT 업무활용 가이드북 2.0 집필·개정 총괄, 교육영상 9건 별도 제작</div></div>
@@ -194,7 +194,7 @@ classes: wide
 <h3 class="sec">📜 퀘스트 로그</h3>
 <div class="quest">
   <div class="q main"><span class="tag">MAIN</span><div><div class="qt">AI에게 넘기지 않을 것들</div><div class="qd">트렌드·논문·책·현장 기록으로 내가 끝까지 해야 할 일을 살펴본다. <a href="/posts/what-we-keep/">첫 글</a>과 <a href="/keep/">서가부터 보기</a></div></div></div>
-  <div class="q side"><span class="tag">STUDY</span><div><div class="qt">빅데이터 석사 연구</div><div class="qd">성균관대 빅데이터학과(2025.03~). 일과 연구를 병행 중</div></div></div>
+  <div class="q side"><span class="tag">STUDY</span><div><div class="qt">빅데이터 석사 연구</div><div class="qd">성균관대 정보통신대학원 빅데이터학과(2025.03~). 2027년 8월 졸업을 목표로 일과 연구를 병행 중</div></div></div>
   <div class="q side"><span class="tag">CLEAR</span><div><div class="qt">하네스 다이어트 v12 · 2026.09 기록</div><div class="qd">반년간 불어난 AI 하네스를 실측으로 진단: 워커 14→9, 고정 로딩 −31%, 정합성 이상 17→0 → <a href="/posts/harness-v12-slimming/">케이스 스터디</a></div></div></div>
   <div class="q side"><span class="tag">SIDE</span><div><div class="qt">LLM Wiki · 세컨브레인</div><div class="qd">공부하고 만든 개념을 출처와 함께 정리한다. <a href="/wiki/">Wiki 보기</a></div></div></div>
 </div>
