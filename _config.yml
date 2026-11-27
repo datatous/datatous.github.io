@@ -4,6 +4,7 @@ remote_theme: "mmistakes/minimal-mistakes@4.26.2"
 minimal_mistakes_skin: "default"
 
 locale: "ko-KR"
+timezone: Asia/Seoul
 title: "datatous"
 title_separator: "-"
 subtitle: "AI에게 넘기지 않을 것들"
