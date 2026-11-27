@@ -232,6 +232,6 @@ AX 컨설턴트로 일하면서 클라이언트한테는 "이거 자동화하면
 - **LinkedIn**: [henry-oh-data](https://www.linkedin.com/in/henry-oh-data)
 - **Kaggle**: [@seeingoh](https://www.kaggle.com/seeingoh)
 - **Naver Blog**: [blog.naver.com/oh_seeing](https://blog.naver.com/oh_seeing)
-- **Instagram**: [@henryo.o](https://www.instagram.com/henryo.o/)
+- **Instagram**: [@henry.with.ai](https://www.instagram.com/henry.with.ai/)
 
 > 자동화 아이디어, 협업, 강의 문의 모두 환영합니다. 🌿

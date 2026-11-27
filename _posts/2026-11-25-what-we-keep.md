@@ -20,6 +20,9 @@ excerpt: "자동화로 편해진 생활을 돌아보다가, 내가 직접 해야
 
 <div class="mc-cover" markdown="0"><span class="mc-cover-kicker">AX PROJECT HUB · 넘기지 않을 것들</span><div class="mc-cover-title">다 맡길 수 있어도, 이건 내가 한다</div><div class="mc-cover-subtitle">AI에게 넘기지 말아야 할 것, 내가 끝까지 직접 해야 할 것을 찾아 쌓는 기록</div></div>
 
+<iframe src="/assets/cardnews/what-we-keep/" title="AI에게 넘기지 않을 것들 움직이는 카드뉴스" loading="lazy" scrolling="no" style="width:100%;max-width:460px;aspect-ratio:4/5;border:0;border-radius:16px;display:block;margin:1.2em auto .3em;background:#0d0d0d;box-shadow:0 10px 34px rgba(0,0,0,.28);"></iframe>
+<p style="text-align:center;font-size:.85em;color:#999;margin:0 0 1.8em;">← 좌우로 넘겨보세요 · 01·05 움직이는 카드</p>
+
 > **3줄 요약**
 > - 출퇴근 개발부터 교회 주보 게시까지, 자동화 덕분에 할 수 있는 일이 늘고 신경 쓸 일은 줄었다.
 > - 그런데 맡기는 일이 늘수록 **무엇을 위한 일인지 정하고, 결과를 판단하는 내 역할**도 돌아보게 됐다.
